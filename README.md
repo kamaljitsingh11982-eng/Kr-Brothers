@@ -25,6 +25,24 @@ npx playwright install chromium
 npm run build
 ```
 
+The Playwright Chromium browser is installed once per development environment;
+the build script uses it during its automatic postbuild prerender step.
+
+### Quote form
+
+The quote form uses Formspree. Create a Formspree form and set its endpoint
+before building/deploying:
+
+```bash
+# .env.local (local development) or your hosting build environment
+VITE_FORMSPREE_ENDPOINT=https://formspree.io/f/YOUR_FORM_ID
+```
+
+The endpoint is public configuration, not a secret. Without it, the form shows
+a setup message and visitors can still contact the business by phone or
+WhatsApp. Phone and WhatsApp link clicks dispatch a `krb:contact-click` browser
+event with `{ channel, href }` detail for future analytics integration.
+
 The production output is written to `dist/`. The build keeps the original
 source media intact and excludes verified superseded copies only from `dist/`.
 Upload the **contents** of `dist/` (including `.htaccess`) into Hostinger's

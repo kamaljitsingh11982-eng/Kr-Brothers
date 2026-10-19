@@ -17,7 +17,9 @@ import SectionHeading from './SectionHeading'
 
 // Earliest bookable date on the enquiry form. Fixed at load - a session that
 // straddles midnight should not silently shift the field out from under someone.
-const TODAY = new Date().toISOString().slice(0, 10)
+const TODAY = new Date(
+  Date.now() - new Date().getTimezoneOffset() * 60000,
+).toISOString().slice(0, 10)
 
 const EMPTY = {
   name: '',
@@ -48,9 +50,7 @@ function validate(values) {
     errors.phone = 'Enter a valid phone number (10 digits or more).'
   }
 
-  if (!values.email.trim()) {
-    errors.email = 'Please enter your email address.'
-  } else if (!EMAIL_RE.test(values.email.trim())) {
+  if (values.email.trim() && !EMAIL_RE.test(values.email.trim())) {
     errors.email = 'Enter a valid email address.'
   }
 
@@ -103,13 +103,15 @@ function Input({ label, id, error, hint, className = '', ...rest }) {
 }
 
 export function Contact({ preselectService, onPreselectHandled }) {
-  const { contacts, links, location, operations, services, map, brand } =
+  const { contacts, links, location, operations, services, map, brand, formspree } =
     BUSINESS_CONFIG
 
   const [values, setValues] = useState(EMPTY)
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
-  const [status, setStatus] = useState('idle') // idle | ready
+  const [status, setStatus] = useState('idle')
+  const [submissionError, setSubmissionError] = useState('')
+  const [honeypot, setHoneypot] = useState('')
   const [summary, setSummary] = useState(null)
   const formRef = useRef(null)
   const successRef = useRef(null)
@@ -119,12 +121,16 @@ export function Contact({ preselectService, onPreselectHandled }) {
     if (!preselectService) return
     setValues((v) => ({ ...v, service: preselectService }))
     setErrors((e) => ({ ...e, service: undefined }))
-    setTimeout(() => formRef.current?.querySelector('[name="service"]')?.focus(), 80)
+    const timeoutId = setTimeout(
+      () => formRef.current?.querySelector('[name="service"]')?.focus(),
+      80,
+    )
     onPreselectHandled?.()
+    return () => clearTimeout(timeoutId)
   }, [preselectService, onPreselectHandled])
 
   useEffect(() => {
-    if (status === 'ready') successRef.current?.focus()
+    if (status === 'success') successRef.current?.focus()
   }, [status])
 
   const handleChange = (event) => {
@@ -141,7 +147,7 @@ export function Contact({ preselectService, onPreselectHandled }) {
     setErrors((e) => ({ ...e, [name]: validate(values)[name] }))
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
 
     const nextErrors = validate(values)
@@ -171,30 +177,43 @@ export function Contact({ preselectService, onPreselectHandled }) {
       message: values.message.trim(),
     }
 
-    const emailSubject = encodeURIComponent(`KR Brothers enquiry — ${payload.service}`)
-    const emailBody = encodeURIComponent(
-      [
-        'New enquiry from the KR Brothers website',
-        '',
-        `Name: ${payload.name}`,
-        `Phone: ${payload.phone}`,
-        `Email: ${payload.email}`,
-        `Service: ${payload.service}`,
-        `Project location: ${payload.location}`,
-        `Preferred date: ${payload.date}`,
-        '',
-        'Job details:',
-        payload.message,
-      ].join('\n'),
-    )
-    const mailtoHref = `mailto:${contacts.email}?subject=${emailSubject}&body=${emailBody}`
-
     setSummary({
       service: payload.service,
       location: payload.location,
-      mailtoHref,
     })
-    setStatus('ready')
+    setSubmissionError('')
+
+    if (!formspree.endpoint) {
+      setSubmissionError(
+        'Online quote submission is not configured yet. Please contact us by phone or WhatsApp.',
+      )
+      setStatus('error')
+      return
+    }
+
+    setStatus('submitting')
+    try {
+      const response = await fetch(formspree.endpoint, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...payload, _gotcha: honeypot }),
+      })
+
+      if (!response.ok) {
+        throw new Error(`Formspree returned HTTP ${response.status}`)
+      }
+
+      setStatus('success')
+    } catch (error) {
+      console.error('Quote form submission failed.', error)
+      setSubmissionError(
+        'We could not send your enquiry just now. Please try again or contact us by phone or WhatsApp.',
+      )
+      setStatus('error')
+    }
   }
 
   const resetForm = () => {
@@ -202,6 +221,8 @@ export function Contact({ preselectService, onPreselectHandled }) {
     setErrors({})
     setTouched({})
     setStatus('idle')
+    setSubmissionError('')
+    setHoneypot('')
     setSummary(null)
   }
 
@@ -398,7 +419,7 @@ export function Contact({ preselectService, onPreselectHandled }) {
           </Reveal>
           <Reveal variant="slide-left" delay={100} className="h-full">
             <div className="relative h-full rounded-2xl border border-slate-200 bg-white p-6 shadow-card sm:p-8">
-              {status === 'ready' ? (
+              {status === 'success' ? (
                 <div className="flex min-h-[26rem] flex-col items-center justify-center text-center animate-scale-in">
                   <span className="grid h-20 w-20 place-items-center rounded-full bg-emerald-100 text-emerald-600">
                     <Send className="h-10 w-10" aria-hidden="true" />
@@ -408,11 +429,11 @@ export function Contact({ preselectService, onPreselectHandled }) {
                     tabIndex={-1}
                     className="mt-6 font-display text-2xl font-bold tracking-tight text-navy-900 outline-none"
                   >
-                    Enquiry Ready to Send
+                    Enquiry Sent
                   </h3>
                   <p className="mt-2 max-w-md text-sm leading-relaxed text-navy-600">
-                    Your message has not been sent. Choose WhatsApp or email below, then review
-                    the prepared message and press Send in that app.
+                    Thank you. Your enquiry has been sent to KR Brothers. We will contact you
+                    using the details you provided.
                   </p>
 
                   <dl className="mt-6 w-full max-w-md space-y-2 rounded-xl border border-slate-200 bg-slate-50 p-5 text-left">
@@ -442,11 +463,7 @@ export function Contact({ preselectService, onPreselectHandled }) {
                       className="btn-whatsapp flex-1"
                     >
                       <MessageCircle className="h-4 w-4" aria-hidden="true" />
-                      Open WhatsApp
-                    </a>
-                    <a href={summary?.mailtoHref} className="btn-outline flex-1">
-                      <Mail className="h-4 w-4" aria-hidden="true" />
-                      Open Email Draft
+                      Follow up on WhatsApp
                     </a>
                   </div>
 
@@ -467,8 +484,7 @@ export function Contact({ preselectService, onPreselectHandled }) {
                         Request a Quote
                       </h3>
                       <p className="mt-1.5 text-sm text-navy-600">
-                        All fields marked with <span aria-hidden="true">*</span>
-                        <span className="text-red-600">*</span> are required.
+                        All fields marked with <span className="text-red-600">*</span> are required.
                       </p>
                     </div>
                     <span className="hidden shrink-0 rounded-lg bg-amber-safety/15 px-2.5 py-1.5 font-mono text-xs font-bold uppercase tracking-wider text-amber-deepText sm:inline">
@@ -482,6 +498,21 @@ export function Contact({ preselectService, onPreselectHandled }) {
                     noValidate
                     className="mt-6"
                   >
+                    <div
+                      className="absolute left-[-10000px] top-auto h-px w-px overflow-hidden"
+                      aria-hidden="true"
+                    >
+                      <label htmlFor="krb-website">Leave this field empty</label>
+                      <input
+                        id="krb-website"
+                        name="_gotcha"
+                        type="text"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        value={honeypot}
+                        onChange={(event) => setHoneypot(event.target.value)}
+                      />
+                    </div>
                     <div className="grid gap-5 sm:grid-cols-2">
                       <Input
                         label="Full Name *"
@@ -513,11 +544,10 @@ export function Contact({ preselectService, onPreselectHandled }) {
                       />
 
                       <Input
-                        label="Email Address *"
+                        label="Email Address (optional)"
                         id="krb-email"
                         name="email"
                         type="email"
-                        required
                         autoComplete="email"
                         placeholder="you@company.com"
                         value={values.email}
@@ -627,10 +657,11 @@ export function Contact({ preselectService, onPreselectHandled }) {
                     <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
                       <button
                         type="submit"
+                        disabled={status === 'submitting'}
                         className="btn-primary flex-1"
                       >
                         <Send className="h-4 w-4" aria-hidden="true" />
-                        Submit Enquiry
+                        {status === 'submitting' ? 'Sending…' : 'Submit Enquiry'}
                       </button>
 
                       <a
@@ -643,9 +674,26 @@ export function Contact({ preselectService, onPreselectHandled }) {
                       </a>
                     </div>
 
+                    {status === 'error' && (
+                      <p className="mt-3 text-sm font-medium text-red-700" role="alert">
+                        {submissionError}
+                      </p>
+                    )}
+
+                    <a
+                      href={buildWhatsAppHref()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-whatsapp mt-3 inline-flex w-full sm:w-auto"
+                    >
+                      <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                      Send enquiry via WhatsApp instead
+                    </a>
+
                     <p className="mt-4 text-xs leading-relaxed text-navy-500">
-                      We use your details only to respond to this enquiry. No spam,
-                      no data sharing. Read the{' '}
+                      We use your details only to respond to this enquiry. We do not sell them
+                      or share them with advertisers or lead brokers. If you choose WhatsApp
+                      or email, your message goes to that provider. Read the{' '}
                       <a
                         href="/privacy.html"
                         className="font-semibold text-navy-700 underline underline-offset-4 hover:text-amber-deepText"

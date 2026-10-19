@@ -119,7 +119,7 @@ function ServiceModal({ service, isOpen, onClose, onBook }) {
               </h2>
             </div>
           </div>
-          <div className="hazard-stipe relative mt-6 opacity-90" />
+          <div className="hazard-stripe relative mt-6 opacity-90" />
         </div>
 
         <div className="px-6 py-6 sm:px-8">

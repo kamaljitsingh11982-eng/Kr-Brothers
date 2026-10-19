@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate, useNavigationType } from 'react-router-dom'
 import BUSINESS_CONFIG from '../config/businessConfig'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import FloatingActions from './FloatingActions'
+import { trackContactClick } from '../lib/contactTracking'
 
 /**
  * Chrome shared by every route: skip link, navbar, page outlet, footer and the
@@ -17,6 +18,7 @@ export function SiteShell() {
   const { pathname, hash } = location
   const locationKey = location.key
   const navigate = useNavigate()
+  const navigationType = useNavigationType()
   const [activeSection, setActiveSection] = useState('#home')
   const isHome = pathname === '/'
 
@@ -47,7 +49,19 @@ export function SiteShell() {
     return () => observer.disconnect()
   }, [isHome])
 
-  // The router does not scroll on its own. Jump to the top on a new path, and
+  useEffect(() => {
+    const onContactClick = (event) => {
+      if (!(event.target instanceof Element)) return
+      const link = event.target.closest('a[href^="tel:"], a[href*="wa.me/"]')
+      if (!link) return
+      trackContactClick(link.href.startsWith('tel:') ? 'phone' : 'whatsapp', link.href)
+    }
+
+    document.addEventListener('click', onContactClick)
+    return () => document.removeEventListener('click', onContactClick)
+  }, [])
+
+  // The router does not scroll on its own. Jump to the top on a new navigation, and
   // honour an in-page hash such as /#contact coming from a service page.
   //
   // `location.key` is in the dependency list deliberately. React Router mints a
@@ -58,7 +72,9 @@ export function SiteShell() {
   // nothing.
   useEffect(() => {
     if (!hash) {
-      window.scrollTo(0, 0)
+      if (navigationType === 'PUSH' || navigationType === 'REPLACE') {
+        window.scrollTo(0, 0)
+      }
       return undefined
     }
 
@@ -67,7 +83,7 @@ export function SiteShell() {
     let inner = 0
     const outer = requestAnimationFrame(() => {
       inner = requestAnimationFrame(() => {
-        const target = document.querySelector(hash)
+        const target = document.getElementById(decodeURIComponent(hash.slice(1)))
         if (!target) return
         target.scrollIntoView({
           behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -82,7 +98,7 @@ export function SiteShell() {
       cancelAnimationFrame(outer)
       cancelAnimationFrame(inner)
     }
-  }, [pathname, hash, locationKey])
+  }, [pathname, hash, locationKey, navigationType])
 
   const requestQuote = useCallback(() => navigate('/#contact'), [navigate])
 

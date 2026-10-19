@@ -21,8 +21,12 @@ function StatItem({ stat }) {
         {/* No aria-label here: a bare <span> has no role, so naming it is
             invalid and gets dropped. The number, suffix and label below read
             out correctly as plain text. */}
-        <span ref={ref} className="tabular-nums">
-          0
+        <span
+              ref={ref}
+              className="tabular-nums"
+              data-count-up-final={stat.value.toLocaleString('en-IN')}
+        >
+              {stat.value.toLocaleString('en-IN')}
         </span>
         <span className="text-amber-deepText">{stat.suffix}</span>
       </p>

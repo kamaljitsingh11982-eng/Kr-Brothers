@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ChevronLeft, ChevronRight, Expand, MapPin } from 'lucide-react'
 import BUSINESS_CONFIG from '../config/businessConfig'
-import { SceneArt } from './SceneArt'
 import Modal from './Modal'
 import Reveal from './Reveal'
 import SectionHeading from './SectionHeading'
@@ -21,7 +20,7 @@ function GalleryMedia({ item, className, sizes }) {
     )
   }
 
-  return <SceneArt art={item.art} className={className} />
+  return <div className={className} role="img" aria-label={`${item.title} image unavailable`} />
 }
 
 function GalleryLightbox({ items, index, isOpen, onClose, onPrev, onNext }) {

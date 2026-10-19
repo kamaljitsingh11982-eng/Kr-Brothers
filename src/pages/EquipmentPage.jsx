@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ArrowRight,
@@ -30,7 +31,34 @@ const PATH = '/equipment'
  */
 export function EquipmentPage() {
   const { equipment, contacts, links, services, brand } = BUSINESS_CONFIG
-  const Icon = getIcon('Wrench')
+  const jsonLd = useMemo(() => ({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'ItemList',
+        name: 'Crane fleet and equipment',
+        description: equipment.intro,
+        url: `${ORIGIN}${PATH}`,
+        itemListElement: equipment.machines.map((machine, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          item: {
+            '@type': 'Product',
+            name: machine.name,
+            description: machine.bestFor,
+            category: 'Crane and lifting equipment',
+          },
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: ORIGIN },
+          { '@type': 'ListItem', position: 2, name: 'Equipment & Fleet', item: `${ORIGIN}${PATH}` },
+        ],
+      },
+    ],
+  }), [equipment])
 
   useDocumentMeta({
     title: `Crane Fleet & Equipment Capacities | ${brand.name}`,
@@ -39,34 +67,7 @@ export function EquipmentPage() {
     keywords:
       'crane fleet Punjab, hydra crane 12 ton capacity, 25 ton crane hire Hoshiarpur, truck mounted crane rental, rough terrain crane hire, mobile crane capacity, heavy mobile crane Punjab, crane equipment Mukerian',
     canonical: PATH,
-    jsonLd: {
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'ItemList',
-          name: 'Crane fleet and equipment',
-          description: equipment.intro,
-          url: `${ORIGIN}${PATH}`,
-          itemListElement: equipment.machines.map((machine, i) => ({
-            '@type': 'ListItem',
-            position: i + 1,
-            item: {
-              '@type': 'Product',
-              name: machine.name,
-              description: machine.bestFor,
-              category: 'Crane and lifting equipment',
-            },
-          })),
-        },
-        {
-          '@type': 'BreadcrumbList',
-          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home', item: ORIGIN },
-            { '@type': 'ListItem', position: 2, name: 'Equipment & Fleet', item: `${ORIGIN}${PATH}` },
-          ],
-        },
-      ],
-    },
+    jsonLd,
   })
 
   return (

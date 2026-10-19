@@ -79,6 +79,10 @@ export const BUSINESS_CONFIG = {
     emergencyNote: '24/7 breakdown & emergency lifting support',
   },
 
+  formspree: {
+    endpoint: import.meta.env?.VITE_FORMSPREE_ENDPOINT ?? '',
+  },
+
   // generated helper link values
   links: {
     get telPrimary() {
@@ -149,13 +153,23 @@ get whatsappService() {
     ],
     primaryRegionLabel:
       'Hajipur, Dasuya, Talwara, Mukerian, Hoshiarpur and surrounding Punjab / Himachal industrial belts',
+    heroServiceAreas: [
+      'Hajipur',
+      'Dasuya',
+      'Talwara',
+      'Mukerian',
+      'Hoshiarpur',
+      'Pathankot',
+    ],
   },
 
   // stats
   stats: [
     {
       id: 'experience',
-      value: 10,
+      get value() {
+        return new Date().getFullYear() - BUSINESS_CONFIG.brand.foundedYear
+      },
       suffix: '+',
       prefix: '',
       label: 'Years of Field Experience',
@@ -840,8 +854,10 @@ get whatsappService() {
     {
       id: 'f5',
       question: 'How can I get an instant quote?',
-      answer:
-        'Call us on +91 78890 87547, send a WhatsApp message to +91 97792 55878 with your load weight, site location and duration, or fill the Get a Quote form on this page. Share four things and we can usually quote back within the hour: the approximate load in tonnes, the working radius, the number of lifts or shifts needed, and the site location. If anything is not clear, our engineer will visit and assess the site before we finalise the rate.',
+      get answer() {
+        const { primaryPhone, whatsappNumber } = BUSINESS_CONFIG.contacts
+        return `Call us on ${primaryPhone}, send a WhatsApp message to ${whatsappNumber} with your load weight, site location and duration, or fill the Get a Quote form on this page. Share four things and we can usually quote back within the hour: the approximate load in tonnes, the working radius, the number of lifts or shifts needed, and the site location. If anything is not clear, our engineer will visit and assess the site before we finalise the rate.`
+      },
     },
     {
       id: 'f6',
@@ -895,7 +911,7 @@ get whatsappService() {
         capacity: 'Within the 12 T - 25 T working class',
         bestFor: 'Multi-stop jobs, highway and corridor work, sites we cannot stage a crawler on',
         notes: [
-          'MOBs between sites without a separate transport booking.',
+          'Mobilises between sites without a separate transport booking.',
           'Useful where site access is narrow and a large machine cannot be assembled on site.',
         ],
       },
@@ -1090,7 +1106,7 @@ get whatsappService() {
         title: 'Enquiries & Your Details',
         points: [
           'We use the contact details you give us only to respond to your enquiry and to arrange the work you request.',
-          'We do not sell or share enquiry details with third parties.',
+          'We do not sell enquiry details or share them with advertisers, lead brokers or data brokers. If you choose WhatsApp or email, your message is handled by that provider as described in the Privacy Policy.',
           'See the Privacy Policy for the fuller explanation of what we collect and how long we keep it.',
         ],
       },
@@ -1129,7 +1145,7 @@ get whatsappService() {
       { label: 'FAQ', href: '#faq' },
       { label: 'Contact', href: '#contact' },
     ],
-    copyright: 'Copyright © 2026 KR Brothers. All Rights Reserved.',
+    copyright: `Copyright © ${new Date().getFullYear()} KR Brothers. All Rights Reserved.`,
     credits: 'Safe Lift Strong Support — Your Trust Our Service',
   },
 
@@ -1147,8 +1163,9 @@ get whatsappService() {
   // seo / meta
   seo: {
     title: 'KR Brothers | Crane Rental & Lifting Services Hoshiarpur',
-    description:
-      'Crane rental, all lifting work, material handling and machinery shifting in Mukerian, Hajipur, Hoshiarpur & Pathankot. Call +91 78890 87547.',
+    get description() {
+      return `Crane rental, all lifting work, material handling and machinery shifting in Mukerian, Hajipur, Hoshiarpur & Pathankot. Call ${BUSINESS_CONFIG.contacts.primaryPhone}.`
+    },
     keywords:
       'crane rental Mukerian, crane hire Hoshiarpur, hydra crane Punjab, lifting contractor, material handling services, mobile crane hire Pathankot, machinery shifting, KR Brothers',
   },

@@ -1,10 +1,10 @@
+import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ArrowRight,
   Clock,
   Headset,
   Mail,
-  MapPin,
   MessageCircle,
   Navigation,
   Phone,
@@ -34,71 +34,72 @@ const PATH = '/contact'
  */
 export function ContactPage() {
   const { contacts, links, location, operations, brand } = BUSINESS_CONFIG
+  const jsonLd = useMemo(() => ({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'ContactPage',
+        name: `Contact ${brand.name}`,
+        description: `Contact ${brand.name} for crane rental, lifting and material handling enquiries.`,
+        url: `${ORIGIN}${PATH}`,
+        mainEntity: {
+          '@type': 'LocalBusiness',
+          '@id': `${ORIGIN}/#business`,
+          name: brand.name,
+          telephone: contacts.primaryPhoneRaw,
+          email: contacts.email,
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: location.addressLine1,
+            addressLocality: location.city,
+            addressRegion: location.state,
+            postalCode: location.pincode,
+            addressCountry: location.countryCode,
+          },
+          location: {
+            '@type': 'Place',
+            name: 'KR Brothers Office',
+            address: {
+              '@type': 'PostalAddress',
+              addressLocality: location.office.addressLine1,
+              addressRegion: location.state,
+              addressCountry: location.countryCode,
+            },
+            geo: {
+              '@type': 'GeoCoordinates',
+              latitude: location.office.latitude,
+              longitude: location.office.longitude,
+            },
+          },
+          contactPoint: [
+            {
+              '@type': 'ContactPoint',
+              telephone: contacts.primaryPhoneRaw,
+              contactType: 'customer service',
+              areaServed: 'IN',
+              availableLanguage: ['en', 'pa', 'hi'],
+            },
+          ],
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: ORIGIN },
+          { '@type': 'ListItem', position: 2, name: 'Contact', item: `${ORIGIN}${PATH}` },
+        ],
+      },
+    ],
+  }), [brand, contacts, location])
 
   useDocumentMeta({
     title: `Contact KR Brothers — Crane Rental & Lifting Enquiries`,
     description:
-      `Call +91 78890 87547 or WhatsApp KR Brothers for crane rental and lifting enquiries. Open 24x7, based in ${location.baseAreaLabel}, Punjab.`,
+      `Call ${contacts.primaryPhone} or WhatsApp ${contacts.whatsappNumber} for crane rental and lifting enquiries. Open 24x7, based in ${location.baseAreaLabel}, Punjab.`,
     keywords:
       'contact crane rental Punjab, crane hire enquiry Hoshiarpur, lifting contractor phone number, crane service contact Mukerian, emergency crane helpline Punjab',
     canonical: PATH,
-    jsonLd: {
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'ContactPage',
-          name: `Contact ${brand.name}`,
-          description: `Contact ${brand.name} for crane rental, lifting and material handling enquiries.`,
-          url: `${ORIGIN}${PATH}`,
-          mainEntity: {
-            '@type': 'LocalBusiness',
-            '@id': `${ORIGIN}/#business`,
-            name: brand.name,
-            telephone: contacts.primaryPhoneRaw,
-            email: contacts.email,
-            address: {
-              '@type': 'PostalAddress',
-              streetAddress: location.addressLine1,
-              addressLocality: location.city,
-              addressRegion: location.state,
-              postalCode: location.pincode,
-              addressCountry: location.countryCode,
-            },
-            location: {
-              '@type': 'Place',
-              name: 'KR Brothers Office',
-              address: {
-                '@type': 'PostalAddress',
-                addressLocality: location.office.addressLine1,
-                addressRegion: location.state,
-                addressCountry: location.countryCode,
-              },
-              geo: {
-                '@type': 'GeoCoordinates',
-                latitude: location.office.latitude,
-                longitude: location.office.longitude,
-              },
-            },
-            contactPoint: [
-              {
-                '@type': 'ContactPoint',
-                telephone: contacts.primaryPhoneRaw,
-                contactType: 'customer service',
-                areaServed: 'IN',
-                availableLanguage: ['en', 'pa', 'hi'],
-              },
-            ],
-          },
-        },
-        {
-          '@type': 'BreadcrumbList',
-          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home', item: ORIGIN },
-            { '@type': 'ListItem', position: 2, name: 'Contact', item: `${ORIGIN}${PATH}` },
-          ],
-        },
-      ],
-    },
+    jsonLd,
   })
 
   const channels = [

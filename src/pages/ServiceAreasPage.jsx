@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, CheckCircle2, MapPin, MessageCircle, Navigation, Phone } from 'lucide-react'
 import BUSINESS_CONFIG from '../config/businessConfig'
@@ -20,6 +21,59 @@ const PATH = '/service-areas'
  */
 export function ServiceAreasPage() {
   const { serviceAreas, contacts, links, location, operations, brand } = BUSINESS_CONFIG
+  const jsonLd = useMemo(() => ({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Service',
+        name: 'Crane rental and lifting services',
+        description: serviceAreas.intro,
+        url: `${ORIGIN}${PATH}`,
+        serviceType: 'Crane rental and lifting contractor',
+        provider: {
+          '@type': 'LocalBusiness',
+          '@id': `${ORIGIN}/#business`,
+          name: brand.name,
+          telephone: contacts.primaryPhoneRaw,
+          email: contacts.email,
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: location.addressLine1,
+            addressLocality: location.city,
+            addressRegion: location.state,
+            postalCode: location.pincode,
+            addressCountry: location.countryCode,
+          },
+          location: {
+            '@type': 'Place',
+            name: 'KR Brothers Office',
+            address: {
+              '@type': 'PostalAddress',
+              addressLocality: location.office.addressLine1,
+              addressRegion: location.state,
+              addressCountry: location.countryCode,
+            },
+            geo: {
+              '@type': 'GeoCoordinates',
+              latitude: location.office.latitude,
+              longitude: location.office.longitude,
+            },
+          },
+        },
+        areaServed: operations.serviceRegions.map((area) => ({
+          '@type': 'Place',
+          name: area,
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: ORIGIN },
+          { '@type': 'ListItem', position: 2, name: 'Service Areas', item: `${ORIGIN}${PATH}` },
+        ],
+      },
+    ],
+  }), [serviceAreas, brand, contacts, location, operations])
 
   useDocumentMeta({
     title: `Service Areas — Crane Hire Across Punjab & Himachal | ${brand.name}`,
@@ -28,59 +82,7 @@ export function ServiceAreasPage() {
     keywords:
       'crane hire Hoshiarpur, crane rental Mukerian, lifting contractor Pathankot, crane service Jalandhar, mobile crane Amritsar, crane hire Kangra Himachal, material handling contractor Punjab',
     canonical: PATH,
-    jsonLd: {
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'Service',
-          name: 'Crane rental and lifting services',
-          description: serviceAreas.intro,
-          url: `${ORIGIN}${PATH}`,
-          serviceType: 'Crane rental and lifting contractor',
-          provider: {
-            '@type': 'LocalBusiness',
-            '@id': `${ORIGIN}/#business`,
-            name: brand.name,
-            telephone: contacts.primaryPhoneRaw,
-            email: contacts.email,
-            address: {
-              '@type': 'PostalAddress',
-              streetAddress: location.addressLine1,
-              addressLocality: location.city,
-              addressRegion: location.state,
-              postalCode: location.pincode,
-              addressCountry: location.countryCode,
-            },
-            location: {
-              '@type': 'Place',
-              name: 'KR Brothers Office',
-              address: {
-                '@type': 'PostalAddress',
-                addressLocality: location.office.addressLine1,
-                addressRegion: location.state,
-                addressCountry: location.countryCode,
-              },
-              geo: {
-                '@type': 'GeoCoordinates',
-                latitude: location.office.latitude,
-                longitude: location.office.longitude,
-              },
-            },
-          },
-          areaServed: operations.serviceRegions.map((area) => ({
-            '@type': 'Place',
-            name: area,
-          })),
-        },
-        {
-          '@type': 'BreadcrumbList',
-          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home', item: ORIGIN },
-            { '@type': 'ListItem', position: 2, name: 'Service Areas', item: `${ORIGIN}${PATH}` },
-          ],
-        },
-      ],
-    },
+    jsonLd,
   })
 
   const totalAreas = serviceAreas.groups.reduce((sum, group) => sum + group.areas.length, 0)

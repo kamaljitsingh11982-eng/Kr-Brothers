@@ -10,8 +10,7 @@ export function NotFound() {
   // A 404 must never be indexed, and it must not keep the home page's tags.
   useDocumentMeta({
     title: 'Page not found | KR Brothers',
-    description:
-      'The page you were looking for is not available. Browse our crane rental, lifting and material handling services or call +91 78890 87547.',
+    description: `The page you were looking for is not available. Browse our crane rental, lifting and material handling services or call ${contacts.primaryPhone}.`,
     canonical: '/404',
     robots: 'noindex, follow',
   })

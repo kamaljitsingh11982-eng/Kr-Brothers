@@ -286,7 +286,7 @@ export function Navbar({ activeSection, onRequestQuote }) {
               aria-label={`Call now on ${contacts.primaryPhone}`}
             >
               <Phone className="h-4 w-4" aria-hidden="true" />
-              <span className="hidden xs:inline sm:inline">Call</span>
+              <span className="hidden min-[400px]:inline">Call</span>
             </a>
 
             <button

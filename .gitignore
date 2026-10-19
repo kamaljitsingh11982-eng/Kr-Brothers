@@ -2,9 +2,13 @@ node_modules
 dist
 dist-ssr
 *.local
+*.zip
+.env*
 .vite
 .DS_Store
 npm-debug.log*
 preview.log
 preview-*.log
 preview-*.err
+preview-*
+.vercel

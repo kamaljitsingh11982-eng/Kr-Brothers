@@ -62,8 +62,8 @@ export function FloatingActions() {
         aria-label={LABELS.top}
         className={`icon-btn rounded-full shadow-card transition-all duration-300 ${
           showTop
-            ? 'pointer-events-auto translate-y-0 opacity-100'
-            : 'pointer-events-none translate-y-3 opacity-0'
+            ? 'visible pointer-events-auto translate-y-0 opacity-100'
+            : 'invisible pointer-events-none translate-y-3 opacity-0'
         }`}
       >
         <ArrowUp className="h-5 w-5" aria-hidden="true" />
@@ -73,8 +73,8 @@ export function FloatingActions() {
       <ul
         className={`flex flex-col items-end gap-2.5 transition-all duration-300 ${
           isOpen
-            ? 'pointer-events-auto translate-y-0 opacity-100'
-            : 'pointer-events-none translate-y-3 opacity-0'
+            ? 'visible pointer-events-auto translate-y-0 opacity-100'
+            : 'invisible pointer-events-none translate-y-3 opacity-0'
         }`}
       >
         {actions.map(({ key, href, label, shortLabel, Icon, className }) => (
@@ -91,7 +91,7 @@ export function FloatingActions() {
               href={href}
               target={key === 'whatsapp' ? '_blank' : undefined}
               rel={key === 'whatsapp' ? 'noopener noreferrer' : undefined}
-              className={`relative grid h-12 w-12 place-items-center rounded-full text-white shadow-card-hover transition-colors ${className}`}
+              className={`relative grid h-12 w-12 place-items-center rounded-full shadow-card-hover transition-colors ${key === 'whatsapp' ? 'text-white' : ''} ${className}`}
             >
               <span
                 aria-hidden="true"

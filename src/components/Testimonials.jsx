@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react'
 import BUSINESS_CONFIG from '../config/businessConfig'
 import Reveal from './Reveal'
@@ -66,14 +66,23 @@ function TestimonialCard({ item }) {
 export function Testimonials() {
   const { testimonials } = BUSINESS_CONFIG
   const [page, setPage] = useState(0)
-  const viewportRef = useRef(null)
-
-  // One testimonial on mobile, two on tablet, three on desktop.
-  const perPage = useMemo(() => {
+  const [perPage, setPerPage] = useState(() => {
     if (typeof window === 'undefined') return 3
     if (window.matchMedia('(min-width: 1024px)').matches) return 3
     if (window.matchMedia('(min-width: 640px)').matches) return 2
     return 1
+  })
+
+  useEffect(() => {
+    const large = window.matchMedia('(min-width: 1024px)')
+    const medium = window.matchMedia('(min-width: 640px)')
+    const updatePerPage = () => setPerPage(large.matches ? 3 : medium.matches ? 2 : 1)
+    large.addEventListener('change', updatePerPage)
+    medium.addEventListener('change', updatePerPage)
+    return () => {
+      large.removeEventListener('change', updatePerPage)
+      medium.removeEventListener('change', updatePerPage)
+    }
   }, [])
 
   const pageCount = Math.ceil(testimonials.length / perPage)
@@ -108,18 +117,6 @@ export function Testimonials() {
     setPage((p) => Math.min(p, Math.max(pageCount - 1, 0)))
   }, [pageCount])
 
-  useEffect(() => {
-    const el = viewportRef.current
-    if (!el) return undefined
-
-    const onKeyDown = (e) => {
-      if (e.key === 'ArrowRight') goNext()
-      if (e.key === 'ArrowLeft') goPrev()
-    }
-    el.addEventListener('keydown', onKeyDown)
-    return () => el.removeEventListener('keydown', onKeyDown)
-  }, [goNext, goPrev])
-
   return (
     <section
       id="testimonials"
@@ -142,7 +139,6 @@ export function Testimonials() {
         />
 
         <div
-          ref={viewportRef}
           role="group"
           aria-roledescription="carousel"
           aria-label="Customer testimonials"
@@ -171,7 +167,7 @@ export function Testimonials() {
             <ChevronLeft className="h-5 w-5" aria-hidden="true" />
           </button>
 
-          <div className="flex items-center" role="group" aria-label="Choose testimonial page">
+          <div className="group flex items-center" role="group" aria-label="Choose testimonial page">
             {Array.from({ length: pageCount }).map((_, i) => (
               <button
                 key={i}

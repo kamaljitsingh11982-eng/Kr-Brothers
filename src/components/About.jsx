@@ -28,6 +28,7 @@ const CORE_FOCUS = [
 
 export function About() {
   const { brand, location, stats } = BUSINESS_CONFIG
+  const yearsExperience = new Date().getFullYear() - brand.foundedYear
 
   return (
     <section id="about" aria-labelledby="about-heading" className="relative bg-slate-50 py-16 sm:py-20 lg:py-24">
@@ -77,7 +78,7 @@ export function About() {
               >
                 <div>
                   <p className="font-display text-2xl font-extrabold leading-none text-amber-safety">
-                    10+
+                    {yearsExperience}+
                   </p>
                   <p className="mt-0.5 font-mono text-xs font-bold uppercase tracking-wider text-navy-300">
                     Years

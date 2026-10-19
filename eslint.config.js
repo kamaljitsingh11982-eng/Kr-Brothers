@@ -31,7 +31,7 @@ export default [
       'react/prop-types': 'off',
       'react/no-unknown-property': ['error', { ignore: ['fill'] }],
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      'no-unused-vars': ['error', { varsIgnorePattern: '^_' }],
     },
   },
 ]

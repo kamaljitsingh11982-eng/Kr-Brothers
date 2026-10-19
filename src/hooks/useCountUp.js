@@ -52,6 +52,7 @@ function useCountUp(value, { duration = 1600, decimals } = {}) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             observer.disconnect()
+            node.textContent = format(0)
             raf = requestAnimationFrame(step)
           }
         })
@@ -59,7 +60,6 @@ function useCountUp(value, { duration = 1600, decimals } = {}) {
       { threshold: 0.4 },
     )
 
-    node.textContent = format(0)
     observer.observe(node)
     return () => {
       observer.disconnect()

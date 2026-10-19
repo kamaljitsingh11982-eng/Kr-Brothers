@@ -19,6 +19,7 @@ import fsp from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium } from 'playwright'
+import BUSINESS_CONFIG from '../src/config/businessConfig.js'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const DIST = path.resolve(process.env.PRERENDER_DIST ?? path.join(ROOT, 'dist'))
@@ -37,29 +38,6 @@ const MIME = {
   '.xml': 'application/xml',
   '.txt': 'text/plain; charset=utf-8',
   '.woff2': 'font/woff2',
-}
-
-/** Service slugs come from the config, so a new service needs no edit here. */
-function readServiceIds() {
-  const src = fs.readFileSync(path.join(ROOT, 'src/config/businessConfig.js'), 'utf8')
-  const block = src.slice(src.indexOf('services: ['))
-  const end = block.indexOf('\n  // why us')
-  const ids = [...block.slice(0, end > 0 ? end : block.length).matchAll(/^\s{6}id: '([^']+)'/gm)]
-  return ids.map((m) => m[1])
-}
-
-/**
- * Standalone page paths come from secondaryNavigation in the config, so the
- * prerender list, the router and the navbar menu cannot drift apart.
- */
-function readSecondaryPaths() {
-  const src = fs.readFileSync(path.join(ROOT, 'src/config/businessConfig.js'), 'utf8')
-  const block = src.slice(src.indexOf('secondaryNavigation: ['))
-  const end = block.indexOf('\n  ],')
-  const paths = [
-    ...block.slice(0, end > 0 ? end : block.length).matchAll(/href: '(\/[^']+)'/g),
-  ]
-  return paths.map((m) => m[1])
 }
 
 function startServer() {
@@ -119,7 +97,7 @@ async function prerenderRoute(route, port, page) {
   const ready = await waitForHydration(page)
   if (!ready) return { route, ok: false, bytes: 0 }
 
-  const html = await page.evaluate(() => {
+  const html = await page.evaluate((isHome) => {
     // Drop the runtime "js" marker before serialising. It is re-added by the
     // inline head script on every real page load, so leaving it in the static
     // file would hide the scroll-reveal content for visitors without
@@ -130,6 +108,10 @@ async function prerenderRoute(route, port, page) {
     document
       .querySelectorAll('.reveal.is-visible')
       .forEach((el) => el.classList.remove('is-visible'));
+    document.querySelectorAll('[data-count-up-final]').forEach((el) => {
+      el.textContent = el.dataset.countUpFinal
+    })
+    if (!isHome) document.getElementById('homepage-jsonld')?.remove()
     document.querySelectorAll('link[rel="modulepreload"]').forEach((link) => {
       const url = new URL(link.href)
       if (url.origin === document.location.origin) {
@@ -137,7 +119,7 @@ async function prerenderRoute(route, port, page) {
       }
     })
     return document.documentElement.outerHTML;
-  })
+  }, route === '/')
 
   // "/" is dist/index.html and "/404.html" is the static-host not-found
   // document; every other route becomes <route>/index.html so plain static
@@ -162,8 +144,8 @@ async function main() {
 
   const routes = [
     '/',
-    ...readServiceIds().map((id) => `/services/${id}`),
-    ...readSecondaryPaths(),
+    ...BUSINESS_CONFIG.services.map(({ id }) => `/services/${id}`),
+    ...BUSINESS_CONFIG.secondaryNavigation.map(({ href }) => href),
     // Static hosts (GitHub Pages, Netlify, Cloudflare Pages) serve this file
     // for unknown URLs, so the styled 404 works without JavaScript or rewrites.
     '/404.html',

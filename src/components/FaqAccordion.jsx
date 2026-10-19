@@ -13,7 +13,9 @@ export function FaqAccordion({ items, headingLevel: Heading = 'h3', initiallyOpe
   const baseId = useId()
   // Prefer the caller's stable id; fall back to the question text.
   const keyFor = (item) => item.id ?? item.question
-  const [openId, setOpenId] = useState(items[initiallyOpen] ? keyFor(items[initiallyOpen]) : null)
+  const [openId, setOpenId] = useState(
+    items?.[initiallyOpen] ? keyFor(items[initiallyOpen]) : null,
+  )
 
   if (!items?.length) return null
 

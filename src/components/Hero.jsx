@@ -1,10 +1,11 @@
 import { ArrowRight, MapPin, MessageCircle, Phone, ShieldCheck } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import BUSINESS_CONFIG from '../config/businessConfig'
-import { SceneArt } from './SceneArt'
 import { getIcon } from '../lib/icons'
 
 function HeroBackgroundVideo() {
+  const saveData =
+    typeof navigator !== 'undefined' && navigator.connection?.saveData === true
   const [isMobile, setIsMobile] = useState(() =>
     window.matchMedia('(max-width: 1024px)').matches,
   )
@@ -42,7 +43,7 @@ function HeroBackgroundVideo() {
   }, [])
 
   useEffect(() => {
-    if (prefersReducedMotion) return undefined
+    if (prefersReducedMotion || saveData) return undefined
 
     const resumeWhenVisible = () => {
       if (document.visibilityState === 'visible') resumePlayback()
@@ -55,9 +56,9 @@ function HeroBackgroundVideo() {
       document.removeEventListener('visibilitychange', resumeWhenVisible)
       window.removeEventListener('focus', resumePlayback)
     }
-  }, [prefersReducedMotion, resumePlayback, videoSrc])
+  }, [prefersReducedMotion, resumePlayback, saveData, videoSrc])
 
-  if (prefersReducedMotion) {
+  if (prefersReducedMotion || saveData) {
     return (
       <img
         src="/assets/gallery/imgs/hero-video-poster.jpg"
@@ -230,7 +231,7 @@ export function Hero({ onRequestQuote }) {
             {operations.primaryRegionLabel}
           </p>
           <ul className="mt-3 flex flex-wrap gap-1.5">
-            {['Hajipur', 'Dasuya', 'Talwara', 'Mukerian', 'Hoshiarpur', 'Pathankot'].map((place) => (
+            {operations.heroServiceAreas.map((place) => (
               <li key={place} className="rounded-md bg-white/10 px-2 py-1 text-xs font-medium text-navy-100">
                 {place}
               </li>

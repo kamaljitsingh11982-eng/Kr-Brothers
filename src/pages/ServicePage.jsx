@@ -1,4 +1,5 @@
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { useMemo } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import {
   ArrowRight,
   CheckCircle2,
@@ -17,6 +18,7 @@ import useDocumentMeta from '../hooks/useDocumentMeta'
 import { getIcon } from '../lib/icons'
 import FaqAccordion from '../components/FaqAccordion'
 import Reveal from '../components/Reveal'
+import NotFound from './NotFound'
 
 const ORIGIN = SITE_ORIGIN
 
@@ -35,86 +37,87 @@ function servicePath(id) {
  */
 function ServiceDetail({ service }) {
   const { contacts, links, operations, location, brand } = BUSINESS_CONFIG
-  const pageCopy = SERVICE_PAGES[service.id] ?? {}
+  const pageCopy = SERVICE_PAGES[service.id]
   const Icon = getIcon(service.icon)
   const url = `${ORIGIN}${servicePath(service.id)}`
   const { title, short, summary, capacity, scope, safety, applications, bestFor } = service
   const related = BUSINESS_CONFIG.services.filter((item) => item.id !== service.id)
+  const jsonLd = useMemo(() => ({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Service',
+        name: title,
+        description: summary,
+        url,
+        serviceType: title,
+        provider: {
+          '@type': 'LocalBusiness',
+          '@id': `${ORIGIN}/#business`,
+          name: brand.name,
+          telephone: contacts.primaryPhoneRaw,
+          email: contacts.email,
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: location.addressLine1,
+            addressLocality: location.city,
+            addressRegion: location.state,
+            postalCode: location.pincode,
+            addressCountry: location.countryCode,
+          },
+          location: {
+            '@type': 'Place',
+            name: 'KR Brothers Office',
+            address: {
+              '@type': 'PostalAddress',
+              addressLocality: location.office.addressLine1,
+              addressRegion: location.state,
+              addressCountry: location.countryCode,
+            },
+            geo: {
+              '@type': 'GeoCoordinates',
+              latitude: location.office.latitude,
+              longitude: location.office.longitude,
+            },
+          },
+          areaServed: operations.serviceRegions.slice(0, 6),
+        },
+        areaServed: operations.serviceRegions,
+        hasOfferCatalog: {
+          '@type': 'OfferCatalog',
+          name: `${title} — scope`,
+          itemListElement: scope.map((line, i) => ({
+            '@type': 'Offer',
+            position: i + 1,
+            itemOffered: { '@type': 'Service', name: line },
+          })),
+        },
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: (pageCopy.faq ?? []).map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: { '@type': 'Answer', text: item.answer },
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: ORIGIN },
+          { '@type': 'ListItem', position: 2, name: 'Services', item: `${ORIGIN}/#services` },
+          { '@type': 'ListItem', position: 3, name: title, item: url },
+        ],
+      },
+    ],
+  }), [title, summary, url, scope, pageCopy, brand, contacts, location, operations])
 
   useDocumentMeta({
     title: pageCopy.metaTitle,
     description: pageCopy.metaDescription,
     keywords: pageCopy.keywords?.join(', '),
     canonical: servicePath(service.id),
-    jsonLd: {
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'Service',
-          name: title,
-          description: summary,
-          url,
-          serviceType: title,
-          provider: {
-            '@type': 'LocalBusiness',
-            '@id': `${ORIGIN}/#business`,
-            name: brand.name,
-            telephone: contacts.primaryPhoneRaw,
-            email: contacts.email,
-            address: {
-              '@type': 'PostalAddress',
-              streetAddress: location.addressLine1,
-              addressLocality: location.city,
-              addressRegion: location.state,
-              postalCode: location.pincode,
-              addressCountry: location.countryCode,
-            },
-            location: {
-              '@type': 'Place',
-              name: 'KR Brothers Office',
-              address: {
-                '@type': 'PostalAddress',
-                addressLocality: location.office.addressLine1,
-                addressRegion: location.state,
-                addressCountry: location.countryCode,
-              },
-              geo: {
-                '@type': 'GeoCoordinates',
-                latitude: location.office.latitude,
-                longitude: location.office.longitude,
-              },
-            },
-            areaServed: operations.serviceRegions.slice(0, 6),
-          },
-          areaServed: operations.serviceRegions,
-          hasOfferCatalog: {
-            '@type': 'OfferCatalog',
-            name: `${title} — scope`,
-            itemListElement: scope.map((line, i) => ({
-              '@type': 'Offer',
-              position: i + 1,
-              itemOffered: { '@type': 'Service', name: line },
-            })),
-          },
-        },
-        {
-          '@type': 'FAQPage',
-          mainEntity: (pageCopy.faq ?? []).map((item) => ({
-            '@type': 'Question',
-            name: item.question,
-            acceptedAnswer: { '@type': 'Answer', text: item.answer },
-          })),
-        },
-        {
-          '@type': 'BreadcrumbList',
-          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home', item: ORIGIN },
-            { '@type': 'ListItem', position: 2, name: 'Services', item: `${ORIGIN}/#services` },
-            { '@type': 'ListItem', position: 3, name: title, item: url },
-          ],
-        },
-      ],
-    },
+    jsonLd,
   })
 
   return (
@@ -368,7 +371,7 @@ export function ServicePage() {
   const { serviceId } = useParams()
   const service = BUSINESS_CONFIG.services.find((item) => item.id === serviceId)
 
-  if (!service) return <Navigate to="/" replace />
+  if (!service) return <NotFound />
 
   return <ServiceDetail service={service} />
 }

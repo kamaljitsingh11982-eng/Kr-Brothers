@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, FileText, Printer, ShieldCheck } from 'lucide-react'
 import BUSINESS_CONFIG from '../config/businessConfig'
@@ -21,35 +22,36 @@ const PATH = '/terms'
  */
 export function TermsPage() {
   const { legal, contacts, links, brand } = BUSINESS_CONFIG
+  const jsonLd = useMemo(() => ({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        name: `${legal.title} — ${brand.name}`,
+        description: legal.intro,
+        url: `${ORIGIN}${PATH}`,
+        inLanguage: 'en-IN',
+        isPartOf: {
+          '@type': 'WebSite',
+          name: brand.name,
+          url: ORIGIN,
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: ORIGIN },
+          { '@type': 'ListItem', position: 2, name: 'Terms & Conditions', item: `${ORIGIN}${PATH}` },
+        ],
+      },
+    ],
+  }), [legal, brand])
 
   useDocumentMeta({
     title: `Terms & Conditions | ${brand.name}`,
     description: `Terms for crane hire, lifting and material handling work by ${brand.name} — bookings, capacity and load charts, site conditions and charges.`,
     canonical: PATH,
-    jsonLd: {
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'WebPage',
-          name: `${legal.title} — ${brand.name}`,
-          description: legal.intro,
-          url: `${ORIGIN}${PATH}`,
-          inLanguage: 'en-IN',
-          isPartOf: {
-            '@type': 'WebSite',
-            name: brand.name,
-            url: ORIGIN,
-          },
-        },
-        {
-          '@type': 'BreadcrumbList',
-          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home', item: ORIGIN },
-            { '@type': 'ListItem', position: 2, name: 'Terms & Conditions', item: `${ORIGIN}${PATH}` },
-          ],
-        },
-      ],
-    },
+    jsonLd,
   })
 
   return (
