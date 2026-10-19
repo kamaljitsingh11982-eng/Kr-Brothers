@@ -153,7 +153,13 @@ async function main() {
   const { server, port } = await startServer()
   let browser
   try {
-    browser = await chromium.launch({ headless: true })
+    const launchOptions = { headless: true }
+    if (process.platform === 'linux') {
+      const { default: bundledChromium } = await import('@sparticuz/chromium')
+      launchOptions.args = bundledChromium.args
+      launchOptions.executablePath = await bundledChromium.executablePath()
+    }
+    browser = await chromium.launch(launchOptions)
     const page = await browser.newPage({ viewport: { width: 1440, height: 900 } })
     console.log(`prerender: ${routes.length} routes`)
     let failed = 0
