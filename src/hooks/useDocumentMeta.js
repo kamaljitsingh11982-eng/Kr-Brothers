@@ -38,7 +38,6 @@ function absolute(url) {
  * @param {object} meta
  * @param {string} meta.title        document.title
  * @param {string} meta.description  meta description + og/twitter description
- * @param {string} [meta.keywords]   comma separated
  * @param {string} [meta.canonical]  path or full URL, defaults to the current path
  * @param {string} [meta.image]      og:image / twitter:image path
  * @param {object} [meta.jsonLd]     structured data object for this page
@@ -47,16 +46,16 @@ function absolute(url) {
 export function useDocumentMeta({
   title,
   description,
-  keywords,
   canonical,
   image = '/assets/gallery/imgs/og-image.png',
   jsonLd,
   robots = 'index, follow',
 } = {}) {
+  const pathname = typeof window === 'undefined' ? '/' : window.location.pathname
   const path =
-    typeof window === 'undefined'
-      ? '/'
-      : window.location.pathname.replace(/\/+$/, '') || '/'
+    pathname === '/' || pathname.endsWith('.html') || pathname.endsWith('/')
+      ? pathname
+      : `${pathname}/`
 
   useEffect(() => {
     if (title) document.title = title
@@ -69,12 +68,16 @@ export function useDocumentMeta({
       setMeta('property', 'og:title', title)
       setMeta('property', 'og:description', description)
     }
-    if (keywords) setMeta('name', 'keywords', keywords)
     setMeta('name', 'robots', robots)
 
-    const url = absolute(canonical ?? path)
-    setLink('canonical', url)
-    setMeta('property', 'og:url', url)
+    const url = canonical === false ? undefined : absolute(canonical ?? path)
+    if (url) {
+      setLink('canonical', url)
+      setMeta('property', 'og:url', url)
+    } else {
+      document.head.querySelector('link[rel="canonical"]')?.remove()
+      document.head.querySelector('meta[property="og:url"]')?.remove()
+    }
     setMeta('property', 'og:type', 'website')
     setMeta('property', 'og:site_name', 'KR Brothers')
 
@@ -104,7 +107,7 @@ export function useDocumentMeta({
       // home page after client-side navigation.
       document.getElementById('page-jsonld')?.remove()
     }
-  }, [title, description, keywords, canonical, image, jsonLd, robots, path])
+  }, [title, description, canonical, image, jsonLd, robots, path])
 }
 
 export default useDocumentMeta

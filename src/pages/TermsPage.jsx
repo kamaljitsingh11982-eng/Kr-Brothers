@@ -8,7 +8,7 @@ import Reveal from '../components/Reveal'
 import { CtaBand, PageHero } from '../components/PageHero'
 
 const ORIGIN = SITE_ORIGIN
-const PATH = '/terms'
+const PATH = '/terms/'
 
 /**
  * Terms & Conditions.
@@ -34,13 +34,13 @@ export function TermsPage() {
         isPartOf: {
           '@type': 'WebSite',
           name: brand.name,
-          url: ORIGIN,
+          url: `${ORIGIN}/`,
         },
       },
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: ORIGIN },
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${ORIGIN}/` },
           { '@type': 'ListItem', position: 2, name: 'Terms & Conditions', item: `${ORIGIN}${PATH}` },
         ],
       },
@@ -87,7 +87,7 @@ export function TermsPage() {
                     already in the address bar is a browser no-op, so clicking
                     the chip you are already on would do nothing. */}
                 <Link
-                  to={`/terms#${section.id}`}
+                      to={`/terms/#${section.id}`}
                   className="chip border-white/15 bg-white/[0.06] text-navy-200 hover:text-amber-safety"
                 >
                   {section.title}
@@ -187,11 +187,11 @@ export function TermsPage() {
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Link to="/equipment" className="btn-outline inline-flex">
+            <Link to="/equipment/" className="btn-outline inline-flex">
               Equipment &amp; Fleet
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
-            <Link to="/service-areas" className="btn-outline inline-flex">
+            <Link to="/service-areas/" className="btn-outline inline-flex">
               Service Areas
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>

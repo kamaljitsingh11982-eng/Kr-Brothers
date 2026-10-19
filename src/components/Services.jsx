@@ -57,7 +57,7 @@ function ServiceCard({ service, index, onOpen }) {
             </button>
 
             <Link
-              to={`/services/${service.id}`}
+              to={`/services/${service.id}/`}
               className="link-action"
             >
               Full details

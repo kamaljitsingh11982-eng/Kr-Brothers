@@ -116,7 +116,7 @@ export function Footer() {
               {coreServices.map((service) => (
                 <li key={service.id}>
                   <Link
-                    to={`/services/${service.id}`}
+                    to={`/services/${service.id}/`}
                     className="tap-sm group items-start gap-2 text-sm leading-snug text-navy-300 transition-colors hover:text-amber-safety"
                   >
                     <span
@@ -195,38 +195,16 @@ export function Footer() {
                   {location.addressLine2}
                 </a>
               </li>
-              <li className="flex items-start gap-2.5">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-amber-safety" aria-hidden="true" />
-                <a
-                  href={location.office.mapsLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="tap-sm items-start text-sm leading-relaxed text-navy-300 hover:text-amber-safety"
-                >
-                  Office: {location.office.addressLine1}
-                  <br />
-                  {location.office.addressLine2}
-                </a>
-              </li>
             </ul>
 
             <a
-              href={location.office.directionsLink}
+              href={location.directionsLink}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-5 inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/[0.05] px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:border-amber-safety hover:bg-amber-safety hover:text-navy-900"
             >
               <Navigation className="h-3.5 w-3.5" aria-hidden="true" />
-              Directions to Office
-            </a>
-            <a
-              href={location.directionsLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-2 mt-5 inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/[0.05] px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:border-amber-safety hover:bg-amber-safety hover:text-navy-900"
-            >
-              <Navigation className="h-3.5 w-3.5" aria-hidden="true" />
-              Directions to Yard
+              Directions
             </a>
           </Reveal>
         </div>
@@ -244,7 +222,7 @@ export function Footer() {
                 </a>
                 {/* Router link: /terms is a client route, not a static file. */}
                 <Link
-                  to="/terms"
+                  to="/terms/"
                   className="tap-sm text-xs text-navy-300 underline-offset-4 transition-colors hover:text-amber-safety hover:underline"
                 >
                   Terms &amp; Conditions

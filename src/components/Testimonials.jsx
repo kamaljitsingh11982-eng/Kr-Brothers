@@ -64,7 +64,7 @@ function TestimonialCard({ item }) {
 }
 
 export function Testimonials() {
-  const { testimonials } = BUSINESS_CONFIG
+  const testimonials = (BUSINESS_CONFIG.testimonials ?? []).filter((item) => item.verified)
   const [page, setPage] = useState(0)
   const [perPage, setPerPage] = useState(() => {
     if (typeof window === 'undefined') return 3
@@ -116,6 +116,8 @@ export function Testimonials() {
   useEffect(() => {
     setPage((p) => Math.min(p, Math.max(pageCount - 1, 0)))
   }, [pageCount])
+
+  if (testimonials.length === 0) return null
 
   return (
     <section

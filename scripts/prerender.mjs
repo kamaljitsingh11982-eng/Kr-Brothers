@@ -111,7 +111,6 @@ async function prerenderRoute(route, port, page) {
     document.querySelectorAll('[data-count-up-final]').forEach((el) => {
       el.textContent = el.dataset.countUpFinal
     })
-    if (!isHome) document.getElementById('homepage-jsonld')?.remove()
     document.querySelectorAll('link[rel="modulepreload"]').forEach((link) => {
       const url = new URL(link.href)
       if (url.origin === document.location.origin) {
@@ -144,7 +143,7 @@ async function main() {
 
   const routes = [
     '/',
-    ...BUSINESS_CONFIG.services.map(({ id }) => `/services/${id}`),
+    ...BUSINESS_CONFIG.services.map(({ id }) => `/services/${id}/`),
     ...BUSINESS_CONFIG.secondaryNavigation.map(({ href }) => href),
     // Static hosts (GitHub Pages, Netlify, Cloudflare Pages) serve this file
     // for unknown URLs, so the styled 404 works without JavaScript or rewrites.

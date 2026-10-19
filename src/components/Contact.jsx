@@ -103,18 +103,15 @@ function Input({ label, id, error, hint, className = '', ...rest }) {
 }
 
 export function Contact({ preselectService, onPreselectHandled }) {
-  const { contacts, links, location, operations, services, map, brand, formspree } =
-    BUSINESS_CONFIG
+  const { contacts, links, location, operations, services, map, brand } = BUSINESS_CONFIG
 
   const [values, setValues] = useState(EMPTY)
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
   const [status, setStatus] = useState('idle')
-  const [submissionError, setSubmissionError] = useState('')
-  const [honeypot, setHoneypot] = useState('')
   const [summary, setSummary] = useState(null)
   const formRef = useRef(null)
-  const successRef = useRef(null)
+  const readyRef = useRef(null)
 
   // Pre-select the service coming from the services modal.
   useEffect(() => {
@@ -130,7 +127,7 @@ export function Contact({ preselectService, onPreselectHandled }) {
   }, [preselectService, onPreselectHandled])
 
   useEffect(() => {
-    if (status === 'success') successRef.current?.focus()
+    if (status === 'ready') readyRef.current?.focus()
   }, [status])
 
   const handleChange = (event) => {
@@ -181,39 +178,7 @@ export function Contact({ preselectService, onPreselectHandled }) {
       service: payload.service,
       location: payload.location,
     })
-    setSubmissionError('')
-
-    if (!formspree.endpoint) {
-      setSubmissionError(
-        'Online quote submission is not configured yet. Please contact us by phone or WhatsApp.',
-      )
-      setStatus('error')
-      return
-    }
-
-    setStatus('submitting')
-    try {
-      const response = await fetch(formspree.endpoint, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ...payload, _gotcha: honeypot }),
-      })
-
-      if (!response.ok) {
-        throw new Error(`Formspree returned HTTP ${response.status}`)
-      }
-
-      setStatus('success')
-    } catch (error) {
-      console.error('Quote form submission failed.', error)
-      setSubmissionError(
-        'We could not send your enquiry just now. Please try again or contact us by phone or WhatsApp.',
-      )
-      setStatus('error')
-    }
+    setStatus('ready')
   }
 
   const resetForm = () => {
@@ -221,8 +186,6 @@ export function Contact({ preselectService, onPreselectHandled }) {
     setErrors({})
     setTouched({})
     setStatus('idle')
-    setSubmissionError('')
-    setHoneypot('')
     setSummary(null)
   }
 
@@ -369,7 +332,7 @@ export function Contact({ preselectService, onPreselectHandled }) {
               <div className="relative mt-6 rounded-xl border border-white/10 bg-navy-950/60 p-4">
                 <p className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-amber-safety">
                   <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
-                  Operating Yard
+                  Primary Business Location
                 </p>
                 <address className="mt-2 not-italic text-sm leading-relaxed text-navy-200">
                   {location.addressLine1}
@@ -387,27 +350,6 @@ export function Contact({ preselectService, onPreselectHandled }) {
                 </a>
               </div>
 
-              <div className="relative mt-3 rounded-xl border border-white/10 bg-navy-950/60 p-4">
-                <p className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-amber-safety">
-                  <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
-                  Office Address
-                </p>
-                <address className="mt-2 not-italic text-sm leading-relaxed text-navy-200">
-                  {location.office.addressLine1}
-                  <br />
-                  {location.office.addressLine2}
-                </address>
-                <a
-                  href={location.office.directionsLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="tap-sm mt-3 gap-1.5 text-xs font-bold normal-case tracking-normal text-amber-safety underline-offset-4 hover:underline"
-                >
-                  Office directions
-                  <ArrowRight className="h-3 w-3" aria-hidden="true" />
-                </a>
-              </div>
-
               <p className="relative mt-5 flex items-start gap-2 text-xs text-navy-300">
                 <Clock className="mt-0.5 h-4 w-4 shrink-0 text-amber-safety" aria-hidden="true" />
                 {operations.hours} &nbsp;•&nbsp; {operations.responseTime}
@@ -419,21 +361,21 @@ export function Contact({ preselectService, onPreselectHandled }) {
           </Reveal>
           <Reveal variant="slide-left" delay={100} className="h-full">
             <div className="relative h-full rounded-2xl border border-slate-200 bg-white p-6 shadow-card sm:p-8">
-              {status === 'success' ? (
+              {status === 'ready' ? (
                 <div className="flex min-h-[26rem] flex-col items-center justify-center text-center animate-scale-in">
                   <span className="grid h-20 w-20 place-items-center rounded-full bg-emerald-100 text-emerald-600">
                     <Send className="h-10 w-10" aria-hidden="true" />
                   </span>
                   <h3
-                    ref={successRef}
+                    ref={readyRef}
                     tabIndex={-1}
                     className="mt-6 font-display text-2xl font-bold tracking-tight text-navy-900 outline-none"
                   >
-                    Enquiry Sent
+                    Enquiry Ready to Send
                   </h3>
                   <p className="mt-2 max-w-md text-sm leading-relaxed text-navy-600">
-                    Thank you. Your enquiry has been sent to KR Brothers. We will contact you
-                    using the details you provided.
+                    Your details are ready in a WhatsApp message. Review it there and press
+                    Send to contact KR Brothers; this website cannot confirm delivery.
                   </p>
 
                   <dl className="mt-6 w-full max-w-md space-y-2 rounded-xl border border-slate-200 bg-slate-50 p-5 text-left">
@@ -463,7 +405,7 @@ export function Contact({ preselectService, onPreselectHandled }) {
                       className="btn-whatsapp flex-1"
                     >
                       <MessageCircle className="h-4 w-4" aria-hidden="true" />
-                      Follow up on WhatsApp
+                      Open WhatsApp to send enquiry
                     </a>
                   </div>
 
@@ -498,21 +440,6 @@ export function Contact({ preselectService, onPreselectHandled }) {
                     noValidate
                     className="mt-6"
                   >
-                    <div
-                      className="absolute left-[-10000px] top-auto h-px w-px overflow-hidden"
-                      aria-hidden="true"
-                    >
-                      <label htmlFor="krb-website">Leave this field empty</label>
-                      <input
-                        id="krb-website"
-                        name="_gotcha"
-                        type="text"
-                        tabIndex={-1}
-                        autoComplete="off"
-                        value={honeypot}
-                        onChange={(event) => setHoneypot(event.target.value)}
-                      />
-                    </div>
                     <div className="grid gap-5 sm:grid-cols-2">
                       <Input
                         label="Full Name *"
@@ -657,11 +584,10 @@ export function Contact({ preselectService, onPreselectHandled }) {
                     <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
                       <button
                         type="submit"
-                        disabled={status === 'submitting'}
                         className="btn-primary flex-1"
                       >
                         <Send className="h-4 w-4" aria-hidden="true" />
-                        {status === 'submitting' ? 'Sending…' : 'Submit Enquiry'}
+                        Prepare WhatsApp Message
                       </button>
 
                       <a
@@ -673,22 +599,6 @@ export function Contact({ preselectService, onPreselectHandled }) {
                         {contacts.primaryPhone}
                       </a>
                     </div>
-
-                    {status === 'error' && (
-                      <p className="mt-3 text-sm font-medium text-red-700" role="alert">
-                        {submissionError}
-                      </p>
-                    )}
-
-                    <a
-                      href={buildWhatsAppHref()}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-whatsapp mt-3 inline-flex w-full sm:w-auto"
-                    >
-                      <MessageCircle className="h-4 w-4" aria-hidden="true" />
-                      Send enquiry via WhatsApp instead
-                    </a>
 
                     <p className="mt-4 text-xs leading-relaxed text-navy-500">
                       We use your details only to respond to this enquiry. We do not sell them
@@ -720,7 +630,7 @@ export function Contact({ preselectService, onPreselectHandled }) {
                 <p className="mt-0.5 text-xs text-navy-500">{map.subtitle}</p>
               </div>
               <a
-                href={location.office.mapsLink}
+                href={location.mapsLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-outline btn-sm normal-case"
@@ -732,7 +642,7 @@ export function Contact({ preselectService, onPreselectHandled }) {
 
             <div className="relative h-[18rem] w-full sm:h-[24rem] lg:h-[28rem]">
               <iframe
-                src={location.office.mapsEmbedSrc}
+                src={location.mapsEmbedSrc}
                 title={`Google Map — ${map.title}, ${map.subtitle}`}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

@@ -23,11 +23,13 @@ export const BUSINESS_CONFIG = {
     established: 'Established 2015',
   },
 
-  // location
+  // TODO(owner): PRIMARY_ADDRESS_NOTE — confirm the primary address and coordinates before launch.
   location: {
     addressLine1: 'Vill. Khizarpur (Hajipur), Teh. Mukerian',
     addressLine2: 'Distt. Hoshiarpur, Punjab, India',
-    addressShort: 'Khizarpur (Hajipur), Dasuya, Talwara, Mukerian, Distt. Hoshiarpur, Punjab',
+    get addressShort() {
+      return `${BUSINESS_CONFIG.location.addressLine1}, ${BUSINESS_CONFIG.location.addressLine2}`
+    },
     baseAreaLabel: 'Hajipur, Dasuya, Talwara, Mukerian, Distt. Hoshiarpur',
     city: 'Hajipur',
     district: 'Hoshiarpur',
@@ -38,25 +40,20 @@ export const BUSINESS_CONFIG = {
     pincode: '146024',
     latitude: 32.0456,
     longitude: 75.6291,
-    // Google Maps "embed" style query + a shareable maps link.
-    mapQuery: 'Hajipur, Dasuya, Talwara, Mukerian, Hoshiarpur, Punjab, India',
-    mapsEmbedSrc:
-      'https://www.google.com/maps?q=Hajipur%2C%20Dasuya%2C%20Talwara%2C%20Mukerian%2C%20Hoshiarpur%2C%20Punjab%2C%20India&z=13&output=embed',
-    mapsLink: 'https://www.google.com/maps/search/?api=1&query=Hajipur%2C+Dasuya%2C+Talwara%2C+Mukerian%2C+Hoshiarpur%2C+Punjab%2C+India',
-    directionsLink:
-      'https://www.google.com/maps/dir/?api=1&destination=Hajipur%2C+Dasuya%2C+Talwara%2C+Mukerian%2C+Hoshiarpur%2C+Punjab%2C+India',
-    geoLabel: 'Khizarpur (Hajipur), Dasuya, Talwara, Mukerian — Distt. Hoshiarpur',
-    office: {
-      addressLine1: 'Parelian',
-      addressLine2: 'Punjab, India · Plus Code XP2G+343',
-      latitude: 31.9501457,
-      longitude: 75.7253036,
-      mapsEmbedSrc:
-        'https://www.google.com/maps?q=31.9501457%2C75.7253036&z=17&output=embed',
-      mapsLink:
-        'https://www.google.com/maps/search/?api=1&query=31.9501457%2C75.7253036',
-      directionsLink:
-        'https://www.google.com/maps/dir/?api=1&destination=31.9501457%2C75.7253036',
+    get mapQuery() {
+      return `${BUSINESS_CONFIG.location.latitude},${BUSINESS_CONFIG.location.longitude}`
+    },
+    get mapsEmbedSrc() {
+      return `https://www.google.com/maps?q=${encodeURIComponent(BUSINESS_CONFIG.location.mapQuery)}&z=13&output=embed`
+    },
+    get mapsLink() {
+      return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(BUSINESS_CONFIG.location.mapQuery)}`
+    },
+    get directionsLink() {
+      return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(BUSINESS_CONFIG.location.mapQuery)}`
+    },
+    get geoLabel() {
+      return BUSINESS_CONFIG.location.addressShort
     },
   },
 
@@ -77,10 +74,6 @@ export const BUSINESS_CONFIG = {
     emailDisplay: 'krbrothers82@gmail.com',
     mailtoLink: 'mailto:krbrothers82@gmail.com',
     emergencyNote: '24/7 breakdown & emergency lifting support',
-  },
-
-  formspree: {
-    endpoint: import.meta.env?.VITE_FORMSPREE_ENDPOINT ?? '',
   },
 
   // generated helper link values
@@ -179,6 +172,8 @@ get whatsappService() {
     },
     {
       id: 'projects',
+      // TODO(owner): replace with a real, provable number
+      hidden: true,
       value: 1200,
       suffix: '+',
       prefix: '',
@@ -189,6 +184,8 @@ get whatsappService() {
     },
     {
       id: 'compliance',
+      // TODO(owner): replace with a real, provable number
+      hidden: true,
       value: 100,
       suffix: '%',
       prefix: '',
@@ -755,76 +752,6 @@ get whatsappService() {
     { id: 'construction-sites', label: 'Construction Sites' },
   ],
 
-  // testimonials
-  testimonials: [
-    {
-      id: 't1',
-      name: 'Harjeet Singh Sidhu',
-      designation: 'Project Manager',
-      company: 'Sidhu Infrastructure Pvt. Ltd.',
-      location: 'Mukerian',
-      rating: 5,
-      projectType: 'Highway & Bridge Package',
-      quote:
-        'We needed a 40-tonne crane on site for girder setting on a very tight schedule. KR Brothers studied the radius and ground on the same day and had the machine and riggers on site the next morning. Every lift followed the plan, and the crew kept the exclusion zone clean the whole time.',
-    },
-    {
-      id: 't2',
-      name: 'Rakesh Kumar Gupta',
-      designation: 'Owner',
-      company: 'Gupta Steel Rolling Unit',
-      location: 'Hoshiarpur',
-      rating: 5,
-      projectType: 'Yard Material Handling',
-      quote:
-        'Their Hydra cranes handle our entire daily yard movement. The operators understand how we want stock stacked, and they adjust the sequence to keep our loading bays free. Honest timings and a straight rate card — rare in this trade.',
-    },
-    {
-      id: 't3',
-      name: 'Anil Thakur',
-      designation: 'Site Engineer',
-      company: 'Thakur Builders',
-      location: 'Hajipur',
-      rating: 5,
-      projectType: 'Commercial Construction',
-      quote:
-        'For our G+ project we hired them for column and stair precast lifting. The tag-line control was excellent and nothing was damaged across two months of continuous work. They also sent the same crew back every time, which made supervision easy.',
-    },
-    {
-      id: 't4',
-      name: 'Sunil Sharma',
-      designation: 'Plant Head',
-      company: 'Bharat Precision Components',
-      location: 'Pathankot',
-      rating: 5,
-      projectType: 'CNC Machine Shifting',
-      quote:
-        'Moving four CNC machines inside a running plant is not easy. They planned the path, coordinated with our electrical team and completed the shift inside the shutdown window. That saved us a full day of production.',
-    },
-    {
-      id: 't5',
-      name: 'Vikram Malhotra',
-      designation: 'Regional Contractor',
-      company: 'Malhotra Road & Infrastructure',
-      location: 'Dasuya',
-      rating: 5,
-      projectType: 'Material Handling & Recovery',
-      quote:
-        'At 2 AM a tipper went down near our site. One call and a Hydra was on the road within the hour, with barricades already being placed. They have become our default lifting partner across three running packages now.',
-    },
-    {
-      id: 't6',
-      name: 'Pankaj Mehra',
-      designation: 'Electrical Contractor',
-      company: 'Mehra Power Solutions',
-      location: 'Kangra, Himachal Pradesh',
-      rating: 5,
-      projectType: 'Transformer Installation',
-      quote:
-        'Transformer placement in a tight substation compound needs experience. They set out the crane in a space I would not have thought possible. Clean job, on time, and the crew cleared the site before shift change.',
-    },
-  ],
-
   // faq
   faqs: [
     {
@@ -875,10 +802,13 @@ get whatsappService() {
 
   // map
   map: {
-    title: 'KR Brothers Office — Parelian',
-    subtitle: 'Parelian, Punjab, India · Plus Code XP2G+343',
-    note:
-      'The map marks our office in Parelian. Our crane workshop and operating yard remain at Khizarpur (Hajipur), Mukerian.',
+    get title() {
+      return `KR Brothers — ${BUSINESS_CONFIG.location.city}`
+    },
+    get subtitle() {
+      return BUSINESS_CONFIG.location.addressShort
+    },
+    note: 'The map marks the primary business location listed in our contact details.',
   },
 
   /* equipment / fleet
@@ -1126,10 +1056,10 @@ get whatsappService() {
    * section hashes and the active-section scroll spy maps over it.
    * -------------------------------------------------------------------- */
   secondaryNavigation: [
-    { label: 'Equipment & Fleet', href: '/equipment', description: 'Machine classes, capacities and how we select the right crane', icon: 'Wrench' },
-    { label: 'Service Areas', href: '/service-areas', description: 'Where we work across Punjab and Himachal Pradesh', icon: 'MapPin' },
-    { label: 'Contact & Enquiries', href: '/contact', description: 'Phone, WhatsApp, email, hours and our base location', icon: 'Phone' },
-    { label: 'Terms & Conditions', href: '/terms', description: 'Bookings, capacity, site conditions and charges', icon: 'FileText' },
+    { label: 'Equipment & Fleet', href: '/equipment/', description: 'Machine classes, capacities and how we select the right crane', icon: 'Wrench' },
+    { label: 'Service Areas', href: '/service-areas/', description: 'Where we work across Punjab and Himachal Pradesh', icon: 'MapPin' },
+    { label: 'Contact & Enquiries', href: '/contact/', description: 'Phone, WhatsApp, email, hours and our base location', icon: 'Phone' },
+    { label: 'Terms & Conditions', href: '/terms/', description: 'Bookings, capacity, site conditions and charges', icon: 'FileText' },
   ],
 
   // footer

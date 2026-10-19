@@ -13,13 +13,14 @@ import {
   Star,
 } from 'lucide-react'
 import BUSINESS_CONFIG from '../config/businessConfig'
+import { getLocalBusinessSchema } from '../config/businessSchema'
 import SITE_ORIGIN from '../config/siteConfig'
 import useDocumentMeta from '../hooks/useDocumentMeta'
 import Reveal from '../components/Reveal'
 import { CtaBand, PageHero } from '../components/PageHero'
 
 const ORIGIN = SITE_ORIGIN
-const PATH = '/contact'
+const PATH = '/contact/'
 
 /**
  * Standalone contact page.
@@ -43,34 +44,7 @@ export function ContactPage() {
         description: `Contact ${brand.name} for crane rental, lifting and material handling enquiries.`,
         url: `${ORIGIN}${PATH}`,
         mainEntity: {
-          '@type': 'LocalBusiness',
-          '@id': `${ORIGIN}/#business`,
-          name: brand.name,
-          telephone: contacts.primaryPhoneRaw,
-          email: contacts.email,
-          address: {
-            '@type': 'PostalAddress',
-            streetAddress: location.addressLine1,
-            addressLocality: location.city,
-            addressRegion: location.state,
-            postalCode: location.pincode,
-            addressCountry: location.countryCode,
-          },
-          location: {
-            '@type': 'Place',
-            name: 'KR Brothers Office',
-            address: {
-              '@type': 'PostalAddress',
-              addressLocality: location.office.addressLine1,
-              addressRegion: location.state,
-              addressCountry: location.countryCode,
-            },
-            geo: {
-              '@type': 'GeoCoordinates',
-              latitude: location.office.latitude,
-              longitude: location.office.longitude,
-            },
-          },
+          ...getLocalBusinessSchema(),
           contactPoint: [
             {
               '@type': 'ContactPoint',
@@ -85,19 +59,17 @@ export function ContactPage() {
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: ORIGIN },
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${ORIGIN}/` },
           { '@type': 'ListItem', position: 2, name: 'Contact', item: `${ORIGIN}${PATH}` },
         ],
       },
     ],
-  }), [brand, contacts, location])
+  }), [brand, contacts])
 
   useDocumentMeta({
     title: `Contact KR Brothers — Crane Rental & Lifting Enquiries`,
     description:
       `Call ${contacts.primaryPhone} or WhatsApp ${contacts.whatsappNumber} for crane rental and lifting enquiries. Open 24x7, based in ${location.baseAreaLabel}, Punjab.`,
-    keywords:
-      'contact crane rental Punjab, crane hire enquiry Hoshiarpur, lifting contractor phone number, crane service contact Mukerian, emergency crane helpline Punjab',
     canonical: PATH,
     jsonLd,
   })
@@ -290,27 +262,11 @@ export function ContactPage() {
 
           <Reveal variant="slide-left" delay={80}>
             <h2 className="section-title text-navy-900">
-              Find <span className="text-amber-deepText">our locations</span>
+              Find <span className="text-amber-deepText">our location</span>
             </h2>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            <div className="mt-6 grid gap-4">
               <address className="rounded-xl border border-slate-200 bg-white p-5 not-italic">
-                <h3 className="font-display text-base font-bold text-navy-900">Office — Parelian</h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-navy-700">
-                  {location.office.addressLine1}
-                  <br />
-                  {location.office.addressLine2}
-                </p>
-                <a
-                  href={location.office.mapsLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="tap-sm mt-3 inline-flex text-sm font-semibold text-navy-900 underline-offset-4 hover:text-amber-deepText hover:underline"
-                >
-                  View office on Google Maps
-                </a>
-              </address>
-              <address className="rounded-xl border border-slate-200 bg-white p-5 not-italic">
-                <h3 className="font-display text-base font-bold text-navy-900">Workshop &amp; operating yard</h3>
+                <h3 className="font-display text-base font-bold text-navy-900">Primary business location</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-navy-700">
                   {location.addressLine1}
                   <br />
@@ -322,7 +278,7 @@ export function ContactPage() {
                   rel="noopener noreferrer"
                   className="tap-sm mt-3 inline-flex text-sm font-semibold text-navy-900 underline-offset-4 hover:text-amber-deepText hover:underline"
                 >
-                  View operating yard on Google Maps
+                  View on Google Maps
                 </a>
               </address>
             </div>
@@ -333,24 +289,15 @@ export function ContactPage() {
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <a
-                href={location.office.directionsLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-dark inline-flex"
-              >
-                <Navigation className="h-4 w-4" aria-hidden="true" />
-                Directions to Office
-              </a>
-              <a
                 href={location.directionsLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-outline inline-flex"
               >
                 <Navigation className="h-4 w-4" aria-hidden="true" />
-                Directions to Yard
+                Directions
               </a>
-              <Link to="/service-areas" className="btn-outline inline-flex">
+              <Link to="/service-areas/" className="btn-outline inline-flex">
                 Check your area
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
@@ -379,7 +326,7 @@ export function ContactPage() {
                 Go to the enquiry form
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
-              <Link to="/equipment" className="btn-outline">
+              <Link to="/equipment/" className="btn-outline">
                 Check machine capacities
               </Link>
             </div>

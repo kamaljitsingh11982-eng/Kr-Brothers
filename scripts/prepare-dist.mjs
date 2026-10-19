@@ -1,4 +1,4 @@
-import { copyFile, rm, stat } from 'node:fs/promises'
+import { copyFile, readdir, rm, stat } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -15,6 +15,25 @@ const supersededAssets = [
   'assets/gallery/videos/hero-background-laptop.mp4',
   'assets/gallery/imgs/hero-main-photo.jpeg',
 ]
+
+async function removeExcludedEntries(directory) {
+  for (const entry of await readdir(directory, { withFileTypes: true })) {
+    const entryPath = path.join(directory, entry.name)
+    const excluded =
+      entry.name === '.git' ||
+      entry.name === '.vercel' ||
+      entry.name.startsWith('.env') ||
+      entry.name.toLowerCase().endsWith('.zip')
+
+    if (excluded) {
+      await rm(entryPath, { recursive: true, force: true })
+    } else if (entry.isDirectory()) {
+      await removeExcludedEntries(entryPath)
+    }
+  }
+}
+
+await removeExcludedEntries(distRoot)
 
 for (const asset of supersededAssets) {
   const destination = path.resolve(distRoot, asset)

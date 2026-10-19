@@ -2,13 +2,14 @@ import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, CheckCircle2, MapPin, MessageCircle, Navigation, Phone } from 'lucide-react'
 import BUSINESS_CONFIG from '../config/businessConfig'
+import { getLocalBusinessSchema } from '../config/businessSchema'
 import SITE_ORIGIN from '../config/siteConfig'
 import useDocumentMeta from '../hooks/useDocumentMeta'
 import Reveal from '../components/Reveal'
 import { CtaBand, PageHero } from '../components/PageHero'
 
 const ORIGIN = SITE_ORIGIN
-const PATH = '/service-areas'
+const PATH = '/service-areas/'
 
 /**
  * Coverage page.
@@ -30,36 +31,7 @@ export function ServiceAreasPage() {
         description: serviceAreas.intro,
         url: `${ORIGIN}${PATH}`,
         serviceType: 'Crane rental and lifting contractor',
-        provider: {
-          '@type': 'LocalBusiness',
-          '@id': `${ORIGIN}/#business`,
-          name: brand.name,
-          telephone: contacts.primaryPhoneRaw,
-          email: contacts.email,
-          address: {
-            '@type': 'PostalAddress',
-            streetAddress: location.addressLine1,
-            addressLocality: location.city,
-            addressRegion: location.state,
-            postalCode: location.pincode,
-            addressCountry: location.countryCode,
-          },
-          location: {
-            '@type': 'Place',
-            name: 'KR Brothers Office',
-            address: {
-              '@type': 'PostalAddress',
-              addressLocality: location.office.addressLine1,
-              addressRegion: location.state,
-              addressCountry: location.countryCode,
-            },
-            geo: {
-              '@type': 'GeoCoordinates',
-              latitude: location.office.latitude,
-              longitude: location.office.longitude,
-            },
-          },
-        },
+        provider: getLocalBusinessSchema(),
         areaServed: operations.serviceRegions.map((area) => ({
           '@type': 'Place',
           name: area,
@@ -68,19 +40,17 @@ export function ServiceAreasPage() {
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: ORIGIN },
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${ORIGIN}/` },
           { '@type': 'ListItem', position: 2, name: 'Service Areas', item: `${ORIGIN}${PATH}` },
         ],
       },
     ],
-  }), [serviceAreas, brand, contacts, location, operations])
+  }), [serviceAreas, operations])
 
   useDocumentMeta({
     title: `Service Areas — Crane Hire Across Punjab & Himachal | ${brand.name}`,
     description:
       'Crane rental and lifting contractor serving Mukerian, Hoshiarpur, Pathankot, Jalandhar, Amritsar, Kangra and the wider Punjab and Himachal belt.',
-    keywords:
-      'crane hire Hoshiarpur, crane rental Mukerian, lifting contractor Pathankot, crane service Jalandhar, mobile crane Amritsar, crane hire Kangra Himachal, material handling contractor Punjab',
     canonical: PATH,
     jsonLd,
   })
@@ -144,19 +114,10 @@ export function ServiceAreasPage() {
                 <p className="flex items-start gap-3 text-[15px] leading-relaxed text-navy-700">
                   <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-amber-safety" aria-hidden="true" />
                   <span>
-                    <strong className="block text-navy-900">Workshop &amp; operating yard</strong>
+                    <strong className="block text-navy-900">Primary business location</strong>
                     {location.addressLine1}
                     <br />
                     {location.addressLine2}
-                  </span>
-                </p>
-                <p className="mt-4 flex items-start gap-3 text-[15px] leading-relaxed text-navy-700">
-                  <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-amber-safety" aria-hidden="true" />
-                  <span>
-                    <strong className="block text-navy-900">Office</strong>
-                    {location.office.addressLine1}
-                    <br />
-                    {location.office.addressLine2}
                   </span>
                 </p>
                 <p className="mt-4 flex items-start gap-3 text-[15px] leading-relaxed text-navy-700">
@@ -170,22 +131,13 @@ export function ServiceAreasPage() {
               </p>
 
               <a
-                href={location.office.directionsLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-dark mt-6 inline-flex"
-              >
-                <Navigation className="h-4 w-4" aria-hidden="true" />
-                Directions to Office
-              </a>
-              <a
                 href={location.directionsLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-outline mt-3 inline-flex sm:ml-2"
               >
                 <Navigation className="h-4 w-4" aria-hidden="true" />
-                Directions to Yard
+                Directions
               </a>
             </Reveal>
 
@@ -276,7 +228,7 @@ export function ServiceAreasPage() {
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Link to="/equipment" className="btn-outline inline-flex">
+            <Link to="/equipment/" className="btn-outline inline-flex">
               Equipment &amp; Fleet
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>

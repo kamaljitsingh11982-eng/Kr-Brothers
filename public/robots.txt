@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.krbrothers.com/sitemap.xml
+Sitemap: https://www.krbrothers.in/sitemap.xml

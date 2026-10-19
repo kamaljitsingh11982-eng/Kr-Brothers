@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import Hero from '../components/Hero'
 import StatsBar from '../components/StatsBar'
 import About from '../components/About'
@@ -7,10 +7,11 @@ import WhyChooseUs from '../components/WhyChooseUs'
 import Workflow from '../components/Workflow'
 import Applications from '../components/Applications'
 import Gallery from '../components/Gallery'
-import Testimonials from '../components/Testimonials'
 import Faq from '../components/Faq'
 import Contact from '../components/Contact'
 import BUSINESS_CONFIG from '../config/businessConfig'
+import SITE_ORIGIN from '../config/siteConfig'
+import { getLocalBusinessSchema } from '../config/businessSchema'
 import useDocumentMeta from '../hooks/useDocumentMeta'
 
 /**
@@ -21,15 +22,44 @@ import useDocumentMeta from '../hooks/useDocumentMeta'
  */
 export function Home() {
   const [preselectService, setPreselectService] = useState(null)
-  const { seo } = BUSINESS_CONFIG
+  const { brand, seo } = BUSINESS_CONFIG
+  const jsonLd = useMemo(() => {
+    const business = getLocalBusinessSchema()
+    const businessId = business['@id']
+    const websiteId = `${SITE_ORIGIN}/#website`
+
+    return {
+      '@context': 'https://schema.org',
+      '@graph': [
+        business,
+        {
+          '@type': 'WebSite',
+          '@id': websiteId,
+          url: `${SITE_ORIGIN}/`,
+          name: brand.name,
+          publisher: { '@id': businessId },
+          inLanguage: 'en-IN',
+        },
+        {
+          '@type': 'WebPage',
+          '@id': `${SITE_ORIGIN}/#webpage`,
+          url: `${SITE_ORIGIN}/`,
+          name: seo.title,
+          isPartOf: { '@id': websiteId },
+          about: { '@id': businessId },
+          inLanguage: 'en-IN',
+        },
+      ],
+    }
+  }, [brand.name, seo.title])
 
   // Restores the home page tags after a service page, since the router swaps the
   // document head in place and nothing would otherwise put them back.
   useDocumentMeta({
     title: seo.title,
     description: seo.description,
-    keywords: seo.keywords,
     canonical: '/',
+    jsonLd,
   })
 
   /** Smooth-scroll to the quote form and focus the first field. */
@@ -68,7 +98,6 @@ export function Home() {
       <Workflow />
       <Applications onRequestQuote={() => scrollToContact()} />
       <Gallery />
-      <Testimonials />
       <Faq />
       <Contact
         preselectService={preselectService}

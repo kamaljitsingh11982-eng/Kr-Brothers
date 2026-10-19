@@ -12,6 +12,7 @@ import {
   Weight,
 } from 'lucide-react'
 import BUSINESS_CONFIG from '../config/businessConfig'
+import { getLocalBusinessSchema } from '../config/businessSchema'
 import SERVICE_PAGES from '../config/servicePages'
 import SITE_ORIGIN from '../config/siteConfig'
 import useDocumentMeta from '../hooks/useDocumentMeta'
@@ -23,7 +24,7 @@ import NotFound from './NotFound'
 const ORIGIN = SITE_ORIGIN
 
 function servicePath(id) {
-  return `/services/${id}`
+  return `/services/${id}/`
 }
 
 /**
@@ -36,7 +37,7 @@ function servicePath(id) {
  * runs — hooks must not sit behind an early return.
  */
 function ServiceDetail({ service }) {
-  const { contacts, links, operations, location, brand } = BUSINESS_CONFIG
+  const { contacts, links, operations } = BUSINESS_CONFIG
   const pageCopy = SERVICE_PAGES[service.id]
   const Icon = getIcon(service.icon)
   const url = `${ORIGIN}${servicePath(service.id)}`
@@ -52,34 +53,7 @@ function ServiceDetail({ service }) {
         url,
         serviceType: title,
         provider: {
-          '@type': 'LocalBusiness',
-          '@id': `${ORIGIN}/#business`,
-          name: brand.name,
-          telephone: contacts.primaryPhoneRaw,
-          email: contacts.email,
-          address: {
-            '@type': 'PostalAddress',
-            streetAddress: location.addressLine1,
-            addressLocality: location.city,
-            addressRegion: location.state,
-            postalCode: location.pincode,
-            addressCountry: location.countryCode,
-          },
-          location: {
-            '@type': 'Place',
-            name: 'KR Brothers Office',
-            address: {
-              '@type': 'PostalAddress',
-              addressLocality: location.office.addressLine1,
-              addressRegion: location.state,
-              addressCountry: location.countryCode,
-            },
-            geo: {
-              '@type': 'GeoCoordinates',
-              latitude: location.office.latitude,
-              longitude: location.office.longitude,
-            },
-          },
+          ...getLocalBusinessSchema(),
           areaServed: operations.serviceRegions.slice(0, 6),
         },
         areaServed: operations.serviceRegions,
@@ -104,18 +78,17 @@ function ServiceDetail({ service }) {
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: ORIGIN },
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${ORIGIN}/` },
           { '@type': 'ListItem', position: 2, name: 'Services', item: `${ORIGIN}/#services` },
           { '@type': 'ListItem', position: 3, name: title, item: url },
         ],
       },
     ],
-  }), [title, summary, url, scope, pageCopy, brand, contacts, location, operations])
+  }), [title, summary, url, scope, pageCopy, operations])
 
   useDocumentMeta({
     title: pageCopy.metaTitle,
     description: pageCopy.metaDescription,
-    keywords: pageCopy.keywords?.join(', '),
     canonical: servicePath(service.id),
     jsonLd,
   })

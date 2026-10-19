@@ -11,7 +11,7 @@ export function NotFound() {
   useDocumentMeta({
     title: 'Page not found | KR Brothers',
     description: `The page you were looking for is not available. Browse our crane rental, lifting and material handling services or call ${contacts.primaryPhone}.`,
-    canonical: '/404',
+    canonical: false,
     robots: 'noindex, follow',
   })
 
@@ -69,7 +69,7 @@ export function NotFound() {
               return (
                 <li key={service.id}>
                   <Link
-                    to={`/services/${service.id}`}
+                    to={`/services/${service.id}/`}
                     className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] p-4 text-left transition-colors hover:border-amber-safety/50 hover:bg-amber-safety/10"
                   >
                     <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-white/[0.06] text-amber-safety">

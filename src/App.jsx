@@ -28,13 +28,13 @@ export default function App() {
       <Routes>
         <Route element={<SiteShell />}>
           <Route path="/" element={<Home />} />
-          <Route path="/services/:serviceId" element={<ServicePage />} />
+          <Route path="/services/:serviceId/" element={<ServicePage />} />
           {/* Keep these four paths in step with secondaryNavigation in the
               config, sitemap.xml and the prerender route list. */}
-          <Route path="/equipment" element={<EquipmentPage />} />
-          <Route path="/service-areas" element={<ServiceAreasPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/terms" element={<TermsPage />} />
+          <Route path="/equipment/" element={<EquipmentPage />} />
+          <Route path="/service-areas/" element={<ServiceAreasPage />} />
+          <Route path="/contact/" element={<ContactPage />} />
+          <Route path="/terms/" element={<TermsPage />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

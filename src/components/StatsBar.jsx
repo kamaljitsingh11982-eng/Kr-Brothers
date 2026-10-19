@@ -46,6 +46,7 @@ function StatItem({ stat }) {
  */
 export function StatsBar() {
   const { stats, brand } = BUSINESS_CONFIG
+  const visibleStats = stats.filter((stat) => !stat.hidden)
 
   return (
     <section
@@ -54,8 +55,8 @@ export function StatsBar() {
     >
       <div className="hazard-stripe opacity-100" />
       <div className="container-kr">
-        <div className="grid grid-cols-2 divide-slate-200 lg:grid-cols-4 lg:divide-x">
-          {stats.map((stat, i) => (
+        <div className="grid grid-cols-2 divide-slate-200 lg:grid-cols-2 lg:divide-x">
+          {visibleStats.map((stat, i) => (
             <Reveal
               as="div"
               key={stat.id}
