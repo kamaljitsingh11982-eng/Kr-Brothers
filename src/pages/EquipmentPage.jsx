@@ -43,10 +43,9 @@ export function EquipmentPage() {
           '@type': 'ListItem',
           position: i + 1,
           item: {
-            '@type': 'Product',
+            '@type': 'Thing',
             name: machine.name,
             description: machine.bestFor,
-            category: 'Crane and lifting equipment',
           },
         })),
       },
