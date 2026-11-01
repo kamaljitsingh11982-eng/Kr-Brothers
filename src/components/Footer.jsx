@@ -145,9 +145,9 @@ export function Footer() {
             <span className="mt-3 block h-0.5 w-10 bg-amber-safety" aria-hidden="true" />
 
             <ul className="mt-4 space-y-3.5">
-              <li className="flex items-start gap-2.5">
-                <Phone className="mt-0.5 h-4 w-4 shrink-0 text-amber-safety" aria-hidden="true" />
-                <span className="flex min-w-0 flex-col items-start gap-1">
+              <li className="grid grid-cols-[1rem_minmax(0,1fr)] items-start gap-2.5">
+                <Phone className="mt-3 h-4 w-4 text-amber-safety" aria-hidden="true" />
+                <span className="flex flex-col">
                   <a
                     href={contacts.primaryPhoneLink}
                     className="tap-sm max-w-full break-words text-sm font-semibold text-white hover:text-amber-safety"
@@ -163,8 +163,8 @@ export function Footer() {
                 </span>
               </li>
 
-              <li className="flex items-start gap-2.5">
-                <MessageCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-safety" aria-hidden="true" />
+              <li className="grid grid-cols-[1rem_minmax(0,1fr)] items-start gap-2.5">
+                <MessageCircle className="mt-3 h-4 w-4 text-amber-safety" aria-hidden="true" />
                 <a
                   href={links.whatsappEnquiry}
                   target="_blank"
@@ -175,15 +175,15 @@ export function Footer() {
                 </a>
               </li>
 
-              <li className="flex items-start gap-2.5">
-                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-amber-safety" aria-hidden="true" />
+              <li className="grid grid-cols-[1rem_minmax(0,1fr)] items-start gap-2.5">
+                <Mail className="mt-3 h-4 w-4 text-amber-safety" aria-hidden="true" />
                 <a href={contacts.mailtoLink} className="tap-sm break-all text-sm text-navy-300 hover:text-amber-safety">
                   {contacts.emailDisplay}
                 </a>
               </li>
 
-              <li className="flex items-start gap-2.5">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-amber-safety" aria-hidden="true" />
+              <li className="grid grid-cols-[1rem_minmax(0,1fr)] items-start gap-2.5">
+                <MapPin className="mt-3.5 h-4 w-4 text-amber-safety" aria-hidden="true" />
                 <a
                   href={location.mapsLink}
                   target="_blank"
