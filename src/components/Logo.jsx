@@ -2,7 +2,7 @@ import { getIcon } from '../lib/icons'
 import BUSINESS_CONFIG from '../config/businessConfig'
 
 /**
- * KR Brothers brand lockup — original equipment-inspired mark.
+ * KR Brothers brand lockup.
  * `tone`: 'light' renders for dark backgrounds, 'dark' for light backgrounds.
  */
 export function Logo({ tone = 'light', showText = true, showTagline = true, taglineClassName = '', className = '' }) {
@@ -11,23 +11,13 @@ export function Logo({ tone = 'light', showText = true, showTagline = true, tagl
 
   return (
     <span className={`inline-flex items-center gap-3 ${className}`}>
-      <span
-        className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl border-2 ${
-          light
-            ? 'border-amber-safety/60 bg-navy-950 text-amber-safety'
-            : 'border-navy-900 bg-navy-900 text-amber-safety'
-        }`}
-      >
-        <svg viewBox="0 0 32 32" className="h-6 w-6" aria-hidden="true" focusable="false">
-          <path
-            d="M16 3.5l1.55 5.2a2.6 2.6 0 0 0 1.63 1.63l5.2 1.55-5.2 1.55a2.6 2.6 0 0 0-1.63 1.63L16 20.3l-1.55-5.2A2.6 2.6 0 0 0 12.82 13.5L7.62 11.95l5.2-1.55a2.6 2.6 0 0 0 1.63-1.63z"
-            fill="currentColor"
-          />
-          <rect x="4" y="24" width="24" height="3.6" rx="1.8" fill="currentColor" />
-          <rect x="4" y="21" width="5.5" height="3" rx="1" fill="currentColor" opacity=".75" />
-          <rect x="22.5" y="21" width="5.5" height="3" rx="1" fill="currentColor" opacity=".75" />
-        </svg>
-      </span>
+      <img
+        src="/assets/gallery/imgs/kr-logo-128.webp"
+        alt=""
+        width="44"
+        height="44"
+        className="h-11 w-11 shrink-0 rounded-xl object-cover"
+      />
 
       {showText && (
         <span className="flex flex-col leading-none">

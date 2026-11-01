@@ -100,10 +100,12 @@ function GalleryLightbox({ items, index, isOpen, onClose, onPrev, onNext }) {
             {item.caption}
           </p>
           <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-navy-300">
-            <span className="inline-flex items-center gap-1.5">
-              <MapPin className="h-3.5 w-3.5 text-amber-safety" aria-hidden="true" />
-              {item.location}
-            </span>
+            {item.location && (
+              <span className="inline-flex items-center gap-1.5">
+                <MapPin className="h-3.5 w-3.5 text-amber-safety" aria-hidden="true" />
+                {item.location}
+              </span>
+            )}
             <span className="font-mono">
               Image {index + 1} of {items.length}
             </span>
@@ -235,16 +237,18 @@ export function Gallery() {
                 </span>
 
                 <span className="absolute inset-x-0 bottom-0 block p-4">
-                  <span className="inline-block rounded bg-amber-safety px-1.5 py-0.5 font-mono text-xs font-bold uppercase tracking-wider text-navy-900">
+                  <span className="inline-block rounded bg-amber-safety px-1.5 py-0.5 font-mono text-xs font-bold text-navy-900">
                     {item.categoryLabel}
                   </span>
                   <span className="mt-1.5 block font-display text-sm font-bold leading-tight tracking-tight text-white sm:text-base">
                     {item.title}
                   </span>
-                  <span className="mt-1 flex items-center gap-1 font-mono text-xs uppercase tracking-wider text-navy-300">
-                    <MapPin className="h-3 w-3" aria-hidden="true" />
-                    {item.location}
-                  </span>
+                  {item.location && (
+                    <span className="mt-1 flex items-center gap-1 font-mono text-xs uppercase tracking-wider text-navy-300">
+                      <MapPin className="h-3 w-3" aria-hidden="true" />
+                      {item.location}
+                    </span>
+                  )}
                 </span>
               </button>
             </Reveal>

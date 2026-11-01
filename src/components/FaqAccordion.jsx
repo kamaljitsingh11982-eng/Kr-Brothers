@@ -54,7 +54,7 @@ export function FaqAccordion({ items, headingLevel: Heading = 'h3', initiallyOpe
                     >
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    <span className="text-sm font-bold leading-snug tracking-wide text-navy-900">
+                    <span lang={faq.lang} className="text-sm font-bold leading-snug tracking-wide text-navy-900">
                       {faq.question}
                     </span>
                   </span>
@@ -82,7 +82,7 @@ export function FaqAccordion({ items, headingLevel: Heading = 'h3', initiallyOpe
                 }`}
               >
                 <div className="overflow-hidden">
-                  <p className="border-t border-slate-100 px-5 py-4 text-sm leading-relaxed text-navy-600 sm:px-6 sm:py-5 sm:pl-14">
+                  <p lang={faq.lang} className="border-t border-slate-100 px-5 py-4 text-sm leading-relaxed text-navy-600 sm:px-6 sm:py-5 sm:pl-14">
                     {faq.answer}
                   </p>
                 </div>

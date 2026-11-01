@@ -64,9 +64,6 @@
     @apply outline-none ring-2 ring-amber-safety ring-offset-2 ring-offset-white;
   }
 
-  ::selection {
-    @apply bg-amber-safety text-navy-900;
-  }
 }
 
 @layer components {
@@ -77,7 +74,6 @@
   /* ---- Buttons ---- */
   .btn,
   .btn-primary,
-  .btn-dark,
   .btn-outline,
   .btn-whatsapp {
     @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-bold uppercase tracking-wide
@@ -94,18 +90,6 @@
   }
 
   .btn-primary:active {
-    transform: translateY(1px);
-  }
-
-  .btn-dark {
-    @apply bg-navy-900 text-white;
-  }
-
-  .btn-dark:hover {
-    background-color: #334155;
-  }
-
-  .btn-dark:active {
     transform: translateY(1px);
   }
 

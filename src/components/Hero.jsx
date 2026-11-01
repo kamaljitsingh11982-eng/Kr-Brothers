@@ -84,7 +84,14 @@ function HeroBackgroundVideo() {
       playsInline
       preload="metadata"
       onPause={(event) => {
-        if (!event.currentTarget.ended) resumePlayback()
+        if (
+          !event.currentTarget.ended &&
+          document.visibilityState === 'visible' &&
+          !prefersReducedMotion &&
+          !saveData
+        ) {
+          resumePlayback()
+        }
       }}
       onError={() =>
         console.error(
@@ -131,7 +138,7 @@ export function Hero({ onRequestQuote }) {
               <span className="pointer-events-none absolute inline-flex h-full w-full rounded-full bg-amber-safety animate-pulse-ring" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-safety" />
             </span>
-            KR Brothers &nbsp;•&nbsp; Safe Lift Strong Support
+            KR Brothers
           </p>
 
           <h1
@@ -139,17 +146,20 @@ export function Hero({ onRequestQuote }) {
             className="mt-6 font-display text-kr-display font-extrabold leading-[1.06] tracking-tight text-white animate-fade-up sm:text-5xl lg:text-6xl xl:text-kr-display-xl"
             style={{ animationDelay: '80ms' }}
           >
-            Reliable Crane,{' '}
-            <span className="text-amber-safety">Lifting</span> &amp; Heavy Material
-            Handling Services
+            Crane &amp; Hydra on Rent in Mukerian
           </h1>
+
+          <p className="mt-3 font-semibold text-amber-safety">
+            Safe Lift Strong Support
+          </p>
 
           <p
             className="mt-5 max-w-2xl text-base leading-relaxed text-navy-200 sm:text-lg animate-fade-up"
             style={{ animationDelay: '160ms' }}
           >
-            Specialised in all types of lifting work, material handling and heavy
-            industrial construction across Mukerian, Hoshiarpur and Northern India.
+            Specialised in industrial lifting, material handling and
+            construction across Punjab and Himachal Pradesh, including Mukerian,
+            Talwara and nearby villages, as well as Hoshiarpur.
           </p>
 
           {/* CTAs */}
@@ -164,7 +174,7 @@ export function Hero({ onRequestQuote }) {
 
             <a
               href={contacts.primaryPhoneLink}
-              className="btn-dark btn-lg normal-case"
+              className="btn-outline btn-lg normal-case"
               aria-label={`Call now on ${contacts.primaryPhone}`}
             >
               <Phone className="h-4 w-4" aria-hidden="true" />

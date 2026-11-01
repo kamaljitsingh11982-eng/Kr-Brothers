@@ -11,15 +11,10 @@ import {
   X,
 } from 'lucide-react'
 import BUSINESS_CONFIG from '../config/businessConfig'
+import { getPreferredDateError, toLocalDateValue } from '../lib/quoteDate'
 import Reveal from './Reveal'
 import SocialLinks from './SocialLinks'
 import SectionHeading from './SectionHeading'
-
-// Earliest bookable date on the enquiry form. Fixed at load - a session that
-// straddles midnight should not silently shift the field out from under someone.
-const TODAY = new Date(
-  Date.now() - new Date().getTimezoneOffset() * 60000,
-).toISOString().slice(0, 10)
 
 const EMPTY = {
   name: '',
@@ -65,6 +60,9 @@ function validate(values) {
   } else if (values.message.trim().length < 10) {
     errors.message = 'Please add a little more detail (10+ characters).'
   }
+
+  const dateError = getPreferredDateError(values.date)
+  if (dateError) errors.date = dateError
 
   return errors
 }
@@ -118,11 +116,10 @@ export function Contact({ preselectService, onPreselectHandled }) {
     if (!preselectService) return
     setValues((v) => ({ ...v, service: preselectService }))
     setErrors((e) => ({ ...e, service: undefined }))
-    const timeoutId = setTimeout(
-      () => formRef.current?.querySelector('[name="service"]')?.focus(),
-      80,
-    )
-    onPreselectHandled?.()
+    const timeoutId = setTimeout(() => {
+      formRef.current?.querySelector('[name="service"]')?.focus()
+      onPreselectHandled?.()
+    }, 80)
     return () => clearTimeout(timeoutId)
   }, [preselectService, onPreselectHandled])
 
@@ -278,8 +275,8 @@ export function Contact({ preselectService, onPreselectHandled }) {
                       <Phone className="h-5 w-5" aria-hidden="true" />
                     </span>
                     <span className="min-w-0">
-                      <span className="block font-mono text-xs font-bold uppercase tracking-wider text-navy-300">
-                        Call — Secondary / WhatsApp
+                      <span className="block font-mono text-xs font-bold normal-case tracking-normal text-navy-300">
+                        Secondary line · also on WhatsApp
                       </span>
                       <span className="mt-0.5 block font-display text-lg font-bold text-white transition-colors group-hover:text-amber-safety">
                         {contacts.secondaryPhone}
@@ -535,10 +532,11 @@ export function Contact({ preselectService, onPreselectHandled }) {
                         id="krb-date"
                         name="date"
                         type="date"
-                        min={TODAY}
+                        min={toLocalDateValue()}
                         value={values.date}
                         onChange={handleChange}
                         hint="Optional — helps us plan machine availability."
+                        error={touched.date ? errors.date : undefined}
                       />
 
                       <div className="sm:col-span-2">
@@ -550,7 +548,7 @@ export function Contact({ preselectService, onPreselectHandled }) {
                           name="message"
                           rows={5}
                           required
-                          placeholder="e.g. Need a 25-tonne Hydra for one day to unload 8 T steel sections at our yard. Approx. 20 lifts, ground is compacted hardstand."
+                          placeholder="e.g. Need a 16-tonne Hydra for one day to unload 8 T steel sections at our yard. Approx. 20 lifts, ground is compacted hardstand."
                           value={values.message}
                           onChange={handleChange}
                           onBlur={handleBlur}

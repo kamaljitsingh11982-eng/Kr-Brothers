@@ -63,15 +63,15 @@ export function WhyChooseUs() {
               aria-hidden="true"
             />
             <div className="relative mx-auto max-w-2xl">
-              <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-amber-safety">
+              <p className="font-mono text-xs font-bold tracking-wide text-amber-safety">
                 {brand.tagline}
               </p>
-              <p className="mt-3 font-display text-2xl font-extrabold uppercase leading-tight tracking-tight text-white sm:text-3xl">
+              <p className="mt-3 font-display text-2xl font-extrabold leading-tight tracking-tight text-white sm:text-3xl">
                 {brand.slogan}
               </p>
               <p className="mt-3 text-sm leading-relaxed text-navy-300">
                 Based in {businessConfigLocation()} — close enough to reach you
-                the same day, experienced enough to handle the heavy work.
+                the same day, experienced enough to handle planned lifting work.
               </p>
             </div>
           </div>

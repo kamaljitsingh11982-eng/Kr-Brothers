@@ -2,7 +2,7 @@
 // phone number or address here and the whole site picks it up.
 //
 // Icon names are strings and are resolved to Lucide React components through
-// `ICON_MAP` in `src/components/icons.js`. Add an entry to ICON_MAP when you
+// `ICON_MAP` in `src/lib/icons.js`. Add an entry to ICON_MAP when you
 // introduce a new icon name so this file stays framework-free.
 
 export const BUSINESS_CONFIG = {
@@ -13,20 +13,20 @@ export const BUSINESS_CONFIG = {
     nameUpper: 'KR BROTHERS',
     legalName: 'KR Brothers',
     tagline: 'Safe Lift Strong Support',
-    slogan: 'Your Trust Our Service',
-    taglineWithSlogan: 'Safe Lift Strong Support — Your Trust Our Service',
+    slogan: 'Your trust, our service',
+    taglineWithSlogan: 'Safe Lift Strong Support — Your trust, our service',
     subTagline:
-      'All Types of Lifting Work, Material Handling & Construction Work',
+      'Crane on rent and hydra on rent for lifting, material handling and construction work.',
     shortDescription:
-      'A Mukerian-based lifting and material-handling contractor supporting highway, industrial and construction projects across Punjab and Himachal with certified operators and a well-maintained crane fleet.',
+      'A Mukerian-based contractor offering crane on rent and hydra on rent for lifting, material handling and construction across Punjab and Himachal, with certified operators and a maintained fleet.',
     foundedYear: 2015,
     established: 'Established 2015',
   },
 
-  // TODO(owner): PRIMARY_ADDRESS_NOTE — confirm the primary address and coordinates before launch.
+  // Confirm the primary address and coordinates before launch.
   location: {
     addressLine1: 'Vill. Khizarpur (Hajipur), Teh. Mukerian',
-    addressLine2: 'Distt. Hoshiarpur, Punjab, India',
+    addressLine2: 'Distt. Hoshiarpur, Punjab 144221, India',
     get addressShort() {
       return `${BUSINESS_CONFIG.location.addressLine1}, ${BUSINESS_CONFIG.location.addressLine2}`
     },
@@ -37,9 +37,9 @@ export const BUSINESS_CONFIG = {
     stateCode: 'PB',
     country: 'India',
     countryCode: 'IN',
-    pincode: '146024',
-    latitude: 32.0456,
-    longitude: 75.6291,
+    pincode: '144221',
+    latitude: 31.9501457,
+    longitude: 75.7253036,
     get mapQuery() {
       return `${BUSINESS_CONFIG.location.latitude},${BUSINESS_CONFIG.location.longitude}`
     },
@@ -125,7 +125,7 @@ get whatsappService() {
     hours: '24 Hours — All 7 Days',
     hoursShort: 'Open 24x7',
     hoursIcon: 'Clock',
-    responseTime: 'Same-day mobilisation across Hajipur, Dasuya, Talwara, Mukerian & Hoshiarpur',
+    responseTime: 'Mobilisation timing is confirmed for each site based on route, machine and crew availability',
     serviceRegions: [
       'Hajipur',
       'Dasuya',
@@ -140,9 +140,7 @@ get whatsappService() {
       'Phillaur',
       'Jalandhar',
       'Amritsar',
-      'Pathankot (K/B Marg)',
       'Kangra, Himachal Pradesh',
-      'Jammu & Kathua Corridor',
     ],
     primaryRegionLabel:
       'Hajipur, Dasuya, Talwara, Mukerian, Hoshiarpur and surrounding Punjab / Himachal industrial belts',
@@ -215,17 +213,18 @@ get whatsappService() {
     {
       id: 'crane-rental-fleet-hire',
       title: 'Crane Rental & Fleet Hire',
+      shortTitle: 'Fleet Hire',
       icon: 'Forklift',
       short:
-        'Flexible mobile and hydraulic crane hire on hourly, shift-based, daily or monthly rental plans.',
+        'Flexible mobile and hydraulic crane rental on hourly, shift-based, daily or monthly plans.',
       summary:
-        'Full-fleet rental for contractors who need a machine on site without owning one — with operator, rigging crew and fuel included.',
-      capacity: '12 T – 100 T class',
+        'Ask about crane hire and mobile crane on rent options. Crane rental charges and the crane per hour rate are discussed after reviewing the machine, hours and site distance.',
+      capacity: '0 – 16 T class',
       scope: [
-        'Hydraulic mobile, rough-terrain and truck-mounted crane rental.',
+        'Hydraulic mobile and truck-mounted crane rental.',
         'Hourly, per-shift, per-day or monthly rental arrangements.',
         'Operator and certified rigger supplied as a complete package.',
-        'Multiple machines deployed for single large lifting campaigns.',
+        'Multiple machines deployed for coordinated lifting campaigns.',
         'Mobilisation to any site across Punjab and Himachal Pradesh.',
       ],
       safety: [
@@ -244,13 +243,14 @@ get whatsappService() {
     },
     {
       id: 'hydra-crane-services',
-      title: 'Hydra Crane Services — Material Handling & Yard Work',
+      title: 'Hydra Crane Services & Yard Handling',
+      shortTitle: 'Hydra Yard Services',
       icon: 'MoveUpRight',
       short:
-        'High-reach Hydra cranes for yard stacking, truck loading and confined-site material movement.',
+        'Hydra cranes within the 0–16 T class for yard stacking, truck loading and confined-site material movement.',
       summary:
-        'Hydra cranes give reach and stability in congested yards where a truck-mounted crane cannot reach or manoeuvre.',
-      capacity: '12 T – 25 T class with long reach',
+        'The ACE Hydra 16XW supports yard handling; ask about hydra on rent for truck loading and the hydra crane per hour rate based on job details. The Hydra fleet is within the 0–16 T class, subject to the machine load chart.',
+      capacity: '0 – 16 T class',
       scope: [
         'Yard stacking, re-stacking and stockpile management.',
         'Truck and trailer loading / unloading at site.',
@@ -274,19 +274,20 @@ get whatsappService() {
     },
     {
       id: 'heavy-duty-mobile-cranes',
-      title: 'Heavy-Duty Hydraulic Mobile Cranes',
+      title: 'Mobile Crane Services',
+      shortTitle: 'Mobile Crane Services',
       icon: 'Truck',
       short:
-        'High-tonnage hydraulic mobile cranes for plant equipment, structural steel and heavy machinery lifts.',
+        'Mobile crane hire for machinery, steel members and planned lifts within the 0–16 T fleet class.',
       summary:
-        'Modern hydraulic truck and rough-terrain cranes capable of handling heavy machinery, girders and multi-fork weights at radius.',
-      capacity: '25 T – 100 T class',
+        'Share the load, radius and site details so we can check whether a mobile crane in our 0–16 T fleet class suits the job.',
+      capacity: '0 – 16 T class',
       scope: [
-        'Heavy machinery and plant equipment handling.',
-        'Structural steel, girders, trusses and precast lifting.',
+        'Machinery and plant equipment handling within the selected machine’s load chart.',
+        'Steel members, girders, trusses and precast lifting where the load chart and site conditions allow.',
         'Pick-and-carry operations across long-radius lifts.',
         'Low-bed trailer coordination for dispatch of machinery.',
-        'Rough-terrain and quarry-condition deployment.',
+        'Site access and ground-condition review before mobilisation.',
       ],
       safety: [
         'Pre-lift plan reviewed with site engineer and client.',
@@ -296,21 +297,22 @@ get whatsappService() {
       ],
       applications: [
         'Power plant & transmission',
-        'Heavy fabrication shops',
+        'Fabrication shops',
         'Bridge segment handling',
         'Plant relocation projects',
       ],
-      bestFor: 'High-value, high-tonnage lifts that demand precision planning.',
+      bestFor: 'Planned mobile crane lifts that require careful load-chart and site checks.',
     },
     {
       id: 'construction-site-lifting-erection',
       title: 'Construction Site Lifting & Erection',
+      shortTitle: 'Site Lifting & Erection',
       icon: 'Building2',
       short:
-        'Complete site lifting solutions from steel erection to slab and precast element placement.',
+        'Construction site crane hire for steel erection and precast slab placement at live sites.',
       summary:
-        'We handle the lifting schedule, equipment sequencing and safe placement of structural and precast elements on live construction sites.',
-      capacity: 'As per site load chart',
+        'Construction site crane hire supports projects needing a steel erection crane or precast slab lifting crane. Share the lift sequence and site details to discuss the plan.',
+      capacity: '0 – 16 T class',
       scope: [
         'Column, beam, slab and precast element lifting.',
         'Stanchion and truss erection support.',
@@ -334,13 +336,14 @@ get whatsappService() {
     },
     {
       id: 'plant-relocation-loading-unloading',
-      title: 'Industrial Plant Equipment Relocation & Loading / Unloading',
+      title: 'Plant Relocation & Loading / Unloading',
+      shortTitle: 'Plant Relocation',
       icon: 'Factory',
       short:
-        'Complete in-plant shifting, unloading and positioning of heavy equipment without disturbing production.',
+        'Plant relocation crane support for loading unloading work and truck unloading at industrial sites.',
       summary:
-        'Internal plant moves and external unloading handled with shut-down planning so your line restarts on schedule.',
-      capacity: 'Up to 100 T class',
+        'A plant relocation crane can support a loading unloading crane requirement, including truck unloading crane enquiries. Share the route, load and site access details.',
+      capacity: '0 – 16 T class',
       scope: [
         'Truck unloading and offloading at site.',
         'In-plant relocation of presses, furnaces and CNC machines.',
@@ -364,13 +367,14 @@ get whatsappService() {
     },
     {
       id: 'structural-steel-girder-positioning',
-      title: 'Structural Steel & Girder Positioning',
+      title: 'Girder Lifting & Structural Steel Positioning',
+      shortTitle: 'Girder Positioning',
       icon: 'Ruler',
       short:
-        'Precise placement of steel columns, girders, roof trusses and bridge elements.',
+        'Girder lifting crane support for roof truss erection and bridge girder positioning.',
       summary:
-        'Structural steel handled with tag lines, guides and engineered slinging so members land exactly where the drawings say.',
-      capacity: 'Girders up to 10+ T per member',
+        'Ask about a girder lifting crane, roof truss erection crane or bridge girder crane for structural positioning. Share the member weight, radius and site details.',
+      capacity: '0 – 16 T class',
       scope: [
         'Roof truss and gantry girder erection.',
         'Bridge girders and deck segments placement.',
@@ -394,13 +398,14 @@ get whatsappService() {
     },
     {
       id: 'factory-machinery-shifting',
-      title: 'Factory Machinery Shifting & Foundation Loading',
+      title: 'Factory Machinery Shifting & Lifting',
+      shortTitle: 'Factory Machinery Moves',
       icon: 'Wrench',
       short:
-        'Careful machinery shifting between shops, loading on trailers and final foundation setting.',
+        'Factory machinery shifting crane support for transformers and other industrial equipment.',
       summary:
-        'Machine-to-machine shifting handled by riggers who understand the fragility of industrial equipment.',
-      capacity: 'CNC, presses, transformers, kilns',
+        'For factory machinery shifting, share lifting points, route and site access; ask about a transformer shifting crane for the move.',
+      capacity: '0 – 16 T class',
       scope: [
         'Machine shifting shop-to-shop within the plant.',
         'Loading and unloading of transformers, presses and CNC units.',
@@ -424,13 +429,14 @@ get whatsappService() {
     },
     {
       id: 'breakdown-emergency-support',
-      title: '24/7 Breakdown & Emergency Recovery Support',
+      title: 'Breakdown & Emergency Recovery Support',
+      shortTitle: 'Breakdown Recovery',
       icon: 'Siren',
       short:
-        'Round-the-clock assistance for breakdowns, hydraulic failures, tipper or lorry recovery and stuck-load situations.',
+        'Breakdown crane service and truck recovery crane support for hydraulic failures and stuck-load situations.',
       summary:
-        'When a machine or a loaded vehicle fails on site or on the road, we mobilise recovery cranes and Hydra units quickly.',
-      capacity: 'Hydra 12–25 T and heavy cranes',
+        'Call about 24x7 crane service or emergency crane service for a breakdown; response depends on location and machine availability.',
+      capacity: '0 – 16 T class',
       scope: [
         'Crane breakdown assistance and hook-block recovery.',
         'Overturned or stuck lorry and tipper recovery.',
@@ -468,7 +474,7 @@ get whatsappService() {
       title: 'Modern, Well-Maintained Crane Fleet',
       icon: 'Wrench',
       description:
-        'Hydra, truck-mounted and rough-terrain cranes serviced on schedule with documented fitness and load-test records.',
+        'Hydra and truck-mounted cranes serviced on schedule with documented fitness and load-test records.',
     },
     {
       id: 'safety-protocols',
@@ -548,7 +554,7 @@ get whatsappService() {
       title: 'Industrial Factories & Manufacturing Units',
       icon: 'Factory',
       description:
-        'Machine installation, plant relocation, unit-wise shifting and heavy component handling inside running production lines.',
+        'Machine installation, plant relocation, unit-wise shifting and component handling inside running production lines, subject to the selected machine’s load chart.',
       accent: 'steel',
     },
     {
@@ -561,7 +567,7 @@ get whatsappService() {
     },
     {
       id: 'machinery-unloading',
-      title: 'Heavy Machinery Unloading & Plant Erection',
+      title: 'Machinery Unloading & Plant Erection',
       icon: 'Truck',
       description:
         'Unloading presses, transformers, CNC units and production lines from trailers, then positioning them on foundations.',
@@ -595,153 +601,139 @@ get whatsappService() {
       id: 'g1',
       category: 'cranes',
       categoryLabel: 'Cranes',
-      title: 'Hydraulic Mobile Crane — Pick & Carry',
+      title: 'Orange ACE crane with extended boom at an open worksite',
       caption:
-        'Long-reach hydraulic crane configured for pick-and-carry duty with counterweights and full cab controls.',
-      location: 'Mukerian Industrial Belt',
-      image: '/assets/gallery/optimized/gallery-image-1.webp',
+        'An orange ACE crane stands on uneven ground with its boom extended and crew nearby.',
+      image: '/assets/gallery/optimized/ace-crane-open-worksite.webp',
       art: 'mobile-crane',
     },
     {
       id: 'g2',
       category: 'cranes',
       categoryLabel: 'Cranes',
-      title: 'Hydra Crane Boom Extension',
+      title: 'ACE Hydra 16XW crane parked with boom extended in paved yard',
       caption:
-        'Telescopic Hydra boom raised to working height with stabilisers fully deployed and mats in place.',
-      location: 'Hajipur, Hoshiarpur',
-      image: '/assets/gallery/optimized/gallery-image-2.webp',
+        'An orange ACE Hydra 16XW stands in a paved yard with its boom and hook blocks visible.',
+      image: '/assets/gallery/optimized/ace-hydra-16xw-crane-paved-yard.webp',
       art: 'hydra-crane',
     },
     {
       id: 'g15',
       category: 'cranes',
       categoryLabel: 'Cranes',
-      title: 'ACE Crane Lifting Concrete Slabs',
+      title: 'Orange ACE crane lifting concrete slab with hook and slings',
       caption:
-        'ACE crane lifting concrete slabs at a construction site.',
-      location: 'Construction Site',
-      image: '/assets/gallery/optimized/img3.webp',
+        'An orange ACE crane uses its hook and slings to lift a concrete slab.',
+      image: '/assets/gallery/optimized/ace-crane-lifting-concrete-slab.webp',
       art: 'mobile-crane',
     },
     {
       id: 'g16',
       category: 'cranes',
       categoryLabel: 'Cranes',
-      title: 'ACE Crane Lifting Concrete Slab at Sunrise',
+      title: 'Crane holding concrete slab beside unfinished building as workers guide lift',
       caption:
-        'ACE crane handling a concrete slab during a sunrise construction shift.',
-      location: 'Construction Site',
-      image: '/assets/gallery/optimized/img4.webp',
+        'Workers guide a crane holding a concrete slab beside an unfinished structure.',
+      image: '/assets/gallery/optimized/ace-crane-concrete-slab-building-site.webp',
       art: 'mobile-crane',
     },
     {
       id: 'g17',
       category: 'cranes',
       categoryLabel: 'Cranes',
-      title: 'Orange ACE Crane in Industrial Yard',
+      title: 'ACE Hydra 16XW crane parked beside covered materials in paved yard',
       caption:
-        'Orange ACE crane positioned for lifting work in an industrial yard.',
-      location: 'Industrial Yard',
-      image: '/assets/gallery/optimized/img5.webp',
+        'An orange ACE Hydra 16XW is parked beside materials covered with blue tarpaulins.',
+      image: '/assets/gallery/optimized/ace-hydra-16xw-crane-yard-materials.webp',
       art: 'mobile-crane',
     },
     {
       id: 'g18',
       category: 'cranes',
       categoryLabel: 'Cranes',
-      title: 'ACE Crane at Work',
-      caption: 'ACE crane ready for lifting work at an active site.',
-      location: 'Construction Site',
-      image: '/assets/gallery/optimized/img6.webp',
+      title: 'Orange ACE crane positioned on paved area with boom and hooks',
+      caption: 'An orange ACE crane stands on the paved area with its boom and hooks visible.',
+      image: '/assets/gallery/optimized/ace-crane-open-yard.webp',
       art: 'mobile-crane',
     },
     {
       id: 'g19',
       category: 'construction-sites',
       categoryLabel: 'Construction Sites',
-      title: 'ACE Crane at Construction Site',
+      title: 'Workers guide orange crane work platform beneath an indoor ceiling',
       caption:
-        'ACE crane positioned beside an active construction project.',
-      location: 'Construction Site',
-      image: '/assets/gallery/optimized/img7.webp',
+        'Workers guide an orange crane work platform beneath a ceiling inside a building.',
+      image: '/assets/gallery/optimized/crane-crew-positioning-indoor-platform.webp',
       art: 'mobile-crane',
     },
     {
       id: 'g20',
       category: 'cranes',
       categoryLabel: 'Cranes',
-      title: 'ACE Crane Fleet at Work',
+      title: 'Orange ACE Hydra crane beside pallet loads under blue tarpaulins',
       caption:
-        'ACE crane fleet preparing for lifting work at an industrial site.',
-      location: 'Industrial Site',
-      image: '/assets/gallery/optimized/img8.webp',
+        'An orange ACE Hydra crane is beside pallet-sized loads covered with blue tarpaulins.',
+      image: '/assets/gallery/optimized/ace-hydra-crane-covered-yard-loads.webp',
       art: 'mobile-crane',
     },
     {
       id: 'g21',
       category: 'cranes',
       categoryLabel: 'Cranes',
-      title: 'ACE 16XW Crane — KR Brothers',
+      title: 'Hydra crane lifting orange work platform indoors as workers guide positioning',
       caption:
-        'KR Brothers ACE 16XW crane prepared for on-site lifting operations.',
-      location: 'KR Brothers Site',
-      image: '/assets/gallery/optimized/img9.webp',
+        'A crane hook supports an orange work platform indoors while workers guide its position.',
+      image: '/assets/gallery/optimized/hydra-crane-lifting-indoor-platform.webp',
       art: 'mobile-crane',
     },
     {
       id: 'g22',
       category: 'construction-sites',
       categoryLabel: 'Construction Sites',
-      title: 'Crane at Building Site',
+      title: 'Workers guide suspended orange work platform beneath indoor crane boom',
       caption:
-        'KR Brothers crane alongside a multi-storey building during site work.',
-      location: 'Construction Site',
-      image: '/assets/gallery/optimized/img10.webp',
+        'Workers stand beside a suspended orange work platform beneath an indoor crane boom.',
+      image: '/assets/gallery/optimized/workers-guiding-indoor-crane-platform.webp',
       art: 'mobile-crane',
     },
     {
       id: 'g23',
       category: 'construction-sites',
       categoryLabel: 'Construction Sites',
-      title: 'Crane Lifting Work at Building',
+      title: 'Orange crane positioned at decorated building entrance with boom extending inside',
       caption:
-        'On-site crane lifting work carried out beside a multi-storey building.',
-      location: 'Construction Site',
-      image: '/assets/gallery/optimized/img11.webp',
+        'An orange crane is at a decorated building entrance with its boom extending inside.',
+      image: '/assets/gallery/optimized/crane-at-building-entrance.webp',
       art: 'mobile-crane',
     },
     {
       id: 'g24',
       category: 'construction-sites',
       categoryLabel: 'Construction Sites',
-      title: 'Crane Operations at Construction Site',
+      title: 'Two orange ACE Hydra cranes beside large building with site staff',
       caption:
-        'KR Brothers crane supporting lifting work at an active construction site.',
-      location: 'Construction Site',
-      image: '/assets/gallery/optimized/img12.webp',
+        'Two orange ACE Hydra cranes are positioned beside a large building as staff coordinate nearby.',
+      image: '/assets/gallery/optimized/two-ace-hydra-cranes-outside-building.webp',
       art: 'mobile-crane',
     },
     {
       id: 'g25',
       category: 'construction-sites',
       categoryLabel: 'Construction Sites',
-      title: 'Crane Team on Site',
+      title: 'Workers guide orange crane platform indoors during careful positioning',
       caption:
-        'Crane operators and site staff coordinating an on-site lift.',
-      location: 'Construction Site',
-      image: '/assets/gallery/optimized/img13.webp',
+        'Several workers guide an orange crane platform inside a building.',
+      image: '/assets/gallery/optimized/crane-crew-guiding-indoor-platform.webp',
       art: 'mobile-crane',
     },
     {
       id: 'g26',
       category: 'cranes',
       categoryLabel: 'Cranes',
-      title: 'ACE Crane on Site',
+      title: 'Two orange ACE cranes parked outside building with site staff',
       caption:
-        'ACE crane positioned for lifting operations at a construction site.',
-      location: 'Construction Site',
-      image: '/assets/gallery/optimized/img14.webp',
+        'Two orange ACE cranes are parked beside a building while site staff stand nearby.',
+      image: '/assets/gallery/optimized/ace-cranes-building-worksite.webp',
       art: 'mobile-crane',
     },
   ],
@@ -758,7 +750,7 @@ get whatsappService() {
       id: 'f1',
       question: 'What crane capacities and types does KR Brothers operate?',
       answer:
-        'Our fleet covers Hydra cranes, hydraulic mobile cranes, truck-mounted and rough-terrain cranes, typically ranging from 12 tonnes up to 100 tonnes. We also arrange higher-capacity or specialist equipment through our equipment network when a job demands it. The exact machine is always chosen after checking the load weight, working radius, boom length and ground conditions — because picking the wrong class of crane is what causes most lifting failures on site.',
+        'Our Hydra, hydraulic mobile and truck-mounted crane fleet is from 0 up to 16 tonnes. If a job needs more than that, we will tell you plainly before you book. The safe working capacity for each lift depends on the load weight, working radius, boom length and ground conditions and must be checked against the selected machine’s load chart.',
     },
     {
       id: 'f2',
@@ -770,7 +762,7 @@ get whatsappService() {
       id: 'f3',
       question: 'How quickly can equipment be mobilised for emergency lifting or breakdown jobs?',
       answer:
-        'For emergencies inside the Hoshiarpur and Mukerian belt we can usually have a Hydra or mobile crane rolling within 1 to 3 hours of your call, subject to machine availability and road conditions. For planned jobs we ask for at least 24 to 48 hours notice so we can run the site assessment and keep the scheduled slot for you. Night, Sunday and festival shifts are available because site breakdowns rarely happen at convenient hours.',
+        'Mobilisation timing depends on the exact site, route, machine and crew availability, and road conditions. Share your site pin and requested date so the team can confirm what can be arranged before you plan around a machine. For planned jobs, send the load and site details early so the team can discuss assessment and scheduling. Night, Sunday and festival shifts are subject to confirmation.',
     },
     {
       id: 'f4',
@@ -783,7 +775,7 @@ get whatsappService() {
       question: 'How can I get an instant quote?',
       get answer() {
         const { primaryPhone, whatsappNumber } = BUSINESS_CONFIG.contacts
-        return `Call us on ${primaryPhone}, send a WhatsApp message to ${whatsappNumber} with your load weight, site location and duration, or fill the Get a Quote form on this page. Share four things and we can usually quote back within the hour: the approximate load in tonnes, the working radius, the number of lifts or shifts needed, and the site location. If anything is not clear, our engineer will visit and assess the site before we finalise the rate.`
+        return `Call us on ${primaryPhone}, send a WhatsApp message to ${whatsappNumber} with your load weight, site location and duration, or fill the Get a Quote form on this page. Share four things to help the team assess your enquiry: the approximate load in tonnes, the working radius, the number of lifts or shifts needed, and the site location. If anything is not clear, the team can discuss a site assessment before finalising the rate.`
       },
     },
     {
@@ -819,15 +811,15 @@ get whatsappService() {
    * -------------------------------------------------------------------- */
   equipment: {
     intro:
-      'Our fleet is chosen for the work we actually do: hydra and truck-mounted machines for yard and shed work, rough-terrain and heavy mobile cranes for open sites and long reaches. Every machine is serviced on schedule with documented fitness and load-test records.',
+      'Our fleet is chosen for the work we actually do: Hydra and truck-mounted machines for yard, shed and site work within the 0–16 T class. Every machine is serviced on schedule with documented fitness and load-test records.',
     disclaimer:
       'Capacities below are class ranges, not a booking confirmation. Rated capacity falls with boom extension, radius and counterweight configuration, so the machine for your job is confirmed against its load chart after a site or load check.',
     machines: [
       {
-        id: 'hydra-12-25',
-        name: 'Hydra Cranes — 12 T to 25 T',
+        id: 'hydra-0-16',
+        name: 'Hydra Cranes — 0 T to 16 T',
         icon: 'Construction',
-        capacity: '12 T - 25 T class',
+        capacity: '0 T - 16 T class',
         bestFor: 'Yard movements, shed and roof work, plant loading, tight urban sites',
         notes: [
           'Slewing and luffing lets the machine work in confined yards without a large outrigger spread.',
@@ -838,40 +830,18 @@ get whatsappService() {
         id: 'truck-mounted',
         name: 'Truck-Mounted Cranes',
         icon: 'Truck',
-        capacity: 'Within the 12 T - 25 T working class',
-        bestFor: 'Multi-stop jobs, highway and corridor work, sites we cannot stage a crawler on',
+        capacity: '0 T - 16 T class',
+        bestFor: 'Multi-stop jobs and highway or corridor work',
         notes: [
           'Mobilises between sites without a separate transport booking.',
-          'Useful where site access is narrow and a large machine cannot be assembled on site.',
-        ],
-      },
-      {
-        id: 'rough-terrain',
-        name: 'Rough-Terrain Cranes',
-        icon: 'Route',
-        capacity: '25 T class and above',
-        bestFor: 'Uneven ground, mud, canal-side and green-field construction sites',
-        notes: [
-          'Wide stabiliser base and high ground clearance for unprepared ground.',
-          'Set up on prepared pads where soft soil would rule out a truck-mounted machine.',
-        ],
-      },
-      {
-        id: 'heavy-mobile',
-        name: 'Heavy Mobile Cranes — 25 T to 100 T Class',
-        icon: 'Construction',
-        capacity: '25 T - 100 T class',
-        bestFor: 'Heavy structural steel, plant relocation, girder and column positioning, high-reach lifts',
-        notes: [
-          'The correct machine for girders, heavy columns and full plant or machinery moves.',
-          'Always accompanied by a rigging plan and a briefed signal crew.',
+          'Useful where narrow site access limits crane positioning.',
         ],
       },
       {
         id: 'rigging-gear',
         name: 'Rigging Gear & Site Equipment',
         icon: 'Wrench',
-        capacity: 'Matched to the load being lifted',
+        capacity: 'Matched to the selected crane’s load chart',
         bestFor: 'Tag lines, slings, shackles, spreader beams and lifting accessories',
         notes: [
           'Slings and shackles replaced on inspection, not on failure.',
@@ -913,27 +883,29 @@ get whatsappService() {
    * -------------------------------------------------------------------- */
   serviceAreas: {
     intro:
-      'Our base sits close to the NH-44 / Mukerian corridor, so most of Punjab and the adjoining Himachal belt is within a short mobilisation. Areas below are grouped by realistic drive time from the yard.',
+      'KR Brothers is based in Khizarpur (Hajipur), Tehsil Mukerian. Local service enquiries focus on Mukerian, Dasuya, Talwara and nearby villages. Share the site pin, lift details and date to confirm the route, machine and crew availability. Coverage depends on the actual journey and job, not a guaranteed radius.',
     groups: [
       {
         id: 'core',
-        title: 'Core Area — same-day mobilisation',
-        lead: 'Our home patch. These are the areas we reach fastest and can usually staff the same day.',
+        title: 'Local Service Belt',
+        lead: 'Our local focus is the Khizarpur (Hajipur), Mukerian, Dasuya and Talwara area. Nearby village enquiries are welcome; share the exact site pin so the team can confirm practical mobilisation.',
         areas: [
+          'Khizarpur / Hajipur',
           'Mukerian',
-          'Hajipur / Khizarpur',
-          'Hoshiarpur',
           'Dasuya',
-          'Garhshankar',
-          'Mandi Adamgarh',
-          'Shamirpur',
+          'Talwara',
+          'Nearby villages around Mukerian, Dasuya and Talwara',
         ],
       },
       {
         id: 'nearby',
-        title: 'Nearby Districts — a few hours out',
-        lead: 'Regular work in these districts, planned around crew and machine availability.',
+        title: 'Other Listed Towns — confirm first',
+        lead: 'For locations outside the local service belt, call with the site pin and planned date to confirm travel, machine and crew availability.',
         areas: [
+          'Hoshiarpur',
+          'Garhshankar',
+          'Mandi Adamgarh',
+          'Shamirpur',
           'Pathankot',
           'Sultanpur Lodhi',
           'Phillaur',
@@ -944,10 +916,9 @@ get whatsappService() {
       },
       {
         id: 'extended',
-        title: 'Extended Reach — call to confirm',
-        lead: 'We travel for suitable jobs. Distance affects mobilisation cost and timing, so confirm before booking.',
+        title: 'Further Locations — call to confirm',
+        lead: 'For longer journeys, confirm mobilisation timing and cost before planning the work.',
         areas: [
-          'Jammu & Kathua Corridor',
           'Ludhiana',
           'Amritsar Rural Belt',
           'Other Himachal Locations',
@@ -955,7 +926,7 @@ get whatsappService() {
       },
     ],
     note:
-      'Outside the areas above we still take on work depending on machine availability and mobilisation cost. A short phone call is usually faster than an enquiry form.',
+      'For a nearby village enquiry, send the village name or a Google Maps pin and the job details. The team will confirm whether the route, machine and crew are practical for the site.',
   },
 
   /* legal / terms
@@ -1076,7 +1047,7 @@ get whatsappService() {
       { label: 'Contact', href: '#contact' },
     ],
     copyright: `Copyright © ${new Date().getFullYear()} KR Brothers. All Rights Reserved.`,
-    credits: 'Safe Lift Strong Support — Your Trust Our Service',
+    credits: 'Safe Lift Strong Support — Your trust, our service',
   },
 
   // nav
@@ -1092,12 +1063,12 @@ get whatsappService() {
 
   // seo / meta
   seo: {
-    title: 'KR Brothers | Crane Rental & Lifting Services Hoshiarpur',
+    title: 'Crane Rental & Hydra Hire in Mukerian | KR Brothers',
     get description() {
-      return `Crane rental, all lifting work, material handling and machinery shifting in Mukerian, Hajipur, Hoshiarpur & Pathankot. Call ${BUSINESS_CONFIG.contacts.primaryPhone}.`
+      return `Crane and Hydra hire near Mukerian, Hajipur and Hoshiarpur. Call ${BUSINESS_CONFIG.contacts.primaryPhone} to confirm machine, crew and site availability.`
     },
     keywords:
-      'crane rental Mukerian, crane hire Hoshiarpur, hydra crane Punjab, lifting contractor, material handling services, mobile crane hire Pathankot, machinery shifting, KR Brothers',
+      'crane service Mukerian, crane on rent Hajipur, hydra crane Hoshiarpur, crane service Pathankot, crane rental Dasuya, crane service Talwara, lifting contractor Punjab, machinery shifting services',
   },
 }
 

@@ -69,7 +69,14 @@ export function ContactPage() {
   useDocumentMeta({
     title: `Contact KR Brothers — Crane Rental & Lifting Enquiries`,
     description:
-      `Call ${contacts.primaryPhone} or WhatsApp ${contacts.whatsappNumber} for crane rental and lifting enquiries. Open 24x7, based in ${location.baseAreaLabel}, Punjab.`,
+      `Call ${contacts.primaryPhone} or WhatsApp ${contacts.whatsappNumber} for crane hire. Open 24x7 in ${location.baseAreaLabel}.`,
+    keywords: [
+      'contact crane rental Punjab',
+      'crane hire enquiry Mukerian',
+      'hydra crane contact',
+      'lifting contractor contact',
+      'WhatsApp crane enquiry',
+    ],
     canonical: PATH,
     jsonLd,
   })

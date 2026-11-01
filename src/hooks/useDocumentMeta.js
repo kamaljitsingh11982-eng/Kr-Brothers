@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import BUSINESS_CONFIG from '../config/businessConfig'
 import SITE_ORIGIN from '../config/siteConfig'
 
 /**
@@ -50,6 +51,7 @@ export function useDocumentMeta({
   image = '/assets/gallery/imgs/og-image.png',
   jsonLd,
   robots = 'index, follow',
+  keywords,
 } = {}) {
   const pathname = typeof window === 'undefined' ? '/' : window.location.pathname
   const path =
@@ -58,14 +60,19 @@ export function useDocumentMeta({
       : `${pathname}/`
 
   useEffect(() => {
+    const pageKeywords = Array.isArray(keywords)
+      ? keywords.join(', ')
+      : (keywords ?? BUSINESS_CONFIG.seo.keywords)
+
     if (title) document.title = title
     setMeta('name', 'twitter:card', 'summary_large_image')
     setMeta('name', 'twitter:title', title)
+    if (title) setMeta('property', 'og:title', title)
     setMeta('property', 'og:locale', 'en_IN')
+    if (pageKeywords) setMeta('name', 'keywords', pageKeywords)
     if (description) {
       setMeta('name', 'description', description)
       setMeta('name', 'twitter:description', description)
-      setMeta('property', 'og:title', title)
       setMeta('property', 'og:description', description)
     }
     setMeta('name', 'robots', robots)
@@ -84,12 +91,15 @@ export function useDocumentMeta({
     const img = absolute(image)
     if (img) {
       setMeta('property', 'og:image', img)
+      setMeta('property', 'og:image:secure_url', img)
       setMeta('property', 'og:image:type', 'image/png')
       setMeta('property', 'og:image:width', '1200')
       setMeta('property', 'og:image:height', '630')
       setMeta('name', 'twitter:image', img)
-      setMeta('property', 'og:image:alt', `${title} — KR Brothers`)
-      setMeta('name', 'twitter:image:alt', `${title} — KR Brothers`)
+      const imageAlt =
+        'KR Brothers construction emblem with crane rental and lifting services in Punjab'
+      setMeta('property', 'og:image:alt', imageAlt)
+      setMeta('name', 'twitter:image:alt', imageAlt)
     }
 
     if (jsonLd) {
@@ -107,7 +117,7 @@ export function useDocumentMeta({
       // home page after client-side navigation.
       document.getElementById('page-jsonld')?.remove()
     }
-  }, [title, description, canonical, image, jsonLd, robots, path])
+  }, [title, description, canonical, image, jsonLd, robots, path, keywords])
 }
 
 export default useDocumentMeta

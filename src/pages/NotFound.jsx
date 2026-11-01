@@ -2,17 +2,27 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, MessageCircle, Phone } from 'lucide-react'
 import BUSINESS_CONFIG from '../config/businessConfig'
 import { getIcon } from '../lib/icons'
+import SITE_ORIGIN from '../config/siteConfig'
 import useDocumentMeta from '../hooks/useDocumentMeta'
 
 export function NotFound() {
   const { services, contacts, links } = BUSINESS_CONFIG
+  const description = `The page you were looking for is not available. Browse our crane rental, lifting and material handling services or call ${contacts.primaryPhone}.`
 
   // A 404 must never be indexed, and it must not keep the home page's tags.
   useDocumentMeta({
     title: 'Page not found | KR Brothers',
-    description: `The page you were looking for is not available. Browse our crane rental, lifting and material handling services or call ${contacts.primaryPhone}.`,
-    canonical: false,
+    description,
+    canonical: '/404.html',
     robots: 'noindex, follow',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: 'Page not found',
+      url: `${SITE_ORIGIN}/404.html`,
+      description,
+      inLanguage: 'en-IN',
+    },
   })
 
   return (

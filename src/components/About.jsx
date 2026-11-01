@@ -12,7 +12,7 @@ const CORE_FOCUS = [
   {
     title: 'All Types of Lifting Work & Material Handling',
     description:
-      'Hydra, mobile and truck-mounted cranes for yard movements, machine handling, erection and heavy shifting.',
+      'Hydra, mobile and truck-mounted cranes for yard movements, machine handling, erection and equipment shifting.',
   },
   {
     title: 'Timely Project Execution & Reliable Machine Uptime',
@@ -60,10 +60,10 @@ export function About() {
               <div className="overflow-hidden rounded-2xl border border-slate-200 shadow-card">
                 <img
                   src="/assets/gallery/optimized/about-crane-operator.webp"
-                  alt="Person standing beside an orange crane"
+                  alt="KR Brothers crane operator seated beside an orange ACE Hydra crane"
                   width={1600}
                   height={1200}
-                  className="aspect-[4/3] w-full object-cover"
+                  className="aspect-[1.307/1] w-full object-cover lg:aspect-square"
                   loading="lazy"
                   decoding="async"
                 />
@@ -148,7 +148,7 @@ export function About() {
 
             <Reveal variant="scale-up" delay={200}>
               <div className="mt-0 flex flex-col gap-3 sm:flex-row">
-                <a href={BUSINESS_CONFIG.links.whatsappEnquiry} target="_blank" rel="noopener noreferrer" className="btn-dark normal-case">
+                <a href={BUSINESS_CONFIG.links.whatsappEnquiry} target="_blank" rel="noopener noreferrer" className="btn-whatsapp normal-case">
                   <PhoneCall className="h-4 w-4" aria-hidden="true" />
                   Talk to the Owner
                 </a>
@@ -161,11 +161,11 @@ export function About() {
         </div>
 
         {/* Mini trust row */}
-        <Reveal variant="swipe-up" className="mt-16 grid gap-4 sm:grid-cols-3">
-          {stats.slice(0, 3).map((stat) => (
+        <Reveal variant="swipe-up" className="mx-auto mt-16 grid gap-4 sm:max-w-3xl sm:grid-cols-2">
+          {stats.filter((s) => !s.hidden).slice(0, 3).map((stat) => (
             <div
               key={stat.id}
-              className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3.5 shadow-card"
+              className="flex flex-col items-center gap-1 rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-center shadow-card"
             >
               <span className="font-display text-2xl font-extrabold text-amber-deepText">
                 {stat.value}

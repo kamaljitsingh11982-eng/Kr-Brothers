@@ -4,7 +4,7 @@
  * Vite emits one empty shell for every route, so a crawler that does not run
  * JavaScript would see an empty <div id="root"> on /services/*. This script
  * serves dist/ with SPA fallback, drives headless Chrome with Playwright, waits
- * for each route to hydrate, then writes the rendered DOM back out as a real
+ * for each route to render, then writes the rendered DOM back out as a real
  * static HTML file at the same path.
  *
  * Install the Playwright Chromium browser before building with:
@@ -20,6 +20,8 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium } from 'playwright'
 import BUSINESS_CONFIG from '../src/config/businessConfig.js'
+import CITY_PAGES from '../src/config/cityPages.js'
+import { isWithinDirectory } from './pathContainment.mjs'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const DIST = path.resolve(process.env.PRERENDER_DIST ?? path.join(ROOT, 'dist'))
@@ -41,16 +43,39 @@ const MIME = {
 }
 
 function startServer() {
+  const distRealPath = fs.realpathSync(DIST)
   const server = http.createServer((req, res) => {
-    const urlPath = decodeURIComponent((req.url ?? '/').split('?')[0])
-    let file = path.join(DIST, urlPath)
+    let urlPath
+    try {
+      urlPath = decodeURIComponent((req.url ?? '/').split('?')[0])
+    } catch {
+      res.writeHead(400)
+      res.end('Bad Request')
+      return
+    }
+    if (urlPath.includes('\0')) {
+      res.writeHead(400)
+      res.end('Bad Request')
+      return
+    }
 
-    // Guard against path traversal before touching the filesystem.
-    if (!file.startsWith(DIST)) file = path.join(DIST, 'index.html')
+    let file = path.resolve(DIST, `.${urlPath}`)
+    if (!isWithinDirectory(DIST, file)) {
+      res.writeHead(404)
+      res.end('Not Found')
+      return
+    }
 
     if (!fs.existsSync(file) || fs.statSync(file).isDirectory()) {
       const asIndex = path.join(file, 'index.html')
       file = fs.existsSync(asIndex) ? asIndex : path.join(DIST, 'index.html')
+    }
+
+    file = fs.realpathSync(file)
+    if (!isWithinDirectory(distRealPath, file)) {
+      res.writeHead(404)
+      res.end('Not Found')
+      return
     }
 
     res.writeHead(200, {
@@ -70,7 +95,7 @@ function startServer() {
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
-/** Waits until the route has an h1 and no pending Suspense fallback. */
+/** Waits until the route has rendered an h1 and no pending Suspense fallback. */
 async function waitForHydration(page) {
   for (let i = 0; i < 60; i++) {
     const ready = await page.evaluate(() => {
@@ -102,8 +127,8 @@ async function prerenderRoute(route, port, page) {
     // inline head script on every real page load, so leaving it in the static
     // file would hide the scroll-reveal content for visitors without
     // JavaScript. Any is-visible picked up by the observer during the capture is
-    // stripped too, so the saved markup is exactly the pre-hydration state React
-    // expects and nothing mismatches on the next load.
+    // stripped too. The saved page is a static React render; createRoot replaces
+    // the root content when client-side rendering starts on a real page load.
     document.documentElement.classList.remove('js');
     document
       .querySelectorAll('.reveal.is-visible')
@@ -144,6 +169,7 @@ async function main() {
   const routes = [
     '/',
     ...BUSINESS_CONFIG.services.map(({ id }) => `/services/${id}/`),
+    ...CITY_PAGES.map(({ slug }) => `/${slug}/`),
     ...BUSINESS_CONFIG.secondaryNavigation.map(({ href }) => href),
     // Static hosts (GitHub Pages, Netlify, Cloudflare Pages) serve this file
     // for unknown URLs, so the styled 404 works without JavaScript or rewrites.

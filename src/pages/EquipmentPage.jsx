@@ -62,7 +62,14 @@ export function EquipmentPage() {
   useDocumentMeta({
     title: `Crane Fleet & Equipment Capacities | ${brand.name}`,
     description:
-      'Hydra cranes 12-25 T, truck-mounted, rough-terrain and heavy mobile cranes 25-100 T class. See the KR Brothers fleet and how we pick your machine.',
+      'Hydra, truck-mounted and mobile cranes from 0 to 16 T. See the KR Brothers fleet and how we select a machine against its load chart.',
+    keywords: [
+      'crane fleet Punjab',
+      'hydra crane capacity',
+      'mobile crane equipment',
+      '0 to 16 ton crane',
+      'lifting machine selection',
+    ],
     canonical: PATH,
     jsonLd,
   })
@@ -79,7 +86,7 @@ export function EquipmentPage() {
         <div className="flex flex-wrap gap-2">
           <span className="chip border-white/15 bg-white/[0.06] text-amber-safety">
             <Weight className="h-3 w-3" aria-hidden="true" />
-            12 T to 100 T class
+            0 T to 16 T class
           </span>
           <span className="chip border-white/15 bg-white/[0.06] text-amber-safety">
             <Gauge className="h-3 w-3" aria-hidden="true" />

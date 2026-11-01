@@ -384,7 +384,7 @@ export function Navbar({ activeSection, onRequestQuote }) {
             <div className="shrink-0 space-y-2.5 border-t border-white/10 bg-navy-950/60 px-5 py-5">
               <a
                 href={contacts.primaryPhoneLink}
-                className="btn-dark flex w-full"
+                className="btn-primary flex w-full"
                 aria-label={`Call ${contacts.primaryPhone}`}
               >
                 <Phone className="h-4 w-4" aria-hidden="true" />

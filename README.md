@@ -35,28 +35,13 @@ confirm delivery of enquiries.
 Phone and WhatsApp link clicks dispatch a `krb:contact-click` browser event with
 `{ channel, href }` detail for future analytics integration.
 
-The production output is written to `dist/`. The build keeps the original
-source media intact and excludes verified superseded copies only from `dist/`.
-Upload the **contents** of `dist/` (including `.htaccess`) into Hostinger's
-`public_html` directory.
+The production output is written to `dist/`.
 
-### Hostinger domain checklist
+### Hosting
 
-- Configure the apex and `www` DNS records using the exact targets shown in
-  Hostinger's domain dashboard; do not substitute guessed IP addresses or
-  CNAME targets.
-- Keep `www.krbrothers.in` as the canonical host. Configure an apex-to-`www`
-  redirect in Hostinger after both hostnames resolve to the hosting account.
-- Preserve existing MX records and email-related TXT records when changing
-  DNS. Only update website records that Hostinger identifies as required.
-- Enable the domain's SSL certificate in Hostinger after DNS is pointing to the
-  account, verify both hostnames over HTTPS, then enable/verify HTTPS
-  redirection.
-- The included `.htaccess` selects `index.html` and routes missing files to the
-  prerendered `404.html`. Check route refreshes and the branded 404 response
-  after upload.
-- No production upload, DNS change, live SSL check, or email-delivery test is
-  performed by the local build.
+The site is hosted on Vercel. `vercel.json` contains the deployment and response
+header configuration, and Vercel serves the production build generated in
+`dist/`.
 
 ## Project stack
 

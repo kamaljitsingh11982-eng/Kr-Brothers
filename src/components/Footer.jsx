@@ -33,7 +33,7 @@ export function Footer() {
           <Reveal className="lg:col-span-4">
             <div>
               <Logo tone="light" />
-              <p className="mt-5 font-display text-lg font-bold uppercase tracking-wide text-amber-safety">
+              <p className="mt-5 font-display text-lg font-bold tracking-wide text-amber-safety">
                 {brand.slogan}
               </p>
               <p className="mt-3 max-w-sm text-sm leading-relaxed text-navy-300">
@@ -123,14 +123,14 @@ export function Footer() {
                       aria-hidden="true"
                       className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-navy-600 transition-colors group-hover:bg-amber-safety"
                     />
-                    {service.title}
+                    {service.shortTitle}
                   </Link>
                 </li>
               ))}
             </ul>
             <Link
               to="/#services"
-              className="tap-sm mt-4 gap-1.5 text-xs font-bold uppercase tracking-wider text-amber-safety underline-offset-4 hover:underline"
+              className="tap-sm mt-4 gap-1.5 text-xs font-bold text-amber-safety underline-offset-4 hover:underline"
             >
               View all services
               <ArrowUp className="h-3 w-3 rotate-45" aria-hidden="true" />

@@ -50,6 +50,12 @@ export function TermsPage() {
   useDocumentMeta({
     title: `Terms & Conditions | ${brand.name}`,
     description: `Terms for crane hire, lifting and material handling work by ${brand.name} — bookings, capacity and load charts, site conditions and charges.`,
+    keywords: [
+      'crane hire terms',
+      'lifting contractor booking terms',
+      'machinery moving terms',
+      'equipment hire conditions',
+    ],
     canonical: PATH,
     jsonLd,
   })
@@ -152,7 +158,7 @@ export function TermsPage() {
               </p>
             </div>
             <div className="flex shrink-0 flex-col gap-3 sm:items-end">
-              <a href={contacts.primaryPhoneLink} className="btn-dark inline-flex">
+              <a href={contacts.primaryPhoneLink} className="btn-outline inline-flex">
                 Call {contacts.primaryPhone}
               </a>
 <a

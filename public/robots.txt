@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
 
+# LLM-readable business and service summary
+# https://www.krbrothers.in/llms.txt
 Sitemap: https://www.krbrothers.in/sitemap.xml

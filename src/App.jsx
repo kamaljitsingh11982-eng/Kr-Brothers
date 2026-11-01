@@ -6,6 +6,7 @@ import Home from './pages/Home'
 // Only visitors who ask for a page pay for that page's content and its copy.
 // Keeps the homepage bundle lean.
 const ServicePage = lazy(() => import('./pages/ServicePage'))
+const CityPage = lazy(() => import('./pages/CityPage'))
 const EquipmentPage = lazy(() => import('./pages/EquipmentPage'))
 const ServiceAreasPage = lazy(() => import('./pages/ServiceAreasPage'))
 const ContactPage = lazy(() => import('./pages/ContactPage'))
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="/service-areas/" element={<ServiceAreasPage />} />
           <Route path="/contact/" element={<ContactPage />} />
           <Route path="/terms/" element={<TermsPage />} />
+          <Route path="/:citySlug/" element={<CityPage />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

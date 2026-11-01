@@ -50,6 +50,7 @@ function ServiceDetail({ service }) {
         '@type': 'Service',
         name: title,
         description: summary,
+        keywords: pageCopy.keywords?.join(', '),
         url,
         serviceType: title,
         provider: {
@@ -72,7 +73,12 @@ function ServiceDetail({ service }) {
         mainEntity: (pageCopy.faq ?? []).map((item) => ({
           '@type': 'Question',
           name: item.question,
-          acceptedAnswer: { '@type': 'Answer', text: item.answer },
+          ...(item.lang ? { inLanguage: item.lang } : {}),
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+            ...(item.lang ? { inLanguage: item.lang } : {}),
+          },
         })),
       },
       {
@@ -89,6 +95,7 @@ function ServiceDetail({ service }) {
   useDocumentMeta({
     title: pageCopy.metaTitle,
     description: pageCopy.metaDescription,
+    keywords: pageCopy.keywords,
     canonical: servicePath(service.id),
     jsonLd,
   })
@@ -242,6 +249,7 @@ function ServiceDetail({ service }) {
         </div>
       </section>
 
+
       {/* FAQ */}
       {pageCopy.faq?.length > 0 && (
         <section aria-labelledby="service-faq-heading" className="bg-slate-50 py-16 sm:py-20">
@@ -256,7 +264,7 @@ function ServiceDetail({ service }) {
               </p>
               <a
                 href={contacts.primaryPhoneLink}
-                className="btn-dark mt-6 inline-flex"
+                className="btn-primary mt-6 inline-flex"
               >
                 <Phone className="h-4 w-4" aria-hidden="true" />
                 {contacts.primaryPhone}
@@ -313,7 +321,7 @@ function ServiceDetail({ service }) {
         <div className="pointer-events-none absolute inset-0 bg-steel-grid bg-grid opacity-20" aria-hidden="true" />
         <div className="container-kr relative text-center">
           <h2 id="cta-heading" className="section-title text-white">
-            Need {title.toLowerCase()} <span className="text-amber-safety">on your site?</span>
+            Need lifting support <span className="text-amber-safety">on your site?</span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-navy-300">
             Send us the load weight, working radius and site location. We will recommend the

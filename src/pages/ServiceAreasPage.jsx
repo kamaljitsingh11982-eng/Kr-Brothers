@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, CheckCircle2, MapPin, MessageCircle, Navigation, Phone } from 'lucide-react'
 import BUSINESS_CONFIG from '../config/businessConfig'
+import CITY_PAGES from '../config/cityPages'
 import { getLocalBusinessSchema } from '../config/businessSchema'
 import SITE_ORIGIN from '../config/siteConfig'
 import useDocumentMeta from '../hooks/useDocumentMeta'
@@ -22,6 +23,16 @@ const PATH = '/service-areas/'
  */
 export function ServiceAreasPage() {
   const { serviceAreas, contacts, links, location, operations, brand } = BUSINESS_CONFIG
+  const mainTownLinks = [
+    'crane-on-rent-mukerian',
+    'crane-on-rent-hajipur',
+    'crane-on-rent-hoshiarpur',
+    'crane-on-rent-pathankot',
+    'crane-on-rent-dasuya',
+    'crane-on-rent-talwara',
+  ]
+  const areaLinks = CITY_PAGES.filter((city) => mainTownLinks.includes(city.slug))
+
   const jsonLd = useMemo(() => ({
     '@context': 'https://schema.org',
     '@graph': [
@@ -29,6 +40,7 @@ export function ServiceAreasPage() {
         '@type': 'Service',
         name: 'Crane rental and lifting services',
         description: serviceAreas.intro,
+        keywords: 'crane service area Punjab, crane rental Mukerian, hydra crane Hoshiarpur, lifting contractor Punjab, construction crane hire nearby locations',
         url: `${ORIGIN}${PATH}`,
         serviceType: 'Crane rental and lifting contractor',
         provider: getLocalBusinessSchema(),
@@ -48,9 +60,16 @@ export function ServiceAreasPage() {
   }), [serviceAreas, operations])
 
   useDocumentMeta({
-    title: `Service Areas — Crane Hire Across Punjab & Himachal | ${brand.name}`,
+    title: `Crane Service Areas Near Mukerian | ${brand.name}`,
     description:
-      'Crane rental and lifting contractor serving Mukerian, Hoshiarpur, Pathankot, Jalandhar, Amritsar, Kangra and the wider Punjab and Himachal belt.',
+      'Crane and Hydra enquiries for Mukerian, Dasuya, Talwara, Hajipur and nearby villages. Share a site pin to confirm availability and mobilisation.',
+    keywords: [
+      'crane service area Punjab',
+      'crane rental Mukerian',
+      'hydra crane Hoshiarpur',
+      'lifting contractor Punjab',
+      'construction crane hire nearby locations',
+    ],
     canonical: PATH,
     jsonLd,
   })
@@ -102,6 +121,23 @@ export function ServiceAreasPage() {
         </div>
       </PageHero>
 
+      <section aria-labelledby="areas-we-serve-heading" className="border-b border-slate-200 bg-slate-50 py-12">
+        <div className="container-kr">
+          <h2 id="areas-we-serve-heading" className="section-title text-navy-900">
+            Areas <span className="text-amber-deepText">we serve</span>
+          </h2>
+          <ul className="mt-6 flex flex-wrap gap-2">
+            {areaLinks.map((city) => (
+              <li key={city.slug}>
+                <Link to={`/${city.slug}/`} className="chip border border-slate-200 bg-white text-navy-700 hover:text-navy-900">
+                  {city.city}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       {/* Base location */}
       <section aria-labelledby="base-heading" className="py-16 sm:py-20">
         <div className="container-kr">
@@ -143,11 +179,11 @@ export function ServiceAreasPage() {
 
             <Reveal variant="slide-left" delay={80}>
               <h2 className="section-title text-navy-900">
-                Full region <span className="text-amber-deepText">list</span>
+                Wider service <span className="text-amber-deepText">areas</span>
               </h2>
               <p className="mt-4 text-[15px] leading-relaxed text-navy-600">
-                Every district and corridor we regularly work in, kept as published on our
-                service pages.
+                Other towns are listed for enquiries; confirm the exact site, travel and
+                machine availability before planning a job.
               </p>
               <ul className="mt-6 flex flex-wrap gap-2">
                 {operations.serviceRegions.map((region) => (
@@ -162,16 +198,43 @@ export function ServiceAreasPage() {
         </div>
       </section>
 
+      <section aria-labelledby="city-pages-heading" className="border-t border-slate-200 py-14">
+        <div className="container-kr">
+          <div className="max-w-3xl">
+            <h2 id="city-pages-heading" className="section-title text-navy-900">
+              Crane rental by <span className="text-amber-deepText">location</span>
+            </h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-navy-600">
+              Read about crane services, local coverage and relevant equipment for each
+              area. Please confirm availability for your site and date.
+            </p>
+          </div>
+          <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {CITY_PAGES.map((city) => (
+              <li key={city.slug}>
+                <Link
+                  to={`/${city.slug}/`}
+                  className="card card-hover flex h-full items-center justify-between gap-3 p-4 text-sm font-bold text-navy-800"
+                >
+                  Crane services in {city.city}
+                  <ArrowRight className="h-4 w-4 shrink-0 text-amber-deepText" aria-hidden="true" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       {/* Coverage tiers */}
       <section aria-labelledby="tiers-heading" className="bg-slate-50 py-16 sm:py-20">
         <div className="container-kr">
           <div className="max-w-3xl">
             <h2 id="tiers-heading" className="section-title text-navy-900">
-              Coverage by <span className="text-amber-deepText">distance</span>
+              Local belt and <span className="text-amber-deepText">wider coverage</span>
             </h2>
             <p className="mt-4 text-[15px] leading-relaxed text-navy-600">
-              Grouped by realistic drive time from the yard, because &ldquo;we cover Punjab&rdquo;
-              does not tell you whether we can be on site today or next week.
+              Nearby village sites around Mukerian, Dasuya and Talwara can enquire too. Share
+              a map pin so KR Brothers can confirm the route and mobilisation for your job.
             </p>
           </div>
 

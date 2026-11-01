@@ -12,3 +12,5 @@ preview-*.log
 preview-*.err
 preview-*
 .vercel
+_source_media/
+_prechange_backup_20261028_2135/
