@@ -13,8 +13,6 @@ function GalleryMedia({ item, className, sizes }) {
         srcSet={item.imageSrcSet}
         sizes={sizes}
         alt={item.title}
-        width={1200}
-        height={800}
         loading="lazy"
         decoding="async"
         className={`${className} object-cover`}
