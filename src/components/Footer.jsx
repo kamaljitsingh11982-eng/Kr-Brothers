@@ -147,16 +147,16 @@ export function Footer() {
             <ul className="mt-4 space-y-3.5">
               <li className="flex items-start gap-2.5">
                 <Phone className="mt-0.5 h-4 w-4 shrink-0 text-amber-safety" aria-hidden="true" />
-                <span>
+                <span className="flex min-w-0 flex-col items-start gap-1">
                   <a
                     href={contacts.primaryPhoneLink}
-                    className="tap-sm text-sm font-semibold text-white hover:text-amber-safety"
+                    className="tap-sm max-w-full break-words text-sm font-semibold text-white hover:text-amber-safety"
                   >
                     {contacts.primaryPhone}
                   </a>
                   <a
                     href={contacts.secondaryPhoneLink}
-                    className="tap-sm text-sm text-navy-300 hover:text-amber-safety"
+                    className="tap-sm max-w-full break-words text-sm text-navy-300 hover:text-amber-safety"
                   >
                     {contacts.secondaryPhone}
                   </a>
@@ -169,7 +169,7 @@ export function Footer() {
                   href={links.whatsappEnquiry}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="tap-sm text-sm text-navy-300 hover:text-amber-safety"
+                  className="tap-sm min-w-0 max-w-full break-words text-sm text-navy-300 hover:text-amber-safety"
                 >
                   WhatsApp: {contacts.whatsappNumber}
                 </a>
@@ -188,7 +188,7 @@ export function Footer() {
                   href={location.mapsLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="tap-sm items-start text-sm leading-relaxed text-navy-300 hover:text-amber-safety"
+                  className="tap-sm min-w-0 max-w-full items-start text-sm leading-relaxed text-navy-300 hover:text-amber-safety"
                 >
                   {location.addressLine1}
                   <br />
