@@ -62,6 +62,8 @@ function HeroBackgroundVideo() {
     return (
       <img
         src="/assets/gallery/imgs/hero-video-poster.jpg"
+        width="1920"
+        height="1080"
         className="absolute inset-0 h-full w-full object-cover"
         style={{ objectPosition: isMobile ? '68% center' : 'center' }}
         alt=""
@@ -117,7 +119,7 @@ export function Hero({ onRequestQuote }) {
       {/* Background artwork + overlays */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         <HeroBackgroundVideo />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-950/70 via-navy-950/45 to-navy-950/20 sm:from-navy-950/45 sm:via-navy-950/25 sm:to-navy-950/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy-950/85 via-navy-950/55 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-navy-950/65 via-transparent to-navy-950/20 sm:from-navy-950/55 sm:to-navy-950/20" />
         <div
           className="absolute -right-24 -top-24 h-[26rem] w-[26rem] rounded-full bg-amber-safety/20 blur-3xl"
@@ -194,38 +196,38 @@ export function Hero({ onRequestQuote }) {
           </div>
 
           {/* Trust strip */}
-          <dl
+          <div
             className="mt-9 grid max-w-2xl grid-cols-1 gap-x-6 gap-y-4 border-t border-white/10 pt-7 sm:grid-cols-3 animate-fade-up"
             style={{ animationDelay: '320ms' }}
           >
             <div className="flex items-start gap-2.5">
               <BadgeIcon className="mt-0.5 h-5 w-5 shrink-0 text-amber-safety" aria-hidden="true" />
-              <div>
+              <dl>
                 <dt className="text-xs font-bold uppercase tracking-wide text-white">
                   Certified Crew
                 </dt>
                 <dd className="mt-0.5 text-xs text-navy-300">Riggers &amp; operators</dd>
-              </div>
+              </dl>
             </div>
             <div className="flex items-start gap-2.5">
               <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-amber-safety" aria-hidden="true" />
-              <div>
+              <dl>
                 <dt className="text-xs font-bold uppercase tracking-wide text-white">
                   Safety First
                 </dt>
                 <dd className="mt-0.5 text-xs text-navy-300">Pre-lift planned lifts</dd>
-              </div>
+              </dl>
             </div>
             <div className="flex items-start gap-2.5">
               <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-amber-safety" aria-hidden="true" />
-              <div>
+              <dl>
                 <dt className="text-xs font-bold uppercase tracking-wide text-white">
                   Local Base
                 </dt>
                 <dd className="mt-0.5 text-xs text-navy-300">{location.baseAreaLabel}</dd>
-              </div>
+              </dl>
             </div>
-          </dl>
+          </div>
         </div>
 
         {/* Floating service card */}
