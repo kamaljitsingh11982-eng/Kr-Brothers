@@ -222,6 +222,11 @@ export function Contact({ preselectService, onPreselectHandled }) {
           lead="Share the load and location. We will call you back, confirm the machine class and give you a clear written quotation."
           headingId="contact-heading"
         />
+        <p className="mx-auto mt-5 max-w-3xl text-center text-sm leading-relaxed text-navy-600">
+          For a useful quotation, share the load weight and dimensions, working
+          radius, required lifting height, site location, access conditions,
+          required date and number of lifts or shifts.
+        </p>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           {/* Info panel */}
@@ -520,7 +525,7 @@ export function Contact({ preselectService, onPreselectHandled }) {
                         type="text"
                         required
                         autoComplete="address-level2"
-                        placeholder="e.g. Site near Mukerian, Hoshiarpur"
+                        placeholder="e.g. Site near Mukerian, Garhdiwala"
                         value={values.location}
                         onChange={handleChange}
                         onBlur={handleBlur}

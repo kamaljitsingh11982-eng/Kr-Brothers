@@ -3,21 +3,22 @@ import SITE_ORIGIN from './siteConfig'
 
 export function getLocalBusinessSchema() {
   const { brand, contacts, location, operations, social } = BUSINESS_CONFIG
-
-  const servedPlaces = [
-    'Mukerian',
-    'Hajipur',
-    'Talwara',
-    'Dasuya',
-    'Hoshiarpur',
-    'Pathankot',
-    ...operations.serviceRegions,
-  ]
+  const mainAreas = operations.confirmedMainServiceAreas.map((place) => ({
+    '@type': 'Place',
+    name: place,
+    description: 'Confirmed main service location.',
+  }))
+  const nearbyVillages = operations.confirmedNearbyVillages.map((place) => ({
+    '@type': 'Place',
+    name: place,
+    description: 'Confirmed nearby village service area.',
+  }))
 
   return {
     '@type': 'LocalBusiness',
     '@id': `${SITE_ORIGIN}/#business`,
-    name: brand.name,
+    name: brand.legalName,
+    alternateName: brand.name,
     url: `${SITE_ORIGIN}/`,
     image: `${SITE_ORIGIN}/assets/gallery/imgs/og-image.png`,
     logo: `${SITE_ORIGIN}/assets/gallery/imgs/kr-logo-128.webp`,
@@ -26,11 +27,15 @@ export function getLocalBusinessSchema() {
     knowsAbout: [
       'crane rental',
       'hydra crane hire',
+      'loading and unloading',
+      'material handling',
       'machinery shifting',
+      'construction-site lifting',
       'steel erection',
       'breakdown recovery',
     ],
     sameAs: Object.values(social).filter(Boolean),
+    hasMap: location.mapsLink,
     telephone: contacts.primaryPhoneRaw,
     email: contacts.email,
     geo: {
@@ -46,7 +51,7 @@ export function getLocalBusinessSchema() {
       postalCode: location.pincode,
       addressCountry: location.countryCode,
     },
-    areaServed: [...new Set(servedPlaces)].map((place) => ({ '@type': 'Place', name: place })),
+    areaServed: [...mainAreas, ...nearbyVillages],
     openingHoursSpecification: {
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: [

@@ -35,36 +35,42 @@ const PATH = '/contact/'
  */
 export function ContactPage() {
   const { contacts, links, location, operations, brand } = BUSINESS_CONFIG
-  const jsonLd = useMemo(() => ({
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'ContactPage',
-        name: `Contact ${brand.name}`,
-        description: `Contact ${brand.name} for crane rental, lifting and material handling enquiries.`,
-        url: `${ORIGIN}${PATH}`,
-        mainEntity: {
-          ...getLocalBusinessSchema(),
-          contactPoint: [
-            {
-              '@type': 'ContactPoint',
-              telephone: contacts.primaryPhoneRaw,
-              contactType: 'customer service',
-              areaServed: 'IN',
-              availableLanguage: ['en', 'pa', 'hi'],
-            },
+  const jsonLd = useMemo(() => {
+    const business = getLocalBusinessSchema()
+    const contactPointId = `${ORIGIN}/#contact-point`
+
+    return {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          ...business,
+          contactPoint: [{ '@id': contactPointId }],
+        },
+        {
+          '@type': 'ContactPoint',
+          '@id': contactPointId,
+          telephone: contacts.primaryPhoneRaw,
+          contactType: 'customer service',
+          areaServed: 'IN',
+          availableLanguage: ['en', 'pa', 'hi'],
+        },
+        {
+          '@type': 'ContactPage',
+          name: `Contact ${brand.name}`,
+          description: `Contact ${brand.name} for crane rental, lifting and material handling enquiries.`,
+          url: `${ORIGIN}${PATH}`,
+          mainEntity: { '@id': business['@id'] },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${ORIGIN}/` },
+            { '@type': 'ListItem', position: 2, name: 'Contact', item: `${ORIGIN}${PATH}` },
           ],
         },
-      },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: `${ORIGIN}/` },
-          { '@type': 'ListItem', position: 2, name: 'Contact', item: `${ORIGIN}${PATH}` },
-        ],
-      },
-    ],
-  }), [brand, contacts])
+      ],
+    }
+  }, [brand, contacts])
 
   useDocumentMeta({
     title: `Contact KR Brothers — Crane Rental & Lifting Enquiries`,

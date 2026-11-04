@@ -11,14 +11,14 @@ export const BUSINESS_CONFIG = {
     name: 'KR Brothers',
     nameShort: 'KR',
     nameUpper: 'KR BROTHERS',
-    legalName: 'KR Brothers',
+    legalName: 'KR Brothers Crane Service',
     tagline: 'Safe Lift Strong Support',
     slogan: 'Your trust, our service',
     taglineWithSlogan: 'Safe Lift Strong Support — Your trust, our service',
     subTagline:
       'Crane on rent and hydra on rent for lifting, material handling and construction work.',
     shortDescription:
-      'A Mukerian-based contractor offering crane on rent and hydra on rent for lifting, material handling and construction across Punjab and Himachal, with certified operators and a maintained fleet.',
+      'KR Brothers Crane Service is a Hajipur-based contractor offering Hydra crane rental, crane hire, loading and unloading, material handling, machinery shifting and construction-site lifting in confirmed service areas. Operating since 2015, the published lifting class is 0–16 tons subject to the selected machine’s load chart and site conditions.',
     foundedYear: 2015,
     established: 'Established 2015',
   },
@@ -126,31 +126,42 @@ get whatsappService() {
     hoursShort: 'Open 24x7',
     hoursIcon: 'Clock',
     responseTime: 'Mobilisation timing is confirmed for each site based on route, machine and crew availability',
-    serviceRegions: [
-      'Hajipur',
+    confirmedMainServiceAreas: [
       'Dasuya',
-      'Talwara',
       'Mukerian',
-      'Hoshiarpur',
-      'Pathankot',
-      'Garhshankar',
-      'Mandi Adamgarh',
-      'Shamirpur',
-      'Sultanpur Lodhi',
-      'Phillaur',
-      'Jalandhar',
-      'Amritsar',
-      'Kangra, Himachal Pradesh',
+      'Talwara',
+      'Hajipur',
+      'Garhdiwala',
+    ],
+    confirmedNearbyVillages: [
+      'Khizarpur',
+      'Bhunga',
+      'Mansoorpur',
+      'Khanpur',
+      'Attalgarh',
+      'Aima Mangat',
+    ],
+    serviceRegions: [
+      'Dasuya',
+      'Mukerian',
+      'Talwara',
+      'Hajipur',
+      'Garhdiwala',
+      'Khizarpur',
+      'Bhunga',
+      'Mansoorpur',
+      'Khanpur',
+      'Attalgarh',
+      'Aima Mangat',
     ],
     primaryRegionLabel:
-      'Hajipur, Dasuya, Talwara, Mukerian, Hoshiarpur and surrounding Punjab / Himachal industrial belts',
+      'Dasuya, Mukerian, Talwara, Hajipur and Garhdiwala, with nearby village enquiries',
     heroServiceAreas: [
-      'Hajipur',
       'Dasuya',
-      'Talwara',
       'Mukerian',
-      'Hoshiarpur',
-      'Pathankot',
+      'Talwara',
+      'Hajipur',
+      'Garhdiwala',
     ],
   },
 
@@ -225,7 +236,7 @@ get whatsappService() {
         'Hourly, per-shift, per-day or monthly rental arrangements.',
         'Operator and certified rigger supplied as a complete package.',
         'Multiple machines deployed for coordinated lifting campaigns.',
-        'Mobilisation to any site across Punjab and Himachal Pradesh.',
+        'Mobilisation to confirmed service areas, subject to route, machine and crew availability.',
       ],
       safety: [
         'Third-party load test certificate verified before dispatch.',
@@ -503,7 +514,7 @@ get whatsappService() {
       title: 'Dedicated 24/7 Local Support',
       icon: 'Headset',
       description:
-        'Being based in Hajipur means we are genuinely close to Mukerian, Hoshiarpur and Pathankot when you need help.',
+        'Being based in Hajipur means we are close to the confirmed service locations when you need help.',
     },
   ],
 
@@ -754,9 +765,9 @@ get whatsappService() {
     },
     {
       id: 'f2',
-      question: 'Do you provide crane services in Mukerian, Hajipur and neighbouring districts?',
+      question: 'Where can I hire a Hydra crane near Hajipur?',
       answer:
-        'Yes. We are based at Vill. Khizarpur (Hajipur), Teh. Mukerian in Distt. Hoshiarpur, which puts us right in the middle of the Mukerian–Hajipur–Hoshiarpur industrial belt. Our regular working area covers Mukerian, Hajipur, Hoshiarpur, Pathankot, Dasuya, Garhshankar, Sultanpur Lodhi, Phillaur and Jalandhar, and we regularly travel into Kangra and the Jammu corridor in Himachal Pradesh.',
+        'Yes. We are based at Vill. Khizarpur (Hajipur), Teh. Mukerian in Distt. Hoshiarpur. Our confirmed main service locations are Dasuya, Mukerian, Talwara, Hajipur and Garhdiwala. Nearby village enquiries include Khizarpur, Bhunga, Mansoorpur, Khanpur, Attalgarh and Aima Mangat. Share the exact site pin so the team can confirm practical mobilisation.',
     },
     {
       id: 'f3',
@@ -883,45 +894,31 @@ get whatsappService() {
    * -------------------------------------------------------------------- */
   serviceAreas: {
     intro:
-      'KR Brothers is based in Khizarpur (Hajipur), Tehsil Mukerian. Local service enquiries focus on Mukerian, Dasuya, Talwara and nearby villages. Share the site pin, lift details and date to confirm the route, machine and crew availability. Coverage depends on the actual journey and job, not a guaranteed radius.',
+      'KR Brothers is based in Khizarpur (Hajipur), Tehsil Mukerian. Confirmed main service locations are Dasuya, Mukerian, Talwara, Hajipur and Garhdiwala. Nearby village enquiries include Khizarpur, Bhunga, Mansoorpur, Khanpur, Attalgarh and Aima Mangat. Share the site pin, lift details and date to confirm practical mobilisation.',
     groups: [
       {
         id: 'core',
-        title: 'Local Service Belt',
-        lead: 'Our local focus is the Khizarpur (Hajipur), Mukerian, Dasuya and Talwara area. Nearby village enquiries are welcome; share the exact site pin so the team can confirm practical mobilisation.',
+        title: 'Confirmed Main Service Locations',
+        lead: 'Our confirmed main service locations are Dasuya, Mukerian, Talwara, Hajipur and Garhdiwala.',
         areas: [
-          'Khizarpur / Hajipur',
-          'Mukerian',
           'Dasuya',
+          'Mukerian',
           'Talwara',
-          'Nearby villages around Mukerian, Dasuya and Talwara',
+          'Hajipur',
+          'Garhdiwala',
         ],
       },
       {
-        id: 'nearby',
-        title: 'Other Listed Towns — confirm first',
-        lead: 'For locations outside the local service belt, call with the site pin and planned date to confirm travel, machine and crew availability.',
+        id: 'nearby-villages',
+        title: 'Confirmed Nearby Villages',
+        lead: 'Nearby village enquiries are welcome. Share the exact site pin so the team can confirm practical mobilisation.',
         areas: [
-          'Hoshiarpur',
-          'Garhshankar',
-          'Mandi Adamgarh',
-          'Shamirpur',
-          'Pathankot',
-          'Sultanpur Lodhi',
-          'Phillaur',
-          'Jalandhar',
-          'Amritsar',
-          'Kangra, Himachal Pradesh',
-        ],
-      },
-      {
-        id: 'extended',
-        title: 'Further Locations — call to confirm',
-        lead: 'For longer journeys, confirm mobilisation timing and cost before planning the work.',
-        areas: [
-          'Ludhiana',
-          'Amritsar Rural Belt',
-          'Other Himachal Locations',
+          'Khizarpur',
+          'Bhunga',
+          'Mansoorpur',
+          'Khanpur',
+          'Attalgarh',
+          'Aima Mangat',
         ],
       },
     ],
@@ -1028,7 +1025,7 @@ get whatsappService() {
    * -------------------------------------------------------------------- */
   secondaryNavigation: [
     { label: 'Equipment & Fleet', href: '/equipment/', description: 'Machine classes, capacities and how we select the right crane', icon: 'Wrench' },
-    { label: 'Service Areas', href: '/service-areas/', description: 'Where we work across Punjab and Himachal Pradesh', icon: 'MapPin' },
+    { label: 'Service Areas', href: '/service-areas/', description: 'Confirmed towns and nearby villages we serve', icon: 'MapPin' },
     { label: 'Contact & Enquiries', href: '/contact/', description: 'Phone, WhatsApp, email, hours and our base location', icon: 'Phone' },
     { label: 'Terms & Conditions', href: '/terms/', description: 'Bookings, capacity, site conditions and charges', icon: 'FileText' },
   ],
@@ -1036,7 +1033,7 @@ get whatsappService() {
   // footer
   footer: {
     summary:
-      'KR Brothers is a locally rooted lifting and material-handling contractor from Khizarpur (Hajipur), serving construction, infrastructure and industrial clients across Punjab and Himachal Pradesh with certified operators, a maintained fleet and round-the-clock support.',
+      'KR Brothers is a locally rooted lifting and material-handling contractor from Khizarpur (Hajipur), serving confirmed main locations and nearby villages with a maintained fleet and round-the-clock support.',
     quickLinks: [
       { label: 'Home', href: '#home' },
       { label: 'About', href: '#about' },
@@ -1063,12 +1060,12 @@ get whatsappService() {
 
   // seo / meta
   seo: {
-    title: 'Crane Rental & Hydra Hire in Mukerian | KR Brothers',
+    title: 'Crane Rental & Hydra Hire in Hajipur | KR Brothers Crane Service',
     get description() {
-      return `Crane and Hydra hire near Mukerian, Hajipur and Hoshiarpur. Call ${BUSINESS_CONFIG.contacts.primaryPhone} to confirm machine, crew and site availability.`
+      return `Crane and Hydra hire in Dasuya, Mukerian, Talwara, Hajipur and Garhdiwala. Call ${BUSINESS_CONFIG.contacts.primaryPhone} to confirm machine, crew and site availability.`
     },
     keywords:
-      'crane service Mukerian, crane on rent Hajipur, hydra crane Hoshiarpur, crane service Pathankot, crane rental Dasuya, crane service Talwara, lifting contractor Punjab, machinery shifting services',
+      'crane service Mukerian, crane on rent Hajipur, hydra crane Dasuya, crane rental Talwara, crane service Garhdiwala, lifting contractor Punjab, machinery shifting services',
   },
 }
 

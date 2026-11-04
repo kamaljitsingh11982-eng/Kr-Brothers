@@ -1,4 +1,12 @@
 // Candidate city pages for owner review: Amritsar, Sultanpur Lodhi, Phillaur, Mandi Adamgarh, Shamirpur, Kangra.
+const CONFIRMED_MAIN_CITIES = new Set([
+  'Dasuya',
+  'Mukerian',
+  'Talwara',
+  'Hajipur',
+  'Garhdiwala',
+])
+
 const CITY_PAGES = [
   {
     slug: 'crane-on-rent-mukerian',
@@ -43,7 +51,7 @@ For a useful enquiry, send the site location, load weight, working radius, lift 
           'Yes, share the village name or Google Maps pin, job details and date. The team will confirm route, machine and crew availability for that site.',
       },
     ],
-    nearbyAreas: ['Hajipur', 'Dasuya', 'Talwara', 'Hoshiarpur'],
+    nearbyAreas: ['Khizarpur', 'Bhunga', 'Mansoorpur', 'Khanpur'],
   },
   {
     slug: 'crane-on-rent-hajipur',
@@ -97,11 +105,11 @@ When contacting the team, share a map pin or site address, load weight, radius, 
     metaTitle: 'Crane & Hydra Rental in Hoshiarpur | KR Brothers',
     metaDescription:
       'Looking for crane rental in Hoshiarpur? KR Brothers handles Hydra hire, lifting and machinery shifting enquiries. Share the load and site details to plan.',
-    intro: `KR Brothers serves crane rental enquiries in Hoshiarpur for industrial lifting, construction work, material handling and machinery movement. The business is based at Khizarpur (Hajipur), Tehsil Mukerian, in Hoshiarpur district. Customers can describe the lift and site conditions first; the team can then discuss which equipment and crew may suit the work.
+    intro: `Hoshiarpur is not a confirmed regular service area for KR Brothers. If you have a project there, contact the team with the exact site and job details to ask whether case-by-case mobilisation is practical. The business is based at Khizarpur (Hajipur), Tehsil Mukerian, in Hoshiarpur district.
 
 The service portfolio includes Hydra crane services for yard stacking and truck loading, hydraulic mobile crane services, construction-site lifting, structural positioning, plant relocation and factory machinery shifting. A machine should not be selected by tonnage alone. Load weight, radius, boom length, standing area, access route and the load’s lifting points all matter. KR Brothers’ published fleet is within the 0–16 tonne class. That is a machine class, not a guarantee of rated capacity; confirm the actual capacity using the machine load chart and job conditions.
 
-Hoshiarpur is included in the published service regions. The service-area page groups it with other listed towns where availability and mobilisation should be confirmed for the exact site. Share a map pin and requested date before planning a project sequence.
+The confirmed main service locations are Dasuya, Mukerian, Talwara, Hajipur and Garhdiwala, with nearby village enquiries for Khizarpur, Bhunga, Mansoorpur, Khanpur, Attalgarh and Aima Mangat. Share a map pin and requested date so the team can ask whether a Hoshiarpur project can be handled case by case.
 
 For an estimate, share the location, load weight and dimensions, working radius, height, number of lifts, expected duration and any site restrictions. Photos of the access route or lifting point can help explain the requirement. The team can discuss the machine, crew, site assessment and a written quotation based on the actual job. This page does not promise a standard rental rate or response time beyond the published coverage guidance. Call or WhatsApp KR Brothers about crane or Hydra rental in Hoshiarpur.`,
     serviceIds: [
@@ -125,10 +133,10 @@ For an estimate, share the location, load weight and dimensions, working radius,
       {
         question: 'Is Hoshiarpur a listed service area?',
         answer:
-          'Yes. Hoshiarpur is included in the published service regions. Confirm machine, crew and mobilisation availability for your exact site and date.',
+          'Hoshiarpur is not a confirmed regular service area. Contact the team with your exact site and date to ask whether case-by-case mobilisation is practical.',
       },
     ],
-    nearbyAreas: ['Mukerian', 'Hajipur', 'Dasuya', 'Garhshankar'],
+    nearbyAreas: ['Dasuya', 'Mukerian', 'Talwara', 'Garhdiwala'],
   },
   {
     slug: 'crane-on-rent-pathankot',
@@ -137,7 +145,7 @@ For an estimate, share the location, load weight and dimensions, working radius,
     metaTitle: 'Crane & Hydra Rental in Pathankot | KR Brothers',
     metaDescription:
       'Need a crane on rent in Pathankot? KR Brothers supports lifting, Hydra and machinery work. Share your site location and load to confirm machine availability.',
-    intro: `If you need a crane on rent in Pathankot, contact KR Brothers with the job details to check the machine and crew options. The business is based in Khizarpur (Hajipur), Tehsil Mukerian, District Hoshiarpur, and Pathankot is included in its published service regions. Confirm availability and mobilisation timing for the exact site before planning the job.
+    intro: `Pathankot is not a confirmed regular service area for KR Brothers. If you have a project there, contact the team with the job details to ask whether a case-by-case mobilisation is practical. The business is based in Khizarpur (Hajipur), Tehsil Mukerian, District Hoshiarpur.
 
 The company’s listed work includes Hydra crane hire, hydraulic mobile crane rental, construction lifting, steel and girder positioning, machinery shifting and breakdown support. Which machine fits depends on the worksite, not only the load size. Share the load weight and dimensions, crane-to-load radius, lift height, site ground and access route. For a yard or truck-loading task, explain the movement path and space available to manoeuvre. For plant equipment, provide the marked lifting points and any route restrictions inside the facility.
 
@@ -155,7 +163,7 @@ To discuss a booking, send the desired date, duration, number of lifts, contact 
       {
         question: 'Can I book a crane for a Pathankot site?',
         answer:
-          'Pathankot is listed in the nearby service area. Contact KR Brothers with the site location and date to confirm machine availability and mobilisation timing.',
+          'Pathankot is not a confirmed regular service area. Contact KR Brothers with the site location and date to ask whether case-by-case mobilisation is practical.',
       },
       {
         question: 'What crane types can I ask about?',
@@ -165,7 +173,7 @@ To discuss a booking, send the desired date, duration, number of lifts, contact 
       {
         question: 'How should I plan mobilisation from Mukerian to Pathankot?',
         answer:
-          'Share the exact site pin and required date. Pathankot is among the other listed towns; confirm timing based on distance and availability.',
+          'Share the exact site pin and required date. The team can assess whether the route, machine and crew make case-by-case mobilisation practical.',
       },
     ],
     nearbyAreas: ['Mukerian', 'Hajipur', 'Hoshiarpur', 'Kangra'],
@@ -267,7 +275,7 @@ Talwara is part of the local service belt with Hajipur, Mukerian and Dasuya. Nea
     metaTitle: 'Crane & Hydra Rental in Garhshankar | KR Brothers',
     metaDescription:
       'Need a crane or Hydra in Garhshankar? KR Brothers supports lifting and machinery jobs. Share site access and load details to confirm a suitable machine.',
-    intro: `KR Brothers provides crane rental enquiries for Garhshankar, which is included in the company’s published service regions. The business is based in Khizarpur (Hajipur), Tehsil Mukerian, District Hoshiarpur. Call with the exact site location and requested date to confirm machine, crew and mobilisation availability before setting your work schedule.
+    intro: `Garhshankar is not a confirmed regular service area for KR Brothers. If you have a project there, contact the team with the exact site location and requested date to ask whether case-by-case mobilisation is practical. The business is based in Khizarpur (Hajipur), Tehsil Mukerian, District Hoshiarpur.
 
 The service list covers Hydra cranes, hydraulic mobile cranes, construction-site lifting, structural steel and girder positioning, plant relocation, factory machinery shifting and recovery support. A Hydra may be considered for truck loading or work in a yard, while other jobs may need mobile crane reach or a different machine class. Explain what is being lifted, where the crane can stand, how far it must reach and whether access is restricted by a gate, building or overhead obstruction.
 
@@ -285,7 +293,7 @@ Garhshankar’s nearby listed areas include Hoshiarpur, Dasuya, Hajipur and Muke
       {
         question: 'Is Garhshankar a listed crane service area?',
         answer:
-          'Garhshankar is included in the published service regions. Confirm machine, crew and mobilisation availability for your exact site and date.',
+          'Garhshankar is not a confirmed regular service area. Contact the team with your exact site and date to ask whether case-by-case mobilisation is practical.',
       },
       {
         question: 'Can you position steel or girders in Garhshankar?',
@@ -298,7 +306,7 @@ Garhshankar’s nearby listed areas include Hoshiarpur, Dasuya, Hajipur and Muke
           'Yes. Contact KR Brothers with the exact site, date, load and schedule to discuss machine availability and mobilisation.',
       },
     ],
-    nearbyAreas: ['Hoshiarpur', 'Dasuya', 'Hajipur', 'Mukerian'],
+    nearbyAreas: ['Dasuya', 'Mukerian', 'Talwara', 'Hajipur'],
   },
   {
     slug: 'crane-on-rent-jalandhar',
@@ -307,13 +315,13 @@ Garhshankar’s nearby listed areas include Hoshiarpur, Dasuya, Hajipur and Muke
     metaTitle: 'Crane & Hydra Rental in Jalandhar | KR Brothers',
     metaDescription:
       'Arrange crane or Hydra hire for Jalandhar projects with KR Brothers. Share your load, site pin and schedule to confirm equipment availability and mobilisation.',
-    intro: `If your project needs a crane on rent in Jalandhar, KR Brothers can discuss the requirement and confirm whether the equipment and schedule are available. Jalandhar is included in the company’s published service regions. Share the exact site pin and confirm mobilisation timing before committing to a lift sequence.
+    intro: `Jalandhar is not a confirmed regular service area for KR Brothers. If your project is there, contact the team with the requirement and exact site pin to ask whether case-by-case mobilisation is practical. The business is based in Khizarpur (Hajipur), Tehsil Mukerian, District Hoshiarpur.
 
 The listed portfolio includes Hydra crane hire, hydraulic mobile crane rental, construction-site lifting, structural steel and girder positioning, plant relocation and factory machinery shifting. Tell the team whether the work is truck loading, yard movement, a plant lift or construction erection. Site conditions affect the equipment choice: provide the working radius, lift height, approach route, available standing area, ground condition and any restrictions on crane movement.
 
 The published fleet is within the 0–16 tonne class. That is a machine class, not a guarantee that a machine can lift a particular load at a particular reach. The final selection needs the load weight, radius, boom setup and machine load chart. For multiple lifts or a shutdown window, describe the sequence and duration. For equipment relocation, include the machine’s lifting points and the route from its current position to the destination.
 
-Jalandhar’s nearby listed service towns include Phillaur, Sultanpur Lodhi and Amritsar. Send the exact site pin, requested date and lifting details to discuss availability, crew and mobilisation. A written quotation can be considered after the job information is understood; no fixed rate or arrival time is promised here.`,
+The existing location data mentions Phillaur, Sultanpur Lodhi and Amritsar, but these are not confirmed regular service areas. Send the exact site pin, requested date and lifting details to ask whether case-by-case mobilisation is practical. A written quotation can be considered after the job information is understood; no fixed rate or arrival time is promised here.`,
     serviceIds: [
       'crane-rental-fleet-hire',
       'hydra-crane-services',
@@ -325,7 +333,7 @@ Jalandhar’s nearby listed service towns include Phillaur, Sultanpur Lodhi and 
       {
         question: 'Does KR Brothers cover crane jobs in Jalandhar?',
         answer:
-          'Jalandhar is included among the other listed towns. Contact the team with your site and date to confirm availability and mobilisation timing.',
+          'Jalandhar is not a confirmed regular service area. Contact the team with your site and date to ask whether case-by-case mobilisation is practical.',
       },
       {
         question: 'What should I send to enquire about Hydra rental?',
@@ -338,12 +346,17 @@ Jalandhar’s nearby listed service towns include Phillaur, Sultanpur Lodhi and 
           'No fixed arrival time is promised. Mobilisation depends on the exact location, machine and crew availability.',
       },
     ],
-    nearbyAreas: ['Phillaur', 'Sultanpur Lodhi', 'Amritsar', 'Hoshiarpur'],
+    nearbyAreas: ['Dasuya', 'Mukerian', 'Talwara', 'Hajipur'],
   },
 ].map((page) => {
   const city = page.city
-  const metaTitle = `Crane Service in ${city} | Crane on Rent & Hydra — KR Brothers`
-  const metaDescription = `Crane service in ${city} with crane on rent, hydra and lifting support. Call KR Brothers to book a crane.`
+  const isConfirmedServiceArea = CONFIRMED_MAIN_CITIES.has(city)
+  const metaTitle = isConfirmedServiceArea
+    ? `Crane Service in ${city} | Crane on Rent & Hydra — KR Brothers`
+    : `Crane Service Enquiries for ${city} | KR Brothers`
+  const metaDescription = isConfirmedServiceArea
+    ? `Crane service in ${city} with crane on rent, hydra and lifting support. Call KR Brothers to discuss a job.`
+    : `Crane service enquiries for ${city}. Contact KR Brothers to ask whether case-by-case mobilisation is practical for your site.`
   const introText = page.intro
     .replace(
       new RegExp(`Looking for a crane on rent in ${city}|looking for a crane on rent in ${city}`, 'gi'),
@@ -358,15 +371,21 @@ Jalandhar’s nearby listed service towns include Phillaur, Sultanpur Lodhi and 
     ...page,
     metaTitle,
     metaDescription,
-    mainKeyword: `Crane Service in ${city}`,
+    mainKeyword: isConfirmedServiceArea
+      ? `Crane Service in ${city}`
+      : `Crane Service Enquiries for ${city}`,
     localNotes: '',
-    intro: `Crane service in ${city} and crane on rent in ${city}. KR Brothers handles hydra crane work, construction lifting and machinery shifting for sites across ${city}. Share your load, site pin and date so we can discuss availability for your job.\n\n${introText}`,
+    intro: isConfirmedServiceArea
+      ? `Crane service in ${city} and crane on rent in ${city}. KR Brothers handles Hydra crane work, construction lifting and machinery shifting for sites in the confirmed service area. Share your load, site pin and date so we can discuss availability for your job.\n\n${introText}`
+      : `This page is for crane service enquiries for ${city}; ${city} is not a confirmed regular service area. Contact KR Brothers with your load, site pin and date to ask whether case-by-case mobilisation is practical.\n\n${introText}`,
     faq: [
       ...page.faq,
       {
         question: `Do you provide crane service in ${city}?`,
         answer:
-          `Yes. KR Brothers provides crane service in ${city} for hydra work, construction lifting and machinery shifting. Share the load, site pin and date and we can discuss the right machine and booking.`,
+          isConfirmedServiceArea
+            ? `Yes. KR Brothers provides crane service in ${city} for Hydra work, construction lifting and machinery shifting. Share the load, site pin and date and we can discuss the right machine and booking.`
+            : `${city} is not a confirmed regular service area. Contact KR Brothers with the load, site pin and date to ask whether case-by-case mobilisation is practical.`,
       },
       {
         question: `How do I book a crane on rent near ${city}?`,

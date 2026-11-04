@@ -86,7 +86,7 @@ export function useDocumentMeta({
       document.head.querySelector('meta[property="og:url"]')?.remove()
     }
     setMeta('property', 'og:type', 'website')
-    setMeta('property', 'og:site_name', 'KR Brothers')
+    setMeta('property', 'og:site_name', 'KR Brothers Crane Service')
 
     const img = absolute(image)
     if (img) {

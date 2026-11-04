@@ -1,4 +1,6 @@
-# KR Brothers
+# KR Brothers Crane Service
+
+KR Brothers is the short brand name used by KR Brothers Crane Service.
 
 > KR Brothers provides crane and Hydra rental, lifting, machinery shifting, loading and unloading, and breakdown recovery services from Khizarpur (Hajipur), Tehsil Mukerian, District Hoshiarpur, Punjab, India. Contact the business to confirm service availability for a specific site.
 
@@ -10,11 +12,18 @@
 - Website: https://www.krbrothers.in/
 - Contact and enquiry page: https://www.krbrothers.in/contact/
 - Business location: Vill. Khizarpur (Hajipur), Teh. Mukerian, Distt. Hoshiarpur, Punjab 144221, India
+- Operating since: 2015
+- Lifting capacity: 0–16 tons, subject to the selected machine's load chart and site conditions
 - Hours: 24 hours, all 7 days. Confirm machine, crew and mobilisation availability for the specific job.
 - Quote enquiries: Share the load weight and dimensions, working radius, lift height, site location, access conditions, number of lifts and expected duration. Rates and mobilisation depend on the job.
 
 ## Services
 
+- Hydra crane rental and crane hire
+- Loading and unloading
+- Material handling
+- Machinery shifting
+- Construction-site lifting and industrial lifting support
 - Crane rental and fleet hire: https://www.krbrothers.in/services/crane-rental-fleet-hire/
 - Hydra crane services and yard handling: https://www.krbrothers.in/services/hydra-crane-services/
 - Mobile crane services: https://www.krbrothers.in/services/heavy-duty-mobile-cranes/
@@ -24,19 +33,23 @@
 - Factory machinery shifting and lifting: https://www.krbrothers.in/services/factory-machinery-shifting/
 - Breakdown and emergency recovery support: https://www.krbrothers.in/services/breakdown-emergency-support/
 
-## Service areas
+## Confirmed service areas
 
-The website lists service information for Mukerian, Hajipur, Hoshiarpur, Pathankot, Dasuya, Talwara, Garhshankar, and Jalandhar. Nearby village enquiries are welcome. Availability, route, mobilisation timing, and charges depend on the exact site and job; contact KR Brothers to confirm.
+### Main service locations
+
+Dasuya, Mukerian, Talwara, Hajipur and Garhdiwala.
+
+### Nearby villages
+
+Khizarpur, Bhunga, Mansoorpur, Khanpur, Attalgarh and Aima Mangat.
+
+Availability, route, mobilisation timing and charges depend on the exact site and job; contact KR Brothers to confirm. Existing location pages for other towns remain available for reference, but they are not confirmed regular service areas.
 
 - Service areas: https://www.krbrothers.in/service-areas/
 - Crane rental in Mukerian: https://www.krbrothers.in/crane-on-rent-mukerian/
 - Crane rental in Hajipur: https://www.krbrothers.in/crane-on-rent-hajipur/
-- Crane rental in Hoshiarpur: https://www.krbrothers.in/crane-on-rent-hoshiarpur/
-- Crane rental in Pathankot: https://www.krbrothers.in/crane-on-rent-pathankot/
 - Crane rental in Dasuya: https://www.krbrothers.in/crane-on-rent-dasuya/
 - Crane rental in Talwara: https://www.krbrothers.in/crane-on-rent-talwara/
-- Crane rental in Garhshankar: https://www.krbrothers.in/crane-on-rent-garhshankar/
-- Crane rental in Jalandhar: https://www.krbrothers.in/crane-on-rent-jalandhar/
 
 ## More information
 

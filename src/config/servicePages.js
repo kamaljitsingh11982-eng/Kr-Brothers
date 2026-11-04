@@ -16,7 +16,7 @@ const SERVICE_PAGES = {
       'Crane hire and mobile crane on rent across Mukerian and nearby areas. Ask KR Brothers about rental charges, hours and site distance.',
     keywords: [
       'crane rental Mukerian',
-      'crane hire Hoshiarpur',
+      'crane hire Punjab',
       'mobile crane rental Punjab',
       'monthly crane hire',
       'crane rental with operator',
@@ -39,7 +39,7 @@ const SERVICE_PAGES = {
       },
       {
         question: 'Which areas do you deliver machines to?',
-        answer: 'We mobilise across Punjab and Himachal Pradesh, including Hajipur, Dasuya, Talwara, Mukerian, Hoshiarpur and Pathankot. Sites outside these districts are quoted case by case based on mobilisation distance and machine class.',
+        answer: 'Our confirmed main service locations are Dasuya, Mukerian, Talwara, Hajipur and Garhdiwala, with nearby village enquiries for Khizarpur, Bhunga, Mansoorpur, Khanpur, Attalgarh and Aima Mangat. Share the exact site pin to confirm machine, crew and mobilisation availability.',
       },
       {
         question: 'How are crane rental charges and the crane per hour rate assessed?',
@@ -53,7 +53,7 @@ const SERVICE_PAGES = {
     metaDescription:
       'Hydra crane on rent for yard work and truck loading. Ask about fleet suitability, hours and distance; call KR Brothers to discuss your lift.',
     keywords: [
-      'hydra crane Hoshiarpur',
+      'hydra crane Dasuya',
       'hydra crane hire Mukerian',
       'hydra crane for loading',
       'yard material handling',
@@ -128,9 +128,9 @@ const SERVICE_PAGES = {
   },
 
   'construction-site-lifting-erection': {
-    metaTitle: 'Construction Site Crane Hire in Hoshiarpur | KR Brothers',
+    metaTitle: 'Construction Site Crane Hire Enquiries | KR Brothers',
     metaDescription:
-      'Construction site crane hire for steel erection and precast slab lifting in Hoshiarpur and nearby areas. Discuss your site schedule.',
+      'Construction site crane hire for steel erection and precast slab lifting. Share your site details to discuss availability and mobilisation.',
     keywords: [
       'construction site lifting',
       'steel erection crew Punjab',
@@ -204,7 +204,7 @@ const SERVICE_PAGES = {
   },
 
   'structural-steel-girder-positioning': {
-    metaTitle: 'Girder Lifting Crane Hire in Hoshiarpur | KR Brothers',
+    metaTitle: 'Girder Lifting Crane Hire Enquiries | KR Brothers',
     metaDescription:
       'Girder lifting crane support for roof truss erection and bridge girder positioning. Share the member weight, radius and site access.',
     keywords: [

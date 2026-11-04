@@ -12,7 +12,11 @@ import NotFound from './NotFound'
 const CITY_PATH = (slug) => `/${slug}/`
 
 function CityDetail({ cityPage }) {
-  const { contacts, links, services } = BUSINESS_CONFIG
+  const { contacts, links, operations, services } = BUSINESS_CONFIG
+  const isConfirmedServiceArea = [
+    ...operations.confirmedMainServiceAreas,
+    ...operations.confirmedNearbyVillages,
+  ].includes(cityPage.city)
   const cityUrl = `${SITE_ORIGIN}${CITY_PATH(cityPage.slug)}`
   const relatedServices = cityPage.serviceIds.map((id) => {
     const service = services.find((item) => item.id === id)
@@ -29,25 +33,26 @@ function CityDetail({ cityPage }) {
   ], [cityPage.city, cityPage.mainKeyword])
 
   const jsonLd = useMemo(() => {
-    const localBusiness = {
-      ...getLocalBusinessSchema(),
-      areaServed: [{ '@type': 'Place', name: cityPage.city }],
+    const localBusiness = getLocalBusinessSchema()
+    const service = {
+      '@type': 'Service',
+      name: `${cityPage.mainKeyword} — KR Brothers`,
+      description: cityPage.metaDescription,
+      keywords: pageKeywords.join(', '),
+      url: cityUrl,
+      serviceType: cityPage.mainKeyword,
+      provider: { '@id': `${SITE_ORIGIN}/#business` },
+    }
+
+    if (isConfirmedServiceArea) {
+      service.areaServed = { '@type': 'Place', name: cityPage.city }
     }
 
     return {
       '@context': 'https://schema.org',
       '@graph': [
         localBusiness,
-        {
-          '@type': 'Service',
-          name: `${cityPage.mainKeyword} — KR Brothers`,
-          description: cityPage.metaDescription,
-          keywords: pageKeywords.join(', '),
-          url: cityUrl,
-          serviceType: cityPage.mainKeyword,
-          provider: { '@id': `${SITE_ORIGIN}/#business` },
-          areaServed: { '@type': 'Place', name: cityPage.city },
-        },
+        service,
         {
           '@type': 'FAQPage',
           mainEntity: cityPage.faq.map((item) => ({
@@ -71,7 +76,7 @@ function CityDetail({ cityPage }) {
         },
       ],
     }
-  }, [cityPage, cityUrl, pageKeywords])
+  }, [cityPage, cityUrl, isConfirmedServiceArea, pageKeywords])
 
   useDocumentMeta({
     title: cityPage.metaTitle,

@@ -146,7 +146,7 @@ export function Hero({ onRequestQuote }) {
             className="mt-6 font-display text-kr-display font-extrabold leading-[1.06] tracking-tight text-white animate-fade-up sm:text-5xl lg:text-6xl xl:text-kr-display-xl"
             style={{ animationDelay: '80ms' }}
           >
-            Crane &amp; Hydra on Rent in Mukerian
+            Crane &amp; Hydra Rental in Hajipur and Mukerian
           </h1>
 
           <p className="mt-3 font-semibold text-amber-safety">
@@ -157,9 +157,12 @@ export function Hero({ onRequestQuote }) {
             className="mt-5 max-w-2xl text-base leading-relaxed text-navy-200 sm:text-lg animate-fade-up"
             style={{ animationDelay: '160ms' }}
           >
-            Specialised in industrial lifting, material handling and
-            construction across Punjab and Himachal Pradesh, including Mukerian,
-            Talwara and nearby villages, as well as Hoshiarpur.
+            KR Brothers Crane Service provides Hydra crane hire, crane rental,
+            mobile lifting and material-handling support from Khizarpur (Hajipur),
+            near Mukerian. The published fleet is within the 0–16 ton class,
+            subject to the selected machine&apos;s load chart and site conditions,
+            with enquiries focused on Hajipur, Mukerian, Talwara, Dasuya and
+            Garhdiwala.
           </p>
 
           {/* CTAs */}

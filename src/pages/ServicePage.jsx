@@ -46,6 +46,7 @@ function ServiceDetail({ service }) {
   const jsonLd = useMemo(() => ({
     '@context': 'https://schema.org',
     '@graph': [
+      getLocalBusinessSchema(),
       {
         '@type': 'Service',
         name: title,
@@ -53,10 +54,7 @@ function ServiceDetail({ service }) {
         keywords: pageCopy.keywords?.join(', '),
         url,
         serviceType: title,
-        provider: {
-          ...getLocalBusinessSchema(),
-          areaServed: operations.serviceRegions.slice(0, 6),
-        },
+        provider: { '@id': `${ORIGIN}/#business` },
         areaServed: operations.serviceRegions,
         hasOfferCatalog: {
           '@type': 'OfferCatalog',

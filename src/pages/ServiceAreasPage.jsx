@@ -26,8 +26,6 @@ export function ServiceAreasPage() {
   const mainTownLinks = [
     'crane-on-rent-mukerian',
     'crane-on-rent-hajipur',
-    'crane-on-rent-hoshiarpur',
-    'crane-on-rent-pathankot',
     'crane-on-rent-dasuya',
     'crane-on-rent-talwara',
   ]
@@ -36,14 +34,15 @@ export function ServiceAreasPage() {
   const jsonLd = useMemo(() => ({
     '@context': 'https://schema.org',
     '@graph': [
+      getLocalBusinessSchema(),
       {
         '@type': 'Service',
         name: 'Crane rental and lifting services',
         description: serviceAreas.intro,
-        keywords: 'crane service area Punjab, crane rental Mukerian, hydra crane Hoshiarpur, lifting contractor Punjab, construction crane hire nearby locations',
+        keywords: 'crane service area Punjab, crane rental Mukerian, hydra crane Dasuya, lifting contractor Punjab, construction crane hire nearby locations',
         url: `${ORIGIN}${PATH}`,
         serviceType: 'Crane rental and lifting contractor',
-        provider: getLocalBusinessSchema(),
+        provider: { '@id': `${ORIGIN}/#business` },
         areaServed: operations.serviceRegions.map((area) => ({
           '@type': 'Place',
           name: area,
@@ -60,13 +59,16 @@ export function ServiceAreasPage() {
   }), [serviceAreas, operations])
 
   useDocumentMeta({
-    title: `Crane Service Areas Near Mukerian | ${brand.name}`,
+    title: `Crane Service Areas in Hajipur | ${brand.name} Crane Service`,
     description:
-      'Crane and Hydra enquiries for Mukerian, Dasuya, Talwara, Hajipur and nearby villages. Share a site pin to confirm availability and mobilisation.',
+      'Crane and Hydra enquiries for Hajipur, Mukerian, Dasuya, Talwara and Garhdiwala, plus confirmed nearby villages. Share a site pin to confirm availability and mobilisation.',
     keywords: [
       'crane service area Punjab',
+      'crane service Hajipur',
       'crane rental Mukerian',
-      'hydra crane Hoshiarpur',
+      'hydra crane Dasuya',
+      'crane hire Talwara',
+      'crane service Garhdiwala',
       'lifting contractor Punjab',
       'construction crane hire nearby locations',
     ],
@@ -182,8 +184,9 @@ export function ServiceAreasPage() {
                 Wider service <span className="text-amber-deepText">areas</span>
               </h2>
               <p className="mt-4 text-[15px] leading-relaxed text-navy-600">
-                Other towns are listed for enquiries; confirm the exact site, travel and
-                machine availability before planning a job.
+                These confirmed towns and nearby villages are listed separately so you can
+                identify the right enquiry route. Confirm the exact site, travel and machine
+                availability before planning a job.
               </p>
               <ul className="mt-6 flex flex-wrap gap-2">
                 {operations.serviceRegions.map((region) => (
@@ -230,7 +233,7 @@ export function ServiceAreasPage() {
         <div className="container-kr">
           <div className="max-w-3xl">
             <h2 id="tiers-heading" className="section-title text-navy-900">
-              Local belt and <span className="text-amber-deepText">wider coverage</span>
+              Confirmed local <span className="text-amber-deepText">coverage</span>
             </h2>
             <p className="mt-4 text-[15px] leading-relaxed text-navy-600">
               Nearby village sites around Mukerian, Dasuya and Talwara can enquire too. Share

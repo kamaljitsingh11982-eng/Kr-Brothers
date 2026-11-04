@@ -24,12 +24,10 @@ import useDocumentMeta from '../hooks/useDocumentMeta'
  */
 export function Home() {
   const [preselectService, setPreselectService] = useState(null)
-  const { brand, seo } = BUSINESS_CONFIG
+  const { brand, faqs, seo } = BUSINESS_CONFIG
   const mainTownLinks = [
     'crane-on-rent-mukerian',
     'crane-on-rent-hajipur',
-    'crane-on-rent-hoshiarpur',
-    'crane-on-rent-pathankot',
     'crane-on-rent-dasuya',
     'crane-on-rent-talwara',
   ]
@@ -39,6 +37,7 @@ export function Home() {
     const business = getLocalBusinessSchema()
     const businessId = business['@id']
     const websiteId = `${SITE_ORIGIN}/#website`
+    const faqId = `${SITE_ORIGIN}/#faq`
 
     return {
       '@context': 'https://schema.org',
@@ -51,11 +50,6 @@ export function Home() {
           name: brand.name,
           publisher: { '@id': businessId },
           inLanguage: 'en-IN',
-          potentialAction: {
-            '@type': 'SearchAction',
-            target: `${SITE_ORIGIN}/?q={search_term_string}`,
-            'query-input': 'required name=search_term_string',
-          },
         },
         {
           '@type': 'WebPage',
@@ -66,11 +60,28 @@ export function Home() {
           keywords: seo.keywords,
           isPartOf: { '@id': websiteId },
           about: { '@id': businessId },
+          mainEntity: { '@id': faqId },
           inLanguage: 'en-IN',
+        },
+        {
+          '@type': 'FAQPage',
+          '@id': faqId,
+          url: `${SITE_ORIGIN}/#faq`,
+          name: 'Frequently Asked Questions | KR Brothers',
+          isPartOf: { '@id': websiteId },
+          about: { '@id': businessId },
+          mainEntity: faqs.map((item) => ({
+            '@type': 'Question',
+            name: item.question,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: item.answer,
+            },
+          })),
         },
       ],
     }
-  }, [brand.name, seo.title, seo.description, seo.keywords])
+  }, [brand.name, faqs, seo.title, seo.description, seo.keywords])
 
   // Restores the home page tags after a service page, since the router swaps the
   // document head in place and nothing would otherwise put them back.
