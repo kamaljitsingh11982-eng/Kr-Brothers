@@ -12,6 +12,13 @@ const CITY_PAGES = [
     slug: 'crane-on-rent-mukerian',
     city: 'Mukerian',
     mainKeyword: 'Crane on rent in Mukerian',
+    seoKeywords: [
+      'crane rental Mukerian',
+      'crane hire Mukerian',
+      'Hydra crane on rent Mukerian',
+      'mobile crane service Mukerian',
+      'machinery shifting Mukerian',
+    ],
     metaTitle: 'Crane & Hydra Rental in Mukerian | KR Brothers',
     metaDescription:
       'Need a crane or Hydra on rent in Mukerian? KR Brothers supports lifting, loading and machinery shifting. Share load, site and schedule to discuss a booking.',
@@ -57,6 +64,13 @@ For a useful enquiry, send the site location, load weight, working radius, lift 
     slug: 'crane-on-rent-hajipur',
     city: 'Hajipur',
     mainKeyword: 'Crane on rent in Hajipur',
+    seoKeywords: [
+      'crane rental Hajipur Hoshiarpur',
+      'crane hire Hajipur',
+      'Hydra crane on rent Hajipur',
+      'mobile crane service Hajipur',
+      'machinery shifting Hajipur',
+    ],
     metaTitle: 'Crane & Hydra Rental in Hajipur | KR Brothers',
     metaDescription:
       'Arrange crane or Hydra rental in Hajipur with KR Brothers. Based in Khizarpur, share lifting needs, site access and schedule to check availability.',
@@ -182,6 +196,13 @@ To discuss a booking, send the desired date, duration, number of lifts, contact 
     slug: 'crane-on-rent-dasuya',
     city: 'Dasuya',
     mainKeyword: 'Crane on rent in Dasuya',
+    seoKeywords: [
+      'crane rental Dasuya',
+      'crane hire Dasuya',
+      'Hydra crane on rent Dasuya',
+      'mobile crane service Dasuya',
+      'construction crane Dasuya',
+    ],
     metaTitle: 'Crane & Hydra Rental in Dasuya | KR Brothers',
     metaDescription:
       'Arrange crane or Hydra hire in Dasuya with KR Brothers. Share the lift, site access and schedule to discuss the right equipment and availability.',
@@ -227,6 +248,13 @@ Dasuya’s nearby service locations include Mukerian, Hajipur, Talwara and Hoshi
     slug: 'crane-on-rent-talwara',
     city: 'Talwara',
     mainKeyword: 'Crane on rent in Talwara',
+    seoKeywords: [
+      'crane rental Talwara',
+      'crane hire Talwara',
+      'Hydra crane on rent Talwara',
+      'mobile crane service Talwara',
+      'machinery shifting Talwara',
+    ],
     metaTitle: 'Crane & Hydra Rental in Talwara | KR Brothers',
     metaDescription:
       'Looking for crane or Hydra rental in Talwara? Contact KR Brothers with the load, site location and schedule to discuss equipment and availability.',

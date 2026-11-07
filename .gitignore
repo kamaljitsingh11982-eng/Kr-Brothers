@@ -14,3 +14,6 @@ preview-*
 .vercel
 _source_media/
 _prechange_backup_20261028_2135/
+
+.vercel
+.env*

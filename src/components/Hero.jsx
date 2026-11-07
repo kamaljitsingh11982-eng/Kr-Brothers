@@ -146,7 +146,7 @@ export function Hero({ onRequestQuote }) {
             className="mt-6 font-display text-kr-display font-extrabold leading-[1.06] tracking-tight text-white animate-fade-up sm:text-5xl lg:text-6xl xl:text-kr-display-xl"
             style={{ animationDelay: '80ms' }}
           >
-            Crane &amp; Hydra Rental in Hajipur and Mukerian
+            Crane &amp; Hydra on Rent in Mukerian, Dasuya &amp; Talwara
           </h1>
 
           <p className="mt-3 font-semibold text-amber-safety">

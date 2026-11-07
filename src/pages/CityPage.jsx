@@ -26,11 +26,16 @@ function CityDetail({ cityPage }) {
 
   const pageKeywords = useMemo(() => [
     cityPage.mainKeyword,
+    ...(cityPage.seoKeywords ?? []),
     `crane rental ${cityPage.city}`,
     `hydra crane ${cityPage.city}`,
     `crane service ${cityPage.city}`,
     `lifting contractor ${cityPage.city}`,
-  ], [cityPage.city, cityPage.mainKeyword])
+  ].filter((keyword, index, keywords) => keywords.indexOf(keyword) === index), [
+    cityPage.city,
+    cityPage.mainKeyword,
+    cityPage.seoKeywords,
+  ])
 
   const jsonLd = useMemo(() => {
     const localBusiness = getLocalBusinessSchema()
@@ -83,6 +88,7 @@ function CityDetail({ cityPage }) {
     description: cityPage.metaDescription,
     keywords: pageKeywords,
     canonical: CITY_PATH(cityPage.slug),
+    robots: isConfirmedServiceArea ? 'index, follow' : 'noindex, follow',
     jsonLd,
   })
 

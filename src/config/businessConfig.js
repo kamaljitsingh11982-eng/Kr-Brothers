@@ -1060,9 +1060,9 @@ get whatsappService() {
 
   // seo / meta
   seo: {
-    title: 'Crane Rental & Hydra Hire in Hajipur | KR Brothers Crane Service',
+    title: 'Crane on Rent in Mukerian, Dasuya & Talwara | KR Brothers',
     get description() {
-      return `Crane and Hydra hire in Dasuya, Mukerian, Talwara, Hajipur and Garhdiwala. Call ${BUSINESS_CONFIG.contacts.primaryPhone} to confirm machine, crew and site availability.`
+      return `Crane and Hydra on rent in Mukerian, Dasuya, Talwara, Hajipur and Garhdiwala. 24x7, 0-16 ton class. Call ${BUSINESS_CONFIG.contacts.primaryPhone}.`
     },
     keywords:
       'crane service Mukerian, crane on rent Hajipur, hydra crane Dasuya, crane rental Talwara, crane service Garhdiwala, lifting contractor Punjab, machinery shifting services',
